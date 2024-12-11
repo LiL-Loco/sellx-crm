@@ -60,7 +60,6 @@ function flexform_module_init_menu_items()
             'name' => _flexform_lang('ultimate_form_builder'),
             'href' => admin_url('flexform'),
             'position' => 16,
-            'icon' => 'fa-solid fa-cubes',
         ]);
     }
 }
@@ -70,9 +69,9 @@ function flexform_module_clients_area_menu_items()
     // Show menu item only if client is logged in
     if (is_client_logged_in()) {
         add_theme_menu_item('flexform-logged-in-item-id', [
-                    'name'     => 'Zugangsdaten Übermitteln',
-                    'href'     => site_url('flexform/vf/617d40c010507fa15183624b6b1b3bb6?with_logo=1'),
-                    'position' => 7,
+            'name'     => 'Zugangsdaten Übermitteln',
+            'href'     => site_url('flexform/vf/617d40c010507fa15183624b6b1b3bb6?with_logo=1'),
+            'position' => 7,
         ]);
     }
 }

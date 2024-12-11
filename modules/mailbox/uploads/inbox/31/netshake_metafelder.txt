@@ -1,0 +1,24 @@
+custom.mhd - typ:date
+
+custom.gewicht_pdp - typ: Single line text
+custom.unit_pricing_base_measure - type: Single line text
+custom.unit_pricing_base_price - type: Single line text
+custom.unit_pricing_measure - Type: Single line text
+
+custom.usp_1 - Type: Single line text
+custom.usp_2 - Type: Single line text
+custom.usp_3- Type: Single line text
+
+custom.benefit_1 - Type: Single line text
+custom.benefit_1_information - Type: Multi line text
+custom.benefit_1_selected_score - Type: Integer
+
+custom.benefit_2 - Type: Single line text
+custom.benefit_2_information - Type: Multi line text
+custom.benefit_2_selected_score - Type: Integer
+
+custom.fuetterungsempfehlung - Type: Multi line text
+custom.zusammensetzung - Type: Multi line text
+custom.analytische_bestandteile - Type: Multi line text
+custom.quelle_hinweise - Type: Multi line text
+custom.infos_zum_hersteller_text - Type: Multi line text

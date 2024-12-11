@@ -70,6 +70,11 @@
                             </a>
                         </li>
                         <?php } ?>
+                        <li class="customers-nav-item-stripe-card">
+                            <a href="<?= site_url('clients/client_api'); ?>">
+                                <?= _l('API Token'); ?>
+                            </a>
+                        </li>
                         <?php if (is_gdpr() && get_option('show_gdpr_in_customers_menu') == '1') { ?>
                         <li class="customers-nav-item-announcements">
                             <a
