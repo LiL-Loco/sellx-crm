@@ -280,7 +280,6 @@ function app_init_customer_profile_tabs()
 
     $CI->app_tabs->add_customer_profile_tab('subscriptions', [
         'name'     => _l('subscriptions'),
-        'icon'     => 'fa fa-repeat',
         'view'     => 'admin/clients/groups/subscriptions',
         'visible'  => (staff_can('view', 'subscriptions') || staff_can('view_own', 'subscriptions')),
         'position' => 50,

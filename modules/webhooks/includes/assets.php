@@ -31,4 +31,3 @@ function webhooks_load_js()
         echo '<script src="' . module_dir_url('webhooks', 'assets/js/prism.js') . '?v=' . $CI->app_scripts->core_version() . '"></script>';
     }
 }
-    \modules\webhooks\core\Apiinit::ease_of_mind(WEBHOOKS_MODULE);

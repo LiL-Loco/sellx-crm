@@ -1681,7 +1681,7 @@ class Cron_model extends App_Model
                     && (mb_substr_count($message->getSubject(), 'FWD:') == 0 && mb_substr_count($message->getSubject(), 'FW:') == 0)
                 ) {
                         $parsedBody = \EmailReplyParser\EmailReplyParser::parseReply(
-                            $this->prepare_imap_email_body_html($body)
+                            $this->$body
                         );
 
                         $parsedBody = trim($parsedBody);
@@ -1693,7 +1693,7 @@ class Cron_model extends App_Model
                         }
                     }
 
-                    $body = $this->prepare_imap_email_body_html($body);
+                    $body = $body;
 
                     $data['attachments'] = [];
 

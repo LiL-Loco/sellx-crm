@@ -19,7 +19,6 @@ class Goals extends AdminController
         if ($this->input->is_ajax_request()) {
             $this->app->get_table_data(module_views_path('goals', 'table'));
         }
-        $this->app_scripts->add('circle-progress-js','assets/plugins/jquery-circle-progress/circle-progress.min.js');
         $data['title']                 = _l('goals_tracking');
         $this->load->view('manage', $data);
     }

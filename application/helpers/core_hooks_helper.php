@@ -100,7 +100,7 @@ function _maybe_add_estimate_request_link_in_customers_area()
     
     add_theme_menu_item('request-app', [
         'name'     => _l('lead-appointment'),
-        'href'     => 'https://kundenportal.sellx.de/appointly/appointments_public/form?col=col-md-8+col-md-offset-2',
+        'href'     => 'https://kundenportal.sellx.studio/appointly/appointments_public/form?col=col-md-8+col-md-offset-2',
         'position' => 1,
     ]);
 }

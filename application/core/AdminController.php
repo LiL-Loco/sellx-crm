@@ -138,7 +138,6 @@ class AdminController extends App_Controller
             'permission' => 'subscriptions',
             'url'        => 'subscriptions/create',
             'position'   => 30,
-            'icon'       => 'fa-solid fa-repeat',
         ]);
 
 

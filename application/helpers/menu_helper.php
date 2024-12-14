@@ -109,7 +109,6 @@ function app_init_admin_sidebar_menu_items()
         $CI->app_menu->add_sidebar_menu_item('subscriptions', [
             'name'     => _l('subscriptions'),
             'href'     => admin_url('subscriptions'),
-            'icon'     => 'fa fa-repeat',
             'position' => 15,
             'badge'    => [],
         ]);
@@ -129,7 +128,6 @@ function app_init_admin_sidebar_menu_items()
         $CI->app_menu->add_sidebar_menu_item('contracts', [
             'name'     => _l('contracts'),
             'href'     => admin_url('contracts'),
-            'icon'     => 'fa-regular fa-note-sticky',
             'position' => 25,
             'badge'    => [],
         ]);

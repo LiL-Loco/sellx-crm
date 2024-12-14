@@ -31,7 +31,7 @@ class Mailbox_model extends App_Model
         $outbox['sender_name']     = get_staff_full_name($staff_id);
         $outbox['subject']         = _strip_tags($data['subject']);
         $outbox['body']            = _strip_tags($data['body']);
-        $outbox['body']            = nl2br_save_html($outbox['body']);
+        $outbox['body'] = nl2br_save_html(htmlspecialchars_decode($data['body']));
         $outbox['date_sent']       = date('Y-m-d H:i:s');
         if (isset($data['reply_from_id'])) {
             $outbox['reply_from_id'] = $data['reply_from_id'];
@@ -61,7 +61,7 @@ class Mailbox_model extends App_Model
         $inbox['sender_name']        = get_staff_full_name($staff_id);
         $inbox['subject']            = _strip_tags($data['subject']);
         $inbox['body']               = _strip_tags($data['body']);
-        $inbox['body']               = nl2br_save_html($inbox['body']);
+        $inbox['body'] = nl2br_save_html(htmlspecialchars_decode($data['body']));
         $inbox['date_received']      = date('Y-m-d H:i:s');
         $inbox['folder']             = 'inbox';
         $inbox['from_email']         = get_staff_email_by_id($staff_id);
@@ -125,7 +125,11 @@ class Mailbox_model extends App_Model
                 $attachment_url = module_dir_url(MAILBOX_MODULE).'uploads/outbox/'.$outbox_id.'/'.$attachment['file_name'];
                 $ci->email->attach($attachment_url);
             }
-            $ci->email->send(true);
+            if (!$ci->email->send(true)) {
+                log_message('error', 'E-Mail-Versand fehlgeschlagen: ' . $ci->email->print_debugger());
+                return false;
+            }
+            
         }
 
         return true;

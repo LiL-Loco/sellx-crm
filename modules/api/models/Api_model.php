@@ -1,7 +1,5 @@
 <?php
 
-use \WpOrg\Requests\Requests as RestapiRequests;
-
 defined('BASEPATH') or exit('No direct script access allowed');
 
 class Api_model extends App_Model
@@ -9,6 +7,187 @@ class Api_model extends App_Model
     public function __construct()
     {
         parent::__construct();
+    }
+
+    // Centralized logging for activities
+    private function log_activity($message, $level = 'info')
+    {
+        log_message($level, $message);
+    }
+
+    // Validate input data
+    private function validate_input($data)
+    {
+        if (!is_array($data)) {
+            $this->log_activity('Invalid input data: ' . json_encode($data), 'error');
+            return false;
+        }
+        return true;
+    }
+
+    // Check if table exists
+    private function table_exists($table)
+    {
+        if (!$this->db->table_exists($table)) {
+            $this->log_activity('Database table ' . $table . ' does not exist.', 'error');
+            return false;
+        }
+        return true;
+    }
+
+    // Retrieve a specific call log by ID
+    public function get_call_log($id)
+    {
+        if (empty($id) || !is_numeric($id)) {
+            $this->log_activity('Invalid call log ID provided: ' . json_encode($id), 'error');
+            return ['error' => 'Invalid call log ID'];
+        }
+
+        if (!$this->table_exists('tblcall_logs')) {
+            return ['error' => 'Table does not exist'];
+        }
+
+        $this->db->where('id', $id);
+        $query = $this->db->get('tblcall_logs');
+
+        if ($query->num_rows() === 0) {
+            $this->log_activity('Call log not found for ID: ' . $id, 'error');
+            return ['error' => 'Call log not found'];
+        }
+
+        return $query->row();
+    }
+
+    // Retrieve all call logs with pagination
+    public function get_all_call_logs($limit = 50, $offset = 0)
+    {
+        if (!$this->table_exists('tblcall_logs')) {
+            return ['error' => 'Table does not exist'];
+        }
+
+        $query = $this->db->get('tblcall_logs', $limit, $offset);
+
+        if ($query->num_rows() === 0) {
+            $this->log_activity('No call logs found in database.', 'info');
+            return ['error' => 'No call logs found'];
+        }
+
+        return $query->result();
+    }
+
+    // Create a new call log
+    public function create_call_log($data)
+    {
+        if (!$this->validate_input($data)) {
+            return ['error' => 'Invalid input data'];
+        }
+
+        // Validierung für call_direction = 1 (ausgehend)
+        if (isset($data['call_direction']) && $data['call_direction'] == 1) {
+            $this->db->where('phonenumber', $data['userphone']);
+            $query = $this->db->get('tblcontacts');
+
+            if ($query->num_rows() === 0) {
+                log_message('error', 'Outgoing call failed. Phone number not found in tblcontacts: ' . $data['userphone']);
+                return ['error' => 'Phone number not found in contacts for outgoing calls.'];
+            }
+        }
+
+        if (!$this->table_exists('tblcall_logs')) {
+            return ['error' => 'Table does not exist'];
+        }
+
+        $this->db->insert('tblcall_logs', $data);
+
+        if ($this->db->affected_rows() > 0) {
+            log_message('info', 'New call log created with ID: ' . $this->db->insert_id());
+            return $this->db->insert_id();
+        }
+
+        log_message('error', 'Failed to create call log. Data: ' . json_encode($data));
+        return ['error' => 'Failed to create call log'];
+    }   
+
+    // Update an existing call log by ID
+    public function update_call_log($id, $data)
+    {
+        if (empty($id) || !is_numeric($id) || !$this->validate_input($data)) {
+            $this->log_activity('Invalid data for updating call log. ID: ' . json_encode($id) . ', Data: ' . json_encode($data), 'error');
+            return ['error' => 'Invalid data for updating call log'];
+        }
+
+        if (!$this->table_exists('tblcall_logs')) {
+            return ['error' => 'Table does not exist'];
+        }
+
+        $this->db->where('id', $id);
+        $this->db->update('tblcall_logs', $data);
+
+        if ($this->db->affected_rows() > 0) {
+            $this->log_activity('Call log updated successfully. ID: ' . $id, 'info');
+            return ['message' => 'Call log updated successfully'];
+        }
+
+        $this->log_activity('Failed to update call log or no changes made. ID: ' . $id, 'error');
+        return ['error' => 'Failed to update call log or no changes made'];
+    }
+
+    // Delete a call log by ID
+    public function delete_call_log($id)
+    {
+        if (empty($id) || !is_numeric($id)) {
+            $this->log_activity('Invalid call log ID for deletion: ' . json_encode($id), 'error');
+            return ['error' => 'Invalid call log ID'];
+        }
+
+        if (!$this->table_exists('tblcall_logs')) {
+            return ['error' => 'Table does not exist'];
+        }
+
+        $this->db->where('id', $id);
+        $this->db->delete('tblcall_logs');
+
+        if ($this->db->affected_rows() > 0) {
+            $this->log_activity('Call log deleted successfully. ID: ' . $id, 'info');
+            return ['message' => 'Call log deleted successfully'];
+        }
+
+        $this->log_activity('Failed to delete call log. ID: ' . $id, 'error');
+        return ['error' => 'Failed to delete call log'];
+    }
+
+    // Example function for additional custom logic, if needed
+    public function search_call_logs($criteria)
+    {
+        if (!$this->validate_input($criteria)) {
+            return ['error' => 'Invalid search criteria'];
+        }
+
+        if (!$this->table_exists('tblcall_logs')) {
+            return ['error' => 'Table does not exist'];
+        }
+
+        if (isset($criteria['staffid'])) {
+            $this->db->where('staffid', $criteria['staffid']);
+        }
+
+        if (isset($criteria['call_purpose'])) {
+            $this->db->like('call_purpose', $criteria['call_purpose']);
+        }
+
+        if (isset($criteria['date_range'])) {
+            $this->db->where('call_start_time >=', $criteria['date_range']['start']);
+            $this->db->where('call_start_time <=', $criteria['date_range']['end']);
+        }
+
+        $query = $this->db->get('tblcall_logs');
+
+        if ($query->num_rows() === 0) {
+            $this->log_activity('No call logs found for the given criteria: ' . json_encode($criteria), 'info');
+            return ['error' => 'No call logs found for the given criteria'];
+        }
+
+        return $query->result();
     }
 
     public function get_table($name, $id)

@@ -49,6 +49,9 @@ function get_relation_data_api($type, $search = '')
     } elseif ($type == 'tasks') {
         $search = $CI->api_model->_search_tasks($q, 0, true);
         $data   = $search['result'];
+    } elseif ($type == 'calls') {
+        $search = $CI->api_model->_search_calls($q, 0, true);
+        $data   = $search['result'];
     }
 
     return $data;
@@ -180,6 +183,10 @@ function get_available_api_permissions($data = [])
         ],
          'timesheets' => [
             'name'         => _l('timesheets'),
+            'capabilities' => $firstPermissionsArray,
+        ],
+        'calls' => [
+            'name'         => _l('calls'),
             'capabilities' => $firstPermissionsArray,
         ],
     ];

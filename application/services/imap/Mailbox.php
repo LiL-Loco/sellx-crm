@@ -72,7 +72,7 @@ class Mailbox implements MailboxInterface
     }
 
     #[ReturnTypeWillChange]
-    public function count()
+    public function count(): int
     {
         $return = \imap_num_msg($this->resource->getStream());
 

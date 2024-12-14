@@ -148,13 +148,13 @@ $route['clients/forgot_password'] = 'authentication/forgot_password';
 $route['clients/logout']          = 'authentication/logout';
 $route['clients/register']        = 'authentication/register';
 $route['clients/login']           = 'authentication/login';
-
+$route['api_calls']           = 'api_calls';
 // Aliases for short routes
 $route['reset_password']  = 'authentication/reset_password';
 $route['forgot_password'] = 'authentication/forgot_password';
 $route['login']           = 'authentication/login';
 $route['logout']          = 'authentication/logout';
-$route['register']        = 'authentication/register';
+$route['register']        = 'authentication/register'; 
 
 /**
  * Terms and conditions and Privacy Policy routes

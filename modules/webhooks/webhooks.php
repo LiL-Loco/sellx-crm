@@ -54,6 +54,7 @@ require_once __DIR__ . '/includes/sidebar_menu_links.php';
  * Inject email template for webhooks module
  */
 hooks()->add_action('after_email_templates', 'add_email_template_webhook');
+
 function add_email_template_webhook()
 {
     $data['hasPermissionEdit'] = has_permission('email_templates', '', 'edit');

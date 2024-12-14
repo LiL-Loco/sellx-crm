@@ -15,6 +15,7 @@ class Google_drive extends AdminController
     private $service;
     private $docsService;
     private $sheetsService;
+    private $slidesService;
     public function __construct()
     {
         parent::__construct();
@@ -34,6 +35,7 @@ class Google_drive extends AdminController
             $this->client->setScopes([
                 Google_Service_Docs::DOCUMENTS_READONLY,
                 Google_Service_Sheets::SPREADSHEETS_READONLY,
+                Google_Service_Slides::PRESENTATIONS_READONLY,
                 Google_Service_Drive::DRIVE_READONLY,
                 Google_Service_Drive::DRIVE_METADATA_READONLY,
                 'email',
@@ -43,6 +45,7 @@ class Google_drive extends AdminController
             $this->client->setScopes([
                 Google_Service_Docs::DOCUMENTS,
                 Google_Service_Sheets::SPREADSHEETS,
+                Google_Service_Slides::PRESENTATIONS,
                 Google_Service_Drive::DRIVE,
                 Google_Service_Drive::DRIVE_FILE,
                 Google_Service_Drive::DRIVE_METADATA,
@@ -82,6 +85,7 @@ class Google_drive extends AdminController
         $this->service = new Google_Service_Drive($this->client);
         $this->docsService = new Google_Service_Docs($this->client);
         $this->sheetsService = new Google_Service_Sheets($this->client);
+        $this->slidesService = new Google_Service_Slides($this->client);
     }
 
     public function docs()
@@ -112,6 +116,21 @@ class Google_drive extends AdminController
         $data['title'] = _l('google_drive');
 
         $this->load->view('sheets', $data);
+    }
+
+    public function slides()
+    {
+        if (staff_cant('setting', 'google_drive') && staff_cant('view', 'google_drive') && staff_cant('create', 'google_drive') && staff_cant('edit', 'google_drive') && staff_cant('delete', 'google_drive')) {
+            access_denied('google_drive');
+        }
+
+        if ($this->input->is_ajax_request()) {
+            $this->app->get_table_data(module_views_path('google_drive', 'tables/slides'));
+        }
+
+        $data['title'] = _l('google_drive');
+
+        $this->load->view('slides', $data);
     }
 
     public function save()
@@ -329,6 +348,108 @@ class Google_drive extends AdminController
                             'success' => true,
                             'id' => $sheet_id,
                             'message' => _l('google_drive_sheet_created_successfully', _l('google_drive')),
+                        ]);
+                    } catch (Exception $e) {
+                        echo json_encode([
+                            'success' => false,
+                            'message' => _l('google_drive_integrate_again', _l('google_drive')),
+                            'redirect_url' => admin_url('google_drive/settings')
+                        ]);
+                    }
+                }
+            }
+            if ($type == 'slide') {
+                if ($id) {
+                    $google_slide = $this->google_drive_model->get($id);
+    
+                    if ($google_slide) {
+                        try {
+                            // Update the doc properties
+                            $fileMetadata = new Google_Service_Drive_DriveFile([
+                                'name' => $title
+                            ]);
+                            
+                            $this->service->files->update($google_slide->driveid, $fileMetadata);                        
+    
+                            $requests = [
+                                new Google_Service_Slides_Request([
+                                    'insertText' => [
+                                        'location' => [
+                                            'index' => 1, // Insert at the beginning of the document
+                                        ],
+                                        'text' => $description,
+                                    ]
+                                ])
+                            ];
+                            // Execute the batchUpdate request
+                            $batchUpdateRequest = new Google_Service_Slides_BatchUpdateDocumentRequest([
+                                'requests' => $requests
+                            ]);
+                            $this->slidesService->documents->batchUpdate($google_slide->driveid, $batchUpdateRequest);
+        
+                            $this->google_drive_model->update([
+                                'title' => $title,
+                                'description' => $description
+                            ], $google_slide->id);
+                            
+                            echo json_encode([
+                                'success' => true,
+                                'id' => $id,
+                                'message' => _l('google_drive_doc_saved_successfully', _l('google_drive')),
+                            ]);
+                        } catch (Exception $e) {
+                            echo json_encode([
+                                'success' => false,
+                                'message' => _l('google_drive_integrate_again', _l('google_drive')),
+                                'redirect_url' => admin_url('google_drive/settings')
+                            ]);
+                        }
+                    }
+                } else {
+                    try {
+                        // Create a new document
+                        $spreadsheet = new Google_Service_Slides_Presentation([
+                            'properties' => [
+                                'title' => $title
+                            ]
+                        ]);
+                        
+                        
+                       // Execute the request
+                       $slide = $this->slidesService->presentation->create($sprpresentationeadsheet, [
+                        'fields' => 'presentationId'
+                    ]);
+                    // Get the spreadsheet ID
+                    $presentationId = $presentation->presentationId;
+    
+                        $requests = [
+                            new Google_Service_Slides_Request([
+                                'insertText' => [
+                                    'location' => [
+                                        'index' => 1, // Insert at the beginning of the document
+                                    ],
+                                    'text' => $description,
+                                ]
+                            ])
+                        ];
+                        // Execute the batchUpdate request
+                        $batchUpdateRequest = new Google_Service_Slides_BatchUpdateSlideRequest([
+                            'requests' => $requests
+                        ]);
+                        $this->slidesService->slides->batchUpdate($slideId, $batchUpdateRequest);
+        
+                        $new_doc_id = $this->google_drive_model->add([
+                            'staffid' => get_staff_user_id(),
+                            'driveid' => $documentId,
+                            'title' => $title,
+                            'type' => 'doc',
+                            'description' => $description
+                        ]);
+                        
+                        echo json_encode([
+                            'success' => true,
+                            'id' => $new_doc_id,
+                            'message' => _l('google_drive_doc_created_successfully', _l('google_drive')),
                         ]);
                     } catch (Exception $e) {
                         echo json_encode([

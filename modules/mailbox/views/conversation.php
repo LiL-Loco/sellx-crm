@@ -45,7 +45,7 @@
                   <td><?php echo $date_sent; ?></td>
                   <td>
                      <button class="btn btn-primary" type="button" onclick="send_mail_modal(<?php echo htmlspecialchars(json_encode($value), ENT_QUOTES, 'UTF-8') . ', \'' . $module_dir_url . '\''; ?>)">PreView</button>
-                     <button onclick="delete_mail_conversation(<?php echo $value['id']; ?>, this)" class="btn btn-danger">Delete</button>
+                     <button onclick="delete_mail_conversation(<?php echo $value['id']; ?>, this)" class="btn btn-danger">Löschen</button>
                   </td>
                </tr>
                <?php } ?>

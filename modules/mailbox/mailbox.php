@@ -168,7 +168,7 @@ function scan_email_server()
 
                 foreach ($emails as $email) {
                     $plainTextBody = $imap->getPlainTextBody($email['uid']);
-                    $plainTextBody = trim($plainTextBody);
+                    $plainTextBody = is_string($plainTextBody) ? trim($plainTextBody) : '';
                     if (!empty($plainTextBody)) {
                         $email['body'] = $plainTextBody;
                     }
@@ -227,9 +227,15 @@ function scan_email_server()
 					$data['fromname'] = trim(str_replace('"', '', $data['fromname']));
 
 					// Decode sender's name if it's encoded with Base64
-					if (preg_match('/\=\?UTF\-8\?B\?(.*?)\?=/i', $data['fromname'], $matches)) {
-						$data['fromname'] = base64_decode($matches[1]);
-					}
+					if (preg_match('/=\?([a-zA-Z0-9\-]+)\?(B|Q)\?(.*?)\?=/i', $data['fromname'], $matches)) {
+                        $encoding = strtoupper($matches[2]);
+                        $encoded_text = $matches[3];
+                        if ($encoding == 'B') {
+                            $data['fromname'] = base64_decode($encoded_text);
+                        } elseif ($encoding == 'Q') {
+                            $data['fromname'] = quoted_printable_decode($encoded_text);
+                        }
+                    }
 
 					$inbox = [];
 					$inbox['from_email'] = $decodedfrom;

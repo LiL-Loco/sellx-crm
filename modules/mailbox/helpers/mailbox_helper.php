@@ -163,12 +163,13 @@ function prepare_imap_email_body_html($body)
 {
     // Trim message
     $body = trim($body);
+    $body = htmlspecialchars_decode($body);
     $body = str_replace('&nbsp;', ' ', $body);
-    // Remove html tags - strips inline styles also
-    $body = trim(strip_html_tags($body, '<br/>, <br>, <a>'));
-    // Remove duplicate new lines
+    // Erlaube mehr HTML-Tags
+    $body = preg_replace('/<script\b[^>]*>(.*?)<\/script>/is', '', $body);
+    // Entferne doppelte Leerzeilen
     $body = preg_replace("/[\r\n]+/", "\n", $body);
-    // new lines with <br />
+    // Neue Zeilen mit <br> ersetzen
     $body = preg_replace('/\n(\s*\n)+/', '<br />', $body);
     $body = preg_replace('/\n/', '<br>', $body);
 

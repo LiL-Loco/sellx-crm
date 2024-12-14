@@ -11,7 +11,7 @@ Version: 2.0.7
 
 require_once __DIR__.'/vendor/autoload.php';
 define('API_MODULE_NAME', 'api');
-hooks()->add_action('admin_init', 'api_init_menu_items');
+hooks()->add_action('admin_init', 'api_init_menu_items'); 
 
 /**
 * Load the module helper
@@ -46,20 +46,19 @@ function api_init_menu_items()
     */
     if (is_admin()) {
         $CI = &get_instance();
-        $CI->app_menu->add_sidebar_menu_item('api-options', [
+        $CI->app_menu->add_setup_menu_item('api-options', [
             'collapse' => true,
             'name'     => _l('api'),
             'position' => 40,
-            'icon'     => 'fa fa-cogs',
         ]);
-        $CI->app_menu->add_sidebar_children_item('api-options', [
+        $CI->app_menu->add_setup_children_item('api-options', [
             'slug'     => 'api-register-options',
             'name'     => _l('api_management'),
             'href'     => admin_url('api/api_management'),
             'position' => 5,
         ]);
         
-        $CI->app_menu->add_sidebar_children_item('api-options', [
+        $CI->app_menu->add_setup_children_item('api-options', [
             'slug'     => 'api-guide-options',
             'name'     => _l('api_guide'),
             'href'     => 'https://perfexcrm.themesic.com/apiguide/',
