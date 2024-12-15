@@ -5,7 +5,7 @@ body {
 
 body {
   font-family: "Inter", sans-serif;
-  padding: 0 !important;
+  padding: 15px;
 }
 
 body > * {
@@ -38,6 +38,10 @@ body.styled .form-col {
   box-shadow: 0 0.125rem 0.25rem rgb(0 0 0 / 8%) !important;
   min-height: 1px;
   padding: 2rem;
+}
+
+.logo {
+  margin-top: 40px;
 }
 
 .logo img {
