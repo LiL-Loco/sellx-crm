@@ -226,7 +226,6 @@
 <?php init_tail(); ?>
 <script type="text/javascript">
 	"use strict";
-
     $(function(){
         init_btn_with_tooltips();   
         init_tabs_scrollable();   
@@ -234,9 +233,10 @@
         initDataTable('.table-mailbox', admin_url + 'mailbox/table/<?php echo $group; ?>', 'undefined', webmailTableNotSortable, 'undefined', [3, 'desc']);
         appValidateForm($('#mailbox_config_form'), {
            email: 'required',
-           mail_password: 'required',
+           mail_password: 'required'
         });
     });
 </script>
+
 </body>
 </html>

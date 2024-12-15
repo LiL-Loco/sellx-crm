@@ -61,19 +61,13 @@ class Calls extends REST_Controller
     }
 
     // POST: Create a new call log
-    public function data_post()
-    {
-        $data = $this->input->post();
+    public function create_call($staff_id)
+{
+        $data = json_decode($this->input->raw_input_stream, true);
 
-        // Resolve staff ID from token
-        $staff_id = $this->resolve_staff_id();
-        if (!$staff_id) {
-            $this->response(['error' => 'Invalid API token or staff mapping failed.'], REST_Controller::HTTP_BAD_REQUEST);
-            return;
-        }
+        log_message('debug', 'Eingehende Daten für create_call: ' . print_r($data, true));
 
-        $data['staffid'] = $staff_id;
-
+        $data['customer_id'] = $staff_id;
         $result = $this->Api_model->create_call_log($data);
 
         if (isset($result['error'])) {
@@ -81,8 +75,7 @@ class Calls extends REST_Controller
         } else {
             $this->response(['id' => $result], REST_Controller::HTTP_CREATED);
         }
-    }
-
+    }   
     // PUT: Update an existing call log by ID
     public function data_put($id = '')
     {
@@ -117,7 +110,25 @@ class Calls extends REST_Controller
             $this->response($result, REST_Controller::HTTP_OK);
         }
     }
-
+    public function update_call($customer_id)
+    {
+        $data = json_decode($this->input->raw_input_stream, true);
+    
+        log_message('debug', 'Eingehende Daten für update_call: ' . print_r($data, true));
+    
+        if (!isset($data['id'])) {
+            $this->response(['error' => 'Call Log ID ist erforderlich'], REST_Controller::HTTP_BAD_REQUEST);
+            return;
+        }
+    
+        $result = $this->Api_model->update_call_log($data['id'], $data);
+    
+        if (isset($result['error'])) {
+            $this->response($result, REST_Controller::HTTP_BAD_REQUEST);
+        } else {
+            $this->response($result, REST_Controller::HTTP_OK);
+        }
+    }
     // GET: Search call logs based on criteria
     public function search_get()
     {

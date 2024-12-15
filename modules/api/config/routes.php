@@ -16,7 +16,6 @@ $route['api/common/(:any)/(:num)'] = 'common/data/$1/$2';
 $route['api/common/(:any)'] = 'common/data/$1';
 $route['api/(:any)/(:num)']        = '$1/data/$2';
 $route['api/(:any)']               = '$1/data';
-
 $route['test'] = function () {
     echo "Routing funktioniert!";
 };
