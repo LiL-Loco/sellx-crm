@@ -14,6 +14,8 @@
     <meta name="author" content="">
     <link href="<?php echo base_url(WIKI_ASSETS_PATH.'/articles_show/styles/jquery.tocify.css'); ?>" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="<?php echo site_url('assets/plugins/tinymce/plugins/codesample/css/prism.css'); ?>">
+    <link rel="stylesheet" type="text/css" href="<?php echo site_url('assets/builds/tailwind.css'); ?>">
+
 </head>
 
 <style>
@@ -24,18 +26,31 @@
 <body>
 
     <div id="mySidebar" class="sidebar">
-        <div class="header">
-           <div id="logo">
-              <?php get_company_logo(get_admin_uri().'/') ?>
-           </div>
-           
+        
+        <div class="container">
+            <div class="header row">
+                <div id="logo">
+                    <?php get_company_logo(get_admin_uri().'/') ?>
+                </div>
+            </div>
         </div>
-         <div class="button-header">
-               <a href="<?php echo admin_url('wiki/articles'); ?>">
-                        <?php echo _l('articles'); ?>
-                <a href="<?php echo admin_url('wiki/books'); ?>">
-                            <?php echo _l('books'); ?></a>
-           </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <a class="btn btn-primary" href="<?php echo admin_url('wiki'); ?>">
+                        <?php echo _l('home'); ?>
+                    </a>
+                </div>
+                <div class="col-md-6">
+                    <a class="btn btn-primary" href="<?php echo admin_url('wiki/categories'); ?>">
+                        <?php echo _l('categories'); ?>
+                    </a>
+                </div>
+            </div>
+        </div>
+            <div id="toc">
+            </div>
+
         <div id="toc">
         </div>
     </div>

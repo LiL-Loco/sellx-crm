@@ -97,7 +97,7 @@ mix.combine(
     "assets/plugins/tagsinput/css/tagit.ui-zendesk.css",
     "assets/plugins/datetimepicker/jquery.datetimepicker.min.css",
     "assets/plugins/lightbox/css/lightbox.min.css",
-    // "assets/plugins/internal/bootstrap-nav-tabs-scrollable/bootstrap-nav-tab-scrollable.css",
+    "assets/plugins/internal/bootstrap-nav-tabs-scrollable/bootstrap-nav-tab-scrollable.css",
   ],
   "assets/builds/vendor-admin.css"
 );

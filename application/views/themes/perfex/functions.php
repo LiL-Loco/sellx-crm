@@ -26,7 +26,7 @@ function theme_assets()
     add_datatables_js_assets($groupName);
     add_jquery_validation_js_assets($groupName);
     add_bootstrap_select_js_assets($groupName);
-
+    
     $CI->app_scripts->theme('datetimepicker-js', 'assets/plugins/datetimepicker/jquery.datetimepicker.full.min.js');
     $CI->app_scripts->theme('chart-js', 'assets/plugins/Chart.js/Chart.min.js');
     $CI->app_scripts->theme('colorpicker-js', 'assets/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js');
