@@ -1,0 +1,11 @@
+Lieferantennummer;Eigene Kundennr.;Kreditorennummer;Anrede;Vorname;Nachname;Firma;Ansprechpartner;Straße;Adresszusatz;PLZ;Ort;Land/ISO-Ländercode (2-stellig);Telefon Zentrale;E-Mail;Webseite;USt-IdNr.;Frachtkosten;Versandfrei ab;Skonto (%);Skonto bis (Tage);Name der Bank;Kontoinhaber;IBAN;BIC
+1001;3997071;;Herr;Johannes ;Leschke;KOSATEC;;Carl-Miele-Straße 3;;38112;Braunschweig;DE;0531235443275 ;j.leschke@kosatec.de ;https://shop.kosatec.de/;DE202103514;9;;;;Volksbank eG Braunschweig Wolfsburg;;DE24 2699 1066 6984 3040 00;GENODEF1WOB
+1002;206662;;Herr;Nils ;Dahmen;api;;Robert-Koch-Str. 7-17;;52499;Baesweiler;DE;024191706711;nils.dahmen@api.de;https://api.de/;DE169787305;9;;;;Commerzbank Gütersloh;;DE82478400804851066623;COBADEFF470
+1003;16609781;;;;;noteboobksbilliger.de;;Wiedemannstraße 3;;31157;Sarstedt;DE;030398202100;service@notebooksbilliger.de;https://www.notebooksbilliger.de/;DE175671991;5;150;;;Deutsche Bank;;DE31 2507 0070 0636 3063 00;DEUTDE2HXXX
+1004;8041737;;;;;GALAXUS;;Hoheluftchaussee 18;;20253;Hamburg;DE;;contact@galaxus.de;https://www.galaxus.de/de;DE312684999;0;;;;;;;
+1005;13696063;;;;;Mindfactory;;Preußenstraße 14a-c;;26388;Wilhelmshaven;DE;015111771171;info@mindfactory.de;https://www.mindfactory.de/;DE184293191;8;;;;Oldenburgische Landesbank;;DE80280200504607666703;OLBODEH2XXX
+1006;603232845;;;;;ALTERNATE;;Philipp-Reis-Straße 2-3;;35440;Linden;DE;06403905040;info@alternate.de;https://www.alternate.de/;DE112595008;6;;;;Commerzbank;;DE14513800400880891000;DRESDEFF513
+1007;26819935;;;;;Cyberport;;Am Brauhaus 5;;01099;Dresden;DE;03513395678;info@cyberport.de;https://www.cyberport.de/;DE360955897;5;;;;Commerzbank Freiburg;;DE73680800300723303600;DRESDEFF680
+1008;;;;;;X-KOM;;Glashütter Str. 100;;01277;Dresden;DE;035189881444;info@x-kom.de;https://x-kom.de/;DE294559406;0;;;;Commerzbank;;DE51180400000157597600;COBADEFFXXX
+1009;127966382;;;;;PROSHOP;;Slet Møllevej 17;;8270;Højbjerg;DNK;08006655880;support@proshop.de;https://www.proshop.de/;DK18966239;6;;;;;;;
+1010;;;;;;Amazon business;;38 avenue John F. Kennedy;;1855;Neudorf-Weimershof;LUX;;;https://www.amazon.de/; LU26375245;0;;;;;;;

@@ -422,7 +422,7 @@
                                             <?php if ($appointment['created_by'] == get_staff_user_id() || staff_appointments_responsible()) { ?>
                                                 <button class="btn btn-primary" type="submit"
                                                         onClick="markAppointmentAsFinished()"
-                                                        id="markAsFinished"><?= _l('task_mark_as') . ' ' . _l('appointment_mark_as_finished'); ?></button>
+                                                        id="markAsFinished"><?= _l('appointment_mark_as_finished'); ?></button>
                                             <?php } ?>
 
                                         <?php } ?>
