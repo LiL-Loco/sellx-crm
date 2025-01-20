@@ -1,0 +1,28 @@
+Angaben GEL;Zu finden in Wawi, wo?;;Erklärung;;;;;
+sname1;;;=> 'Musterfirma',;;;;;Rechnungsadresse Firma
+;;;;;;;;Rechnungsadresse Firmenzusatz
+;;;;;;;;Rechnungsadresse Vorname
+sname2;;;=> 'Max Mustermann',;;;;;Rechnungsadresse Nachname
+sstreet;;;=> 'Musterstraße 1',;;;;;Rechnungsadresse Stra�e
+scountry;;;=> 'D',;;;;;Rechnungsadresse Land
+szipcode;;;=> 12345,;;;;;Rechnungsadresse PLZ
+stown;;;=> 'Musterstadt',;;;;;Rechnungsadresse Stadt
+sreference;;;=> 'Auftragsnummer Wawi',;;;;;Auftragsnummer
+;;;;;;;;Lieferadresse Firma
+;;;;;;;;Lieferadresse Firmenzusatz
+cname1;;;=> 'Maximilia',;;;;;Lieferadresse Vorname
+cname2;;;=> 'Musterfrau',;;;;;Lieferadresse Nachname
+cstreet;;;=> 'Musterstraße 2',;;;;;Lieferadresse Stra�e
+ccountry;;;=> 'D',;;;;;Lieferadresse Land
+czipcode;;;=> 12345,;;;;;Lieferadresse PLZ
+ctown;;;=> 'Musterstadt',;;;;;Lieferadresse Stadt
+cinfo;;;=> 'Bitte unten klingeln', //Informationen für die Zustellung;;;;;Adresszusatz
+sdate;;;=> '20241209 ',;;;;;Auftragsdatum
+srv;;;=> '2', //Service-Art;;;;;Versandart
+xsrv;;;=> 'U', //Sonder-Services;;;;;Versandart
+dtime;;;=> '1600', //Fester Lieferzeitpunkt;;;;;Versandart
+avis;;;=> 'trixi@sellx.de', //Kunden E-Mail;;;;;eMail Adresse aus Lieferadresse
+atype;;;=> 'A3', //AVIS Typ;;;;;?
+fixdate;;;=> '20250103', //YYYYMMDD Festes Lieferdatum;;;;;?
+collicnt;;;=> 1, //Anzahl Packstücke,;;;;;?
+colli;;;=> '|5|30|20|10', // Gewicht, Länge, Breite, Höhe in cm;;;;;?

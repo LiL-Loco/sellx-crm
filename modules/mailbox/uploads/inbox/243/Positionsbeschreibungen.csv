@@ -1,0 +1,66 @@
+Artikelnummer;HAN;Artikelname
+25;Kick-off Meeting;JTL-Wawi Projektmanagement: Durchführung eines Kick-off Meetings zur Klärung von Projektzielen, Anforderungen und Zeitplan. Identifikation der Stakeholder und Erstellung eines Pflichtenhefts.
+26;Technische Infrastruktur prüfen;JTL-Wawi Systemintegration: Analyse der bestehenden IT-Infrastruktur und Bedarfsplanung für Hardware und Software. Sicherstellung der Kompatibilität mit JTL-Wawi.
+27;Projektplan und Meilensteine erstellen;JTL-Wawi Projektmanagement: Entwicklung eines detaillierten Projektplans mit klaren Meilensteinen und Deadlines. Einführung eines Risikomanagementplans.
+28;Datenexport aus Altsystem;JTL-Ameise Datenmigration: Export und Sicherung relevanter Daten aus dem Altsystem. Erstellung eines Datenmappings zur Vorbereitung der Migration in JTL-Wawi.
+29;Datenbereinigung;JTL-Ameise Datenaufbereitung: Überprüfung und Bereinigung der exportierten Daten. Sicherstellung der Datenqualität vor der Migration.
+30;Datenstruktur in JTL-Wawi planen;JTL-Wawi Konfiguration: Planung der Artikel-, Kunden- und Lagerstruktur in JTL-Wawi. Anpassung an die Anforderungen des Kunden.
+31;Installation von JTL-Wawi;JTL-Wawi Installation:  Installation von JTL-Wawi auf Servern oder in der Cloud. Konfiguration der grundlegenden Systemeinstellungen.
+32;Benutzerverwaltung einrichten;JTL-Wawi Benutzerverwaltung: Erstellung und Verwaltung von Benutzerkonten in JTL-Wawi. Definition von Rollen und Berechtigungen.
+33;Zwei-Faktor-Authentifizierung einrichten;JTL-Wawi Sicherheit: Implementierung und Test der Zwei-Faktor-Authentifizierung für erhöhte Sicherheit der Benutzerkonten.
+34;Schulung der Benutzer;JTL-Wawi Schulung: Durchführung von Schulungen, um sicherzustellen, dass die Benutzer die neuen Systeme und Prozesse verstehen und anwenden können.
+35;Artikelstammdaten importieren;JTL-Ameise Datenmigration: Import der Artikelstammdaten in JTL-Wawi und Überprüfung auf korrekte Zuordnung und Datenintegrität.
+36;Kundendaten und Lieferanten importieren;JTL-Ameise Datenmigration: Import und Zuordnung von Kunden- und Lieferantendaten in JTL-Wawi. Sicherstellung der Datenkonsistenz.
+37;Auftragsdaten importieren;JTL-Ameise Datenmigration: Import offener und abgeschlossener Aufträge in JTL-Wawi. Test der Auftragsabwicklung.
+38;Kategoriestruktur anlegen;JTL-Wawi Artikelverwaltung: Erstellung einer logischen Kategoriestruktur in JTL-Wawi, angepasst an die Geschäftsanforderungen des Kunden.
+39;Artikelattribute und Varianten einrichten;JTL-Wawi Artikelverwaltung: Definition und Konfiguration von Artikelattributen und Varianten in JTL-Wawi.
+40;Stücklisten und Set-Artikel konfigurieren;JTL-Wawi Artikelverwaltung: Erstellung und Verwaltung von Stücklisten- und Set-Artikeln in JTL-Wawi. Überprüfung der Bestandsführung.
+41;JTL-Shop einbinden;JTL-Shop Integration: Anbindung des JTL-Shops an JTL-Wawi. Synchronisation von Artikeln, Kategorien und Beständen.
+42;Marktplätze anbinden;JTL-eazyAuction Integration: Anbindung und Konfiguration von Marktplätzen wie Amazon und eBay an JTL-Wawi.
+43;Verkaufskanäle konfigurieren;JTL-Wawi Verkaufskanäle: Definition von Regeln für verschiedene Verkaufskanäle. Implementierung und Test der Preisstrategien.
+44;Lagerstruktur und -orte anlegen;JTL-WMS Lagerstruktur: Erstellung und Dokumentation der Lagerstruktur in JTL-Wawi, einschließlich aller Lagerorte und -plätze.
+45;Bestandsführung und Lagerregeln festlegen;JTL-WMS Lagerverwaltung: Konfiguration der Bestandsführungsregeln und Verwaltungsmethoden, angepasst an die Kundenanforderungen.
+46;JTL-WMS einrichten;JTL-WMS Installation: Installation und Konfiguration von JTL-WMS, einschließlich mobiler Datenerfassung und Lagerprozesse.
+47;Versandarten und -dienstleister einrichten;JTL-Shipping Versandlogistik: Einrichtung der Versandarten und Verknüpfung mit Versanddienstleistern in JTL-Wawi.
+48;Verpackungseinheiten und Versandprofile definieren;JTL-Shipping Versandlogistik: Definition und Zuordnung von Verpackungseinheiten. Erstellung und Test von Versandprofilen.
+49;Automatisierte Versandworkflows einrichten;JTL-Workflows Automation: Erstellung und Test von automatisierten Versandworkflows zur Effizienzsteigerung.
+50;Zahlungsarten anlegen und konfigurieren;JTL-Wawi Zahlungsabwicklung: Einrichtung und Test aller relevanten Zahlungsarten in JTL-Wawi.
+51;Zahlungsanbieter anbinden;JTL-Wawi Zahlungsabwicklung: Integration und Test externer Zahlungsanbieter in JTL-Wawi.
+52;Kontenplan einrichten;JTL-Wawi Buchhaltung: Anpassung des Kontenplans in JTL-Wawi an die Buchhaltungsanforderungen des Kunden.
+53;Buchhaltungssoftware anbinden;JTL-Wawi Buchhaltung: Anbindung von JTL-Wawi an die Buchhaltungssoftware des Kunden und Test der Datenübertragung.
+54;Formulardesign konfigurieren;JTL-Wawi Formulargestaltung: Anpassung der Druck- und E-Mail-Vorlagen an das Corporate Design des Kunden.
+55;Testdruck und Feinabstimmung;JTL-Wawi Formulargestaltung: Durchführung von Testdrucken und Feinabstimmung der Formulare, um eine korrekte Darstellung sicherzustellen.
+56;Standardworkflows einrichten;JTL-Workflows Automation: Erstellung und Test von Standardworkflows für die Automatisierung von Geschäftsprozessen.
+57;Custom Workflows für spezifische Anforderungen;JTL-Workflows Automation: Entwicklung und Implementierung benutzerdefinierter Workflows, angepasst an spezielle Kundenanforderungen.
+58;Simulierte Geschäftsprozesse durchlaufen;JTL-Wawi Testbetrieb: Durchführung eines umfassenden Testlaufs zur Überprüfung aller Geschäftsprozesse vor dem Go-Live.
+59;Datenvalidierung und Feintuning;JTL-Wawi Optimierung: Validierung der Daten und Feinabstimmung der Systemeinstellungen zur Optimierung der Performance.
+60;Go-Live Unterstützung;JTL-Wawi Go-Live: Begleitung und Überwachung des Go-Live-Prozesses. Sofortige Unterstützung bei Problemen.
+61;Systemüberwachung und Performance-Analyse;JTL-Wawi Monitoring: Kontinuierliche Überwachung der Systemperformance nach dem Go-Live. Identifizierung und Umsetzung von Optimierungspotenzialen.
+62;Benutzerfeedback und kontinuierliche Unterstützung;JTL-Wawi Support: Sammlung von Benutzerfeedback und kontinuierliche Unterstützung zur Sicherstellung der Systemeffizienz.
+63;Erweiterungen und Zusatzmodule einführen;JTL-Wawi Erweiterungen: Implementierung zusätzlicher JTL-Module und Funktionen zur Optimierung des Betriebs.
+64;Prozessoptimierung und Automatisierung;JTL-Workflows Optimierung: Analyse und Optimierung der betrieblichen Abläufe zur Effizienzsteigerung und Automatisierung von Prozessen.
+65;JTL-Wawi Schulung für Einsteiger;JTL-Wawi Schulung: Grundlagenschulung für neue Benutzer von JTL-Wawi. Behandelt grundlegende Funktionen wie Artikelverwaltung, Bestellprozesse und Kundendatenpflege.
+66;JTL-Wawi Schulung für Fortgeschrittene;JTL-Wawi Schulung: Vertiefende Schulung für erfahrene Benutzer. Fokus auf erweiterten Funktionen wie Workflows, Lagerverwaltung und Verkaufsprozesse.
+67;JTL-WMS Schulung;JTL-WMS Schulung: Schulung zur Einführung und Nutzung von JTL-WMS. Behandelt Themen wie Lagerstruktur, mobile Datenerfassung und Pick & Pack.
+68;JTL-eazyAuction Schulung;JTL-eazyAuction Schulung: Schulung zur Nutzung von JTL-eazyAuction für die Anbindung und Verwaltung von Marktplätzen wie Amazon und eBay.
+69;JTL-Shop Schulung;JTL-Shop Schulung: Einführung in die Nutzung und Verwaltung des JTL-Shops. Beinhaltet Themen wie Artikelpflege, SEO-Optimierung und Bestellabwicklung.
+70;JTL-Ameise Schulung;JTL-Ameise Schulung: Schulung zur Nutzung von JTL-Ameise für Importe und Exporte. Fokus auf Datenmigration und -bereinigung.
+71;JTL-Workflows Schulung;JTL-Workflows Schulung: Schulung zur Einrichtung und Optimierung von Workflows in JTL-Wawi zur Automatisierung von Geschäftsprozessen.
+72;Individuelle JTL-Schulung;JTL-Wawi, JTL-WMS, JTL-eazyAuction, JTL-Shop: Anpassbare Schulung, die auf die spezifischen Bedürfnisse des Unternehmens zugeschnitten ist. Ideal für komplexe Anforderungen oder spezifische Funktionen.
+73;Wartungspaket Basis;JTL-Wawi Wartung: Regelmäßige Überprüfung und Wartung des JTL-Wawi Systems. Beinhaltet Updates, Datensicherung und grundlegende Systemoptimierung.
+74;Wartungspaket Plus;JTL-Wawi & JTL-Shop Wartung: Erweiterte Wartung für JTL-Wawi und JTL-Shop. Umfasst Systemupdates, Sicherheitsprüfungen, Performance-Optimierung und monatlichen Support.
+75;Wartungspaket Premium;JTL-Wawi, JTL-WMS & JTL-eazyAuction Wartung: Umfassendes Wartungspaket, das alle Kernsysteme abdeckt. Beinhaltet Updates, Backups, Sicherheitstests und Prioritätssupport.
+76;Wartungspaket Individuell;JTL-Wawi, JTL-WMS, JTL-eazyAuction, JTL-Shop: Maßgeschneidertes Wartungspaket, das auf die spezifischen Bedürfnisse des Kunden abgestimmt ist. Umfasst alle gewünschten Dienstleistungen mit flexiblen Zeitrahmen.
+77;Notfall-Support;JTL Notfall-Support: Sofortige Unterstützung bei Systemausfällen oder kritischen Problemen. 24/7 Verfügbarkeit mit garantierten Reaktionszeiten.
+78;Chargennummer und MHD erfassen;JTL-WMS Lagerverwaltung: Erfassung und Verwaltung von Chargennummern und Mindesthaltbarkeitsdaten (MHD) für eine präzise Bestandsführung und Rückverfolgbarkeit. Unterstützung bei der Einrichtung und Optimierung der entsprechenden Prozesse in JTL-WMS.
+79;JTL-Wawi App;JTL-Wawi Mobile: Unterstützung bei der Installation und grundlegenden Einrichtung der JTL-Wawi App auf mobilen Geräten. Sicherstellen, dass die App korrekt mit JTL-Wawi synchronisiert ist und alle notwendigen Funktionen aktiviert sind.
+80;JTL-Wawi App Schulung;JTL-Wawi Mobile: Durchführung einer Schulung für Mitarbeiter zur effizienten Nutzung der JTL-Wawi App. Die Schulung deckt die Grundfunktionen ab, wie z.B. das Einsehen von Lagerbeständen, das Verwalten von Aufträgen und die Nutzung der App im Tagesgeschäf
+81;Support und Wartung der JTL-Wawi App;JTL-Wawi Mobile: Regelmäßiger Support und Wartung der JTL-Wawi App, um sicherzustellen, dass sie reibungslos funktioniert. Dies beinhaltet die Behebung von Problemen, Durchführung von Updates und Anpassung der App an geänderte Geschäftsanforderungen.
+82;JTL-POS Installation;JTL-POS: Installation und grundlegende Einrichtung der JTL-POS-Software auf Kassensystemen oder mobilen Geräten. Sicherstellen, dass JTL-POS korrekt mit JTL-Wawi synchronisiert ist und alle Funktionen, wie z.B. die Bestandsanzeige und Verkaufsabwicklung, 
+83;JTL-POS Schulung;JTL-POS: Durchführung einer Schulung für Mitarbeiter zur effektiven Nutzung von JTL-POS im täglichen Geschäftsbetrieb. Die Schulung umfasst die Verkaufsabwicklung, Kassenfunktionen, Artikelverwaltung sowie die Nutzung von JTL-POS in Verbindung mit JTL-Waw
+84;JTL Flexibler Support;Unterstützung für spezifische Aufgaben und Herausforderungen in JTL-Wawi. Maßgeschneiderte Hilfe durch erfahrene Experten, die gezielt dort ansetzen, wo es benötigt wird. Ideal für gezielte Problemstellungen, Anpassungen oder Optimierung
+85;WooCommerce-Shop einbinden;WooCommerce-Shop: Anbindung des WooCommerce-Shop an JTL-Wawi. Synchronisation von Artikeln, Kategorien und Beständen.
+86;JTL-Shop;Kopie von Einrichtung der Basisfunktionen, einschließlich Lagerstruktur, Bestandsverwaltung und Benutzerrechte. #1
+101;JTL-Projekt;Kopie von Kopie von Einrichtung der Basisfunktionen, einschließlich Lagerstruktur, Bestandsverwaltung und Benutzerrechte. #1 #1
+102;Social Media ;Ihr Partner für Erfolg im E-Commerce – Effektives Social Media Management
+108;Social Media ;Ihr Partner für Erfolg im E-Commerce – Effektives Social Media Management #1

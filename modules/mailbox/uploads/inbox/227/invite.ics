@@ -1,0 +1,27 @@
+BEGIN:VCALENDAR
+PRODID:-//Wildix SRL//conference//EN
+VERSION:2.0
+CALSCALE:GREGORIAN
+METHOD:REQUEST
+BEGIN:VEVENT
+DTSTART:20250116T083000Z
+DTEND:20250116T090000Z
+DTSTAMP:20250115T110639Z
+ORGANIZER;CN="Josef":mailto:josef@sellx.de
+UID:ccab928710@wildix.com
+ATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;RSVP=TRUE
+	;CN="Josef";X-NUM-GUESTS=0:mailto:josef@sellx.de
+ATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=NEEDS-ACTION;RSVP=
+	TRUE;CN="Trixi";X-NUM-GUESTS=0:mailto:trixi@sellx.de
+ATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=NEEDS-ACTION;RSVP=
+	TRUE;CN="ds-handel@gmx.net";X-NUM-GUESTS=0:mailto:ds-handel@gmx.net
+CREATED:20250115T110639Z
+DESCRIPTION:\nEinladung zur Konferenz von: \nJosef\n\nWeb-Konferenz: \nhttps://conference.wildix.com/conf/058eac0811-7061288\n\nEinwahlnummer (nur für Mobil-Telefone): \n+498920194075,7061288\n\nEinwahlnummer: \n+498920194075\n\nLokale Nummer finden: \nhttps://conference.wildix.com/audiocall.html\n\nKonferenz ID-Nummer: \n7061288\n\nWann: \n16/01/2025 09:30 (Europe/Berlin)\n\n
+LAST-MODIFIED:20250115T110639Z
+LOCATION:
+SEQUENCE:1
+STATUS:CONFIRMED
+SUMMARY:Kick-Off Meeting: Einführung des Kundenportals sellx
+TRANSP:OPAQUE
+END:VEVENT
+END:VCALENDAR

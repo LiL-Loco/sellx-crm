@@ -1,5 +1,6 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed'); ?>
 
+
 <div class="mtop15 preview-top-wrapper">
     <div class="row">
         <div class="col-md-3">
@@ -270,6 +271,12 @@ echo $items->table();
                     } ?>
                 </div>
                 <?php } ?>
+                <hr />
+                <div class="col-md-12 invoice-html-note">
+                    <p>
+                        <b>Girocode</b>
+                    </p>
+                </div>
                 <?php if (! empty($invoice->clientnote)) { ?>
                 <div class="col-md-12 invoice-html-note">
                     <p>
