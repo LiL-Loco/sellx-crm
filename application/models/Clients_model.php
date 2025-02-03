@@ -253,14 +253,14 @@ class Clients_model extends App_Model
         if ($update_all_other_transactions || $update_credit_notes) {
             $transactions_update = [
                 'billing_street'   => $data['billing_street'],
-                'billing_zip'      => $data['billing_zip'],
                 'billing_city'     => $data['billing_city'],
                 'billing_state'    => $data['billing_state'],
+                'billing_zip'      => $data['billing_zip'],
                 'billing_country'  => $data['billing_country'],
                 'shipping_street'  => $data['shipping_street'],
-                'shipping_zip'     => $data['shipping_zip'],
                 'shipping_city'    => $data['shipping_city'],
                 'shipping_state'   => $data['shipping_state'],
+                'shipping_zip'     => $data['shipping_zip'],
                 'shipping_country' => $data['shipping_country'],
             ];
 
@@ -1241,7 +1241,7 @@ class Clients_model extends App_Model
      */
     public function get_customer_billing_and_shipping_details($id)
     {
-        $this->db->select('billing_street,billing_zip,billing_city,billing_state,billing_country,shipping_street,shipping_zip,shipping_city,shipping_state,shipping_country');
+        $this->db->select('billing_street,billing_city,billing_state,billing_zip,billing_country,shipping_street,shipping_city,shipping_state,shipping_zip,shipping_country');
         $this->db->from(db_prefix() . 'clients');
         $this->db->where('userid', $id);
 

@@ -71,11 +71,7 @@ class Name
                 return static function () use ($generator) {
                     return $generator->address;
                 };
-                case 'postcode':
-                    case 'zipcode':
-                        return static function () use ($generator) {
-                            return $generator->postcode;
-                        };
+
             case 'city':
             case 'town':
                 return static function () use ($generator) {
@@ -85,6 +81,12 @@ class Name
             case 'streetaddress':
                 return static function () use ($generator) {
                     return $generator->streetAddress;
+                };
+
+            case 'postcode':
+            case 'zipcode':
+                return static function () use ($generator) {
+                    return $generator->postcode;
                 };
 
             case 'state':

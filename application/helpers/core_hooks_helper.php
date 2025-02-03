@@ -79,7 +79,7 @@ function _maybe_add_estimate_request_link_in_customers_area()
 {
     $formId = get_option('show_estimate_request_in_customers_area');
 
-    if (! is_client_logged_in()) {
+    if ($formId != 0) {
         $CI = &get_instance();
 
         $CI->load->model('estimate_request_model');
@@ -97,11 +97,5 @@ function _maybe_add_estimate_request_link_in_customers_area()
                 'position' => 1,
             ]);
         }
-    
-    add_theme_menu_item('request-app', [
-        'name'     => _l('lead-appointment'),
-        'href'     => 'https://kundenportal.sellx.studio/appointly/appointments_public/form?col=col-md-8+col-md-offset-2',
-        'position' => 1,
-    ]);
-}
+    }
 }

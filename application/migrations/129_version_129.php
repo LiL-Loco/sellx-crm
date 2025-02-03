@@ -148,7 +148,7 @@ class Migration_Version_129 extends CI_Migration
         $this->db->query("ALTER TABLE `tblprojectmembers` ADD INDEX(`project_id`);");
         $this->db->query("ALTER TABLE `tblprojectmembers` ADD INDEX(`staff_id`);");
 
-        $this->db->query("ALTER TABLE `tblleads` ADD `country` INT NOT NULL DEFAULT '0' AFTER `company`, ADD `zip` VARCHAR(15) NULL AFTER `street`, ADD `city` VARCHAR(100) NULL AFTER `zip`, ADD `state` VARCHAR(50) NULL AFTER `city`, ADD `address` VARCHAR(100) NULL AFTER `state`;");
+        $this->db->query("ALTER TABLE `tblleads` ADD `country` INT NOT NULL DEFAULT '0' AFTER `company`, ADD `zip` VARCHAR(15) NULL AFTER `country`, ADD `city` VARCHAR(100) NULL AFTER `zip`, ADD `state` VARCHAR(50) NULL AFTER `city`, ADD `address` VARCHAR(100) NULL AFTER `state`;");
         $this->db->query("ALTER TABLE `tblleads` ADD `title` VARCHAR(100) NULL AFTER `name`;");
 
         $this->db->query("ALTER TABLE `tblleads` ADD `last_lead_status` INT NOT NULL DEFAULT '0' AFTER `junk`;");

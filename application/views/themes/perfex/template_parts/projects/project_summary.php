@@ -1,5 +1,5 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed'); ?>
-<dl class="tw-grid tw-grid-cols-1 md:tw-grid-cols-5 tw-gap-2 sm:tw-gap-4 tw-mb-10">
+<div class="tw-grid tw-grid-cols-3 md:tw-grid-cols-3 tw-gap-2 sm:tw-gap-4">
     <?php foreach ($project_statuses as $status) { ?>
     <a href="<?= site_url('clients/projects/' . $status['id']); ?>"
         class="tw-border tw-border-solid tw-border-neutral-200 tw-rounded-md hover:tw-bg-neutral-100 <?= isset($list_statuses) && in_array($status['id'], $list_statuses) ? 'tw-bg-white' : 'tw-bg-neutral-50 '; ?>">
@@ -16,4 +16,4 @@
         </div>
     </a>
     <?php } ?>
-</dl>
+</div>

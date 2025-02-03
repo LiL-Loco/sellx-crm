@@ -338,9 +338,9 @@ if (!function_exists('format_customer_info')) {
         $companyName = hooks()->apply_filters('customer_info_format_company_name', $companyName, $filterData);
 
         $street  = in_array($type, ['billing', 'shipping']) ? $data->{$type . '_street'} : '';
-        $zipCode = in_array($type, ['billing', 'shipping']) ? $data->{$type . '_zip'} : '';
         $city    = in_array($type, ['billing', 'shipping']) ? $data->{$type . '_city'} : '';
         $state   = in_array($type, ['billing', 'shipping']) ? $data->{$type . '_state'} : '';
+        $zipCode = in_array($type, ['billing', 'shipping']) ? $data->{$type . '_zip'} : '';
 
         $countryCode = '';
         $countryName = '';
@@ -375,10 +375,9 @@ if (!function_exists('format_customer_info')) {
         $format = _info_format_replace('company_name', $companyName, $format);
         $format = _info_format_replace('customer_id', $clientId, $format);
         $format = _info_format_replace('street', $street, $format);
-        $format = _info_format_replace('zip_code', $zipCode, $format);
         $format = _info_format_replace('city', $city, $format);
         $format = _info_format_replace('state', $state, $format);
-
+        $format = _info_format_replace('zip_code', $zipCode, $format);
         $format = _info_format_replace('country_code', $countryCode, $format);
         $format = _info_format_replace('country_name', $countryName, $format);
         $format = _info_format_replace('phone', $phone, $format);
@@ -458,11 +457,13 @@ if (!function_exists('format_proposal_info')) {
 
         $format = _info_format_replace('proposal_to', $proposalTo, $format);
         $format = _info_format_replace('address', $proposal->address, $format);
-        $format = _info_format_replace('zip_code', $proposal->zip, $format);
         $format = _info_format_replace('city', $proposal->city, $format);
         $format = _info_format_replace('state', $proposal->state, $format);
+
         $format = _info_format_replace('country_code', $countryCode, $format);
         $format = _info_format_replace('country_name', $countryName, $format);
+
+        $format = _info_format_replace('zip_code', $proposal->zip, $format);
         $format = _info_format_replace('phone', $phone, $format);
         $format = _info_format_replace('email', $email, $format);
 
@@ -501,12 +502,11 @@ if (!function_exists('format_organization_info')) {
 
         $format = _info_format_replace('company_name', '<b style="color:black" class="company-name-formatted">' . get_option('invoice_company_name') . '</b>', $format);
         $format = _info_format_replace('address', get_option('invoice_company_address'), $format);
-        $format = _info_format_replace('zip_code', get_option('invoice_company_postal_code'), $format);
         $format = _info_format_replace('city', get_option('invoice_company_city'), $format);
         $format = _info_format_replace('state', get_option('company_state'), $format);
+
+        $format = _info_format_replace('zip_code', get_option('invoice_company_postal_code'), $format);
         $format = _info_format_replace('country_code', get_option('invoice_company_country_code'), $format);
-        
-        
         $format = _info_format_replace('phone', get_option('invoice_company_phonenumber'), $format);
         $format = _info_format_replace('vat_number', $vat, $format);
         $format = _info_format_replace('vat_number_with_label', $vat == '' ? '':_l('company_vat_number') . ': ' . $vat, $format);

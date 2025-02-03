@@ -6,8 +6,9 @@
 		<?php if ($company_logo_light != '') { ?>
 		<div class="row">
 			<div class="col-md-9">
+				<h5 style="margin-bottom:30px">Logo Weiß</h5>
 				<img src="<?= base_url('uploads/company/' . $company_logo_light); ?>"
-					class="img img-responsive">
+					class="img img-responsive" style="max-width:25%">
 			</div>
 			<?php if (staff_can('delete', 'settings')) { ?>
 			<div class="col-md-3 text-right">
@@ -31,8 +32,9 @@
 		<?php if ($company_logo_dark != '') { ?>
 		<div class="row">
 			<div class="col-md-9">
+			<h5 style="margin-bottom:30px">Logo Schwarz</h5>
 				<img src="<?= base_url('uploads/company/' . $company_logo_dark); ?>"
-					class="img img-responsive">
+					class="img img-responsive" style="max-width:25%">
 			</div>
 			<?php if (staff_can('delete', 'settings')) { ?>
 			<div class="col-md-3 text-right">

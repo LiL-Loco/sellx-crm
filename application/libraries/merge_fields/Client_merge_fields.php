@@ -214,6 +214,20 @@ class Client_merge_fields extends App_merge_fields
                     ],
                 ],
                 [
+                    'name'      => 'Client City',
+                    'key'       => '{client_city}',
+                    'available' => [
+                        'client',
+                        'invoice',
+                        'estimate',
+                        'ticket',
+                        'contract',
+                        'project',
+                        'credit_note',
+                        'subscriptions',
+                    ],
+                ],
+                [
                     'name'      => 'Client Zip',
                     'key'       => '{client_zip}',
                     'available' => [
@@ -229,20 +243,6 @@ class Client_merge_fields extends App_merge_fields
                     'templates' => [
                         'invoices-batch-payments',
                     ]
-                ],
-                [
-                    'name'      => 'Client City',
-                    'key'       => '{client_city}',
-                    'available' => [
-                        'client',
-                        'invoice',
-                        'estimate',
-                        'ticket',
-                        'contract',
-                        'project',
-                        'credit_note',
-                        'subscriptions',
-                    ],
                 ],
                 [
                     'name'      => 'Client State',
@@ -428,8 +428,8 @@ class Client_merge_fields extends App_merge_fields
         $fields['{client_company}']                    = '';
         $fields['{client_phonenumber}']                = '';
         $fields['{client_country}']                    = '';
-        $fields['{client_zip}']                        = '';
         $fields['{client_city}']                       = '';
+        $fields['{client_zip}']                        = '';
         $fields['{client_state}']                      = '';
         $fields['{client_address}']                    = '';
         $fields['{client_website}']                    = '';
@@ -471,9 +471,8 @@ class Client_merge_fields extends App_merge_fields
         $fields['{client_company}']                    = e($client->company, false);
         $fields['{client_phonenumber}']                = e($client->phonenumber);
         $fields['{client_country}']                    = e(get_country_short_name($client->country));
-        $fields['{client_zip}']                        = e($client->zip);
         $fields['{client_city}']                       = e($client->city, false);
-
+        $fields['{client_zip}']                        = e($client->zip);
         $fields['{client_state}']                      = e($client->state, false);
         $fields['{client_address}']                    = e($client->address, false);
         $fields['{client_website}']                    = e($client->website);

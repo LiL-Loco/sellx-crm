@@ -432,7 +432,7 @@ if (!function_exists('render_form_builder_field')) {
     function render_form_builder_field($field)
     {
         $type         = $field->type;
-        $classNameCol = 'col-md-6';
+        $classNameCol = 'col-md-12';
         if (isset($field->className)) {
             if (strpos($field->className, 'form-col') !== false) {
                 $classNames = explode(' ', $field->className);
@@ -455,9 +455,8 @@ if (!function_exists('render_form_builder_field')) {
             }
         }
 
-        
+        echo '<div class="' . $classNameCol . '">';
         if ($type == 'header' || $type == 'paragraph') {
-            echo '<div class="col-md-12">';
             echo '<' . $field->subtype . ' class="' . (isset($field->className) ? $field->className : '') . '"';
 
             if ($type === 'paragraph') {
@@ -468,7 +467,6 @@ if (!function_exists('render_form_builder_field')) {
 
             echo ' >' . check_for_links(nl2br($field->label)) . '</' . $field->subtype . '>';
         } else {
-            echo '<div class="col-md-6">';
             echo '<div class="form-group" data-type="' . $type . '" data-name="' . $field->name . '" data-required="' . (isset($field->required) ? true : 'false') . '">';
             $label = ($field->label ?? '') ?: '';
 

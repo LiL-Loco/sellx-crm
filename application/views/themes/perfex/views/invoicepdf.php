@@ -39,6 +39,14 @@ $invoice_info .= '<div style="color:#424242;">';
 $invoice_info .= format_customer_info($invoice, 'invoice', 'billing');
 $invoice_info .= '</div>';
 
+// ship to to
+if ($invoice->include_shipping == 1 && $invoice->show_shipping_on_invoice == 1) {
+    $invoice_info .= '<br /><b>' . _l('ship_to') . ':</b>';
+    $invoice_info .= '<div style="color:#424242;">';
+    $invoice_info .= format_customer_info($invoice, 'invoice', 'shipping');
+    $invoice_info .= '</div>';
+}
+
 $invoice_info .= '<br />' . _l('invoice_data_date') . ' ' . _d($invoice->date) . '<br />';
 
 $invoice_info = hooks()->apply_filters('invoice_pdf_header_after_date', $invoice_info, $invoice);

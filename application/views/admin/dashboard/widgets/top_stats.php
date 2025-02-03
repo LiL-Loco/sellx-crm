@@ -122,7 +122,7 @@
                     </span>
                 </div>
 
-                <div class="progress tw-mb-0 tw-mt-5 progress-bar-mini">
+                <div class="progress tw-mb-0 tw-mt-4 progress-bar-mini">
                     <div class="progress-bar no-percent-text not-dynamic"
                         style="background:<?php echo e($project_status['color']); ?>" role="progressbar"
                         aria-valuenow="<?php echo e($percent_in_progress_projects); ?>" aria-valuemin="0"

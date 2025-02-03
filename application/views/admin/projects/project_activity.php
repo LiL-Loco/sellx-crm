@@ -46,7 +46,7 @@
                                 data-id="<?= e($activity['id']); ?>"
                                 class="onoffswitch-checkbox"
                                 data-switch-url="<?= admin_url(); ?>projects/change_activity_visibility"
-                                <?= $activity['visible_to_customer'] == 0 ? 'checked' : ''; ?>>
+                                <?= $activity['visible_to_customer'] == 1 ? 'checked' : ''; ?>>
                                 <label class="onoffswitch-label"
                                     for="<?= e($activity['id']); ?>"></label>
                             </div>

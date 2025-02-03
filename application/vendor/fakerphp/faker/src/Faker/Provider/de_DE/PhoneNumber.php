@@ -25,18 +25,18 @@ class PhoneNumber extends \Faker\Provider\PhoneNumber
      */
     protected static $formats = [
         // International format
+        '+49 {{areaCode}} #######',
+        '+49 {{areaCode}} ### ####',
+        '+49 (0{{areaCode}}) #######',
+        '+49 (0{{areaCode}}) ### ####',
         '+49{{areaCode}}#######',
-        '+49{{areaCode}}#######',
-        '+49{{areaCode}}#######',
-        '+49{{areaCode}}#######',
-        '+49{{areaCode}}#######',
-        '+49{{areaCode}}#######',
+        '+49{{areaCode}}### ####',
 
         // Standard formats
-        '+49{{areaCode}}#######',
-        '+49{{areaCode}}#######',
-        '+49{{areaCode}}#######',
-        '+49{{areaCode}}#######',
+        '0{{areaCode}} ### ####',
+        '0{{areaCode}} #######',
+        '(0{{areaCode}}) ### ####',
+        '(0{{areaCode}}) #######',
     ];
 
     protected static $e164Formats = [
@@ -78,10 +78,10 @@ class PhoneNumber extends \Faker\Provider\PhoneNumber
 
     protected static $mobileFormats = [
         '+49{{mobileCode}}#######',
-        '+49{{mobileCode}}#######',
-        '+49{{mobileCode}}#######',
-        '+49{{mobileCode}}#######',
-        '+49{{mobileCode}}#######',
+        '+49 {{mobileCode}} ### ####',
+        '0{{mobileCode}}#######',
+        '0{{mobileCode}} ### ####',
+        '0 {{mobileCode}} ### ####',
     ];
 
     /**

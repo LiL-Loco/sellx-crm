@@ -26,11 +26,8 @@
 
             <?php hooks()->do_action('after_dashboard_top_container'); ?>
 
-            <div class="col-md-6" data-container="middle-left-6">
-                <?php render_dashboard_widgets('middle-left-6'); ?>
-            </div>
-            <div class="col-md-6" data-container="middle-right-6">
-                <?php render_dashboard_widgets('middle-right-6'); ?>
+            <div class="col-md-12" data-container="middle-12" style="margin-top: 25px;">
+                <?php render_dashboard_widgets('middle-12'); ?>
             </div>
 
             <?php hooks()->do_action('after_dashboard_half_container'); ?>

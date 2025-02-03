@@ -157,10 +157,9 @@ class Authorize_acceptjs_gateway extends App_gateway
         }
 
         $customerAddress->setAddress($data['invoice']->billing_street);
-        $customerAddress->setZip($data['invoice']->billing_zip);
         $customerAddress->setCity($data['invoice']->billing_city);
         $customerAddress->setState($data['invoice']->billing_state);
-
+        $customerAddress->setZip($data['invoice']->billing_zip);
 
         if ($billingCountry) {
             $customerAddress->setCountry($billingCountry->iso2);

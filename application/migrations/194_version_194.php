@@ -42,8 +42,8 @@ class Migration_Version_194 extends CI_Migration
         delete_option('send_renewed_invoice_from_recurring_to_email');
         $proposalInfoFormat = "{proposal_to}<br />\r
 {address}<br />\r
-{zip_code} {city}<br />\r
-{state} {country_code}<br />\r
+{city} {state}<br />\r
+{country_code} {zip_code}<br />\r
 {phone}<br />\r
 {email}<br />";
 

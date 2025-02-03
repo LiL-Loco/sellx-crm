@@ -50,9 +50,9 @@ class Estimate_request extends AdminController
             }
 
             $data['billing_street']  = $data['address'];
-            $data['billing_zip']     = $data['zip'];
             $data['billing_city']    = $data['city'];
             $data['billing_state']   = $data['state'];
+            $data['billing_zip']     = $data['zip'];
             $data['billing_country'] = $data['country'];
 
             $data['is_primary'] = 1;

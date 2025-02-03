@@ -26,6 +26,10 @@ h3 {
   font-weight: 400;
 }
 
+.container {
+  width: 1300px!important;
+}
+
 .noscroll {
   overflow: hidden !important;
 }
@@ -3938,6 +3942,8 @@ li.task.overdue-task .panel-body {
 .tooltip>.tooltip-inner {
   padding: 7px 10px;
   background: #1f2d3d;
+  line-height: 1.8;
+  font-size: 12px;
 }
 
 .email-template-heading {

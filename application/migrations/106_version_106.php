@@ -92,15 +92,15 @@ class Migration_Version_106 extends CI_Migration
         $this->db->query("ALTER TABLE `tblleads` ADD `is_public` BOOLEAN NOT NULL DEFAULT FALSE AFTER `email_integration_uid`;");
 
         // Add billing and shipping details for customer
-        $this->db->query("ALTER TABLE `tblclients` ADD `billing_street` VARCHAR(200) NULL AFTER `sale_agent`, ADD `billing_zip` VARCHAR(100) NULL AFTER `billing_street`, ADD `billing_city` VARCHAR(100) NULL AFTER `billing_zip`, ADD `billing_state` VARCHAR(100) NULL AFTER `billing_city`, ADD `billing_country` INT NULL AFTER `billing_zip`, ADD `shipping_street` VARCHAR(200) NULL AFTER `billing_country`, ADD `shipping_zip` VARCHAR(100) NULL AFTER `shipping_street`, ADD `shipping_city` VARCHAR(100) NULL AFTER `shipping_zip`, ADD `shipping_state` VARCHAR(100) NULL AFTER `shipping_city`, ADD `shipping_country` INT NULL AFTER `shipping_zip`;");
+        $this->db->query("ALTER TABLE `tblclients` ADD `billing_street` VARCHAR(200) NULL AFTER `leadid`, ADD `billing_city` VARCHAR(100) NULL AFTER `billing_street`, ADD `billing_state` VARCHAR(100) NULL AFTER `billing_city`, ADD `billing_zip` VARCHAR(100) NULL AFTER `billing_state`, ADD `billing_country` INT NULL AFTER `billing_zip`, ADD `shipping_street` VARCHAR(200) NULL AFTER `billing_country`, ADD `shipping_city` VARCHAR(100) NULL AFTER `shipping_street`, ADD `shipping_state` VARCHAR(100) NULL AFTER `shipping_city`, ADD `shipping_zip` VARCHAR(100) NULL AFTER `shipping_state`, ADD `shipping_country` INT NULL AFTER `shipping_zip`;");
 
         $this->db->query("ALTER TABLE `tblclients` ADD `longitude` VARCHAR(300) NULL AFTER `shipping_country`, ADD `latitude` VARCHAR(300) NULL AFTER `longitude`;");
 
         // Add billing and shipping details for invoices
-        $this->db->query("ALTER TABLE `tblinvoices` ADD `billing_street` VARCHAR(200) NULL AFTER `sale_agent`, ADD `billing_zip` VARCHAR(100) NULL AFTER `billing_street`, ADD `billing_city` VARCHAR(100) NULL AFTER `billing_zip`, ADD `billing_state` VARCHAR(100) NULL AFTER `billing_city`, ADD `billing_country` INT NULL AFTER `billing_zip`, ADD `shipping_street` VARCHAR(200) NULL AFTER `billing_country`, ADD `shipping_zip` VARCHAR(100) NULL AFTER `shipping_street`, ADD `shipping_city` VARCHAR(100) NULL AFTER `shipping_zip`, ADD `shipping_state` VARCHAR(100) NULL AFTER `shipping_city`, ADD `shipping_country` INT NULL AFTER `shipping_zip`;");
+        $this->db->query("ALTER TABLE `tblinvoices` ADD `billing_street` VARCHAR(200) NULL AFTER `sale_agent`, ADD `billing_city` VARCHAR(100) NULL AFTER `billing_street`, ADD `billing_state` VARCHAR(100) NULL AFTER `billing_city`, ADD `billing_zip` VARCHAR(100) NULL AFTER `billing_state`, ADD `billing_country` INT NULL AFTER `billing_zip`, ADD `shipping_street` VARCHAR(200) NULL AFTER `billing_country`, ADD `shipping_city` VARCHAR(100) NULL AFTER `shipping_street`, ADD `shipping_state` VARCHAR(100) NULL AFTER `shipping_city`, ADD `shipping_zip` VARCHAR(100) NULL AFTER `shipping_state`, ADD `shipping_country` INT NULL AFTER `shipping_zip`;");
 
         // Add billing and shipping details for invoices
-        $this->db->query("ALTER TABLE `tblestimates` ADD `billing_street` VARCHAR(200) NULL AFTER `sale_agent`, ADD `billing_zip` VARCHAR(100) NULL AFTER `billing_street`, ADD `billing_city` VARCHAR(100) NULL AFTER `billing_zip`, ADD `billing_state` VARCHAR(100) NULL AFTER `billing_city`, ADD `billing_country` INT NULL AFTER `billing_zip`, ADD `shipping_street` VARCHAR(200) NULL AFTER `billing_country`, ADD `shipping_zip` VARCHAR(100) NULL AFTER `shipping_street`, ADD `shipping_city` VARCHAR(100) NULL AFTER `shipping_zip`, ADD `shipping_state` VARCHAR(100) NULL AFTER `shipping_city`, ADD `shipping_country` INT NULL AFTER `shipping_zip`;");
+        $this->db->query("ALTER TABLE `tblestimates` ADD `billing_street` VARCHAR(200) NULL AFTER `sale_agent`, ADD `billing_city` VARCHAR(100) NULL AFTER `billing_street`, ADD `billing_state` VARCHAR(100) NULL AFTER `billing_city`, ADD `billing_zip` VARCHAR(100) NULL AFTER `billing_state`, ADD `billing_country` INT NULL AFTER `billing_zip`, ADD `shipping_street` VARCHAR(200) NULL AFTER `billing_country`, ADD `shipping_city` VARCHAR(100) NULL AFTER `shipping_street`, ADD `shipping_state` VARCHAR(100) NULL AFTER `shipping_city`, ADD `shipping_zip` VARCHAR(100) NULL AFTER `shipping_state`, ADD `shipping_country` INT NULL AFTER `shipping_zip`;");
 
         $this->db->query("ALTER TABLE `tblestimates` ADD `include_shipping` BOOLEAN NOT NULL AFTER `shipping_country`, ADD `show_shipping_on_estimate` BOOLEAN NOT NULL DEFAULT TRUE AFTER `include_shipping`;");
 
@@ -162,9 +162,9 @@ class Migration_Version_106 extends CI_Migration
             $this->db->where('id', $invoice['id']);
             $this->db->update(db_prefix().'invoices', array(
                 'billing_street' => $client->address,
-                'billing_zip' => $client->zip,
                 'billing_city' => $client->city,
                 'billing_state' => $client->state,
+                'billing_zip' => $client->zip,
                 'billing_country' => $client->country
             ));
         }
@@ -178,9 +178,9 @@ class Migration_Version_106 extends CI_Migration
             $this->db->where('id', $estimate['id']);
             $this->db->update(db_prefix().'estimates', array(
                 'billing_street' => $client->address,
-                'billing_zip' => $client->zip,
                 'billing_city' => $client->city,
                 'billing_state' => $client->state,
+                'billing_zip' => $client->zip,
                 'billing_country' => $client->country
             ));
         }
@@ -191,9 +191,9 @@ class Migration_Version_106 extends CI_Migration
             $this->db->where('userid', $client['userid']);
             $this->db->update(db_prefix().'clients', array(
                 'billing_street' => $client['address'],
-                'billing_zip' => $client['zip'],
                 'billing_city' => $client['city'],
                 'billing_state' => $client['state'],
+                'billing_zip' => $client['zip'],
                 'billing_country' => $client['country']
             ));
         }

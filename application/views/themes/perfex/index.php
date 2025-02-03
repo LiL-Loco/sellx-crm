@@ -13,8 +13,7 @@
         <?php } ?>
         <div class="container">
             <?php hooks()->do_action('customers_content_container_start'); ?>
-            <div class="row">
-                <?php
+            <?php
             /**
              * Don't show calendar for invoices, estimates, proposals etc.. views where no navigation is included or in kb area
              */
@@ -52,7 +51,7 @@
                 <div class="clearfix"></div>
                 <?php } ?>
                 <?= theme_template_view(); ?>
-            </div>
+
         </div>
     </div>
 </div>
@@ -64,19 +63,8 @@ app_customers_footer();
 /**
  * Check for any alerts stored in session
  */
-
 app_js_alerts();
 ?>
-<script>
-  const beamsClient = new PusherPushNotifications.Client({
-    instanceId: 'e55c0e55-20e5-48b2-b97d-738dad1a7ac4',
-  });
-
-  beamsClient.start()
-    .then(() => beamsClient.addDeviceInterest('hello'))
-    .then(() => console.log('Successfully registered and subscribed!'))
-    .catch(console.error);
-</script>
 </body>
 
 </html>

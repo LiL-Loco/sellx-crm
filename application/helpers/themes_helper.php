@@ -34,14 +34,7 @@ function add_default_theme_menu_items()
             ]);
     }
 
-    if (!is_client_logged_in()) {
-        add_theme_menu_item('login', [
-                    'name'     => _l('clients_nav_login'),
-                    'href'     => site_url('authentication/login'),
-                    'position' => 100,
-                    'icon'     => 'fa-regular fa-user',
-                ]);
-    } else {
+    if (is_client_logged_in()) {
         if (has_contact_permission('projects')) {
             add_theme_menu_item('projects', [
                     'name'     => _l('clients_nav_projects'),

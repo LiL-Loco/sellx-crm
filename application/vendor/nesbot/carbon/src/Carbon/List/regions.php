@@ -96,7 +96,7 @@ return [
     'CX' => 'Christmas Island',
     'CY' => 'Cyprus',
     'CZ' => 'Czechia',
-    'DE' => 'Deutschland',
+    'DE' => 'Germany',
     'DJ' => 'Djibouti',
     'DK' => 'Denmark',
     'DM' => 'Dominica',

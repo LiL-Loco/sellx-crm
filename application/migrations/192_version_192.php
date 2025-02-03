@@ -20,8 +20,8 @@ class Migration_Version_192 extends CI_Migration
 
 
          $addressFormat = "{company_name}<br />
-{address} {zip_code} {city} <br />\r
-{state} {country_code} <br />";
+{address} {city} {state}<br />\r
+{country_code} {zip_code}<br />";
 
         if(get_option('invoice_company_phonenumber') != ''){
             $addressFormat .= PHP_EOL.'{phone}<br />';
@@ -42,8 +42,8 @@ class Migration_Version_192 extends CI_Migration
         add_option('company_info_format',$addressFormat,0);
 
         $customerAddressFormat = "{company_name}<br />
-{street} {zip_code} {city} <br />\r
-{state} {country_code} <br />";
+{street} {city} {state}<br />\r
+{country_code} {zip_code}<br />";
 
         if(get_option('company_requires_vat_number_field') == '1'){
             $customerAddressFormat .= PHP_EOL.'{vat_number_with_label}<br />';

@@ -116,7 +116,8 @@ foreach ($custom_fields as $field) {
         <div class="panel_s single-ticket-reply-area">
             <div class="panel-body">
                 <div class="form-group">
-                    <textarea name="message" class="form-control" rows="8"></textarea>
+                <?php $status = ['ticketstatusid' => $ticket->ticketstatusid]; ?>
+                <textarea name="message" class="form-control" rows="8" <?= ($status['ticketstatusid'] == 5 ? 'disabled placeholder="Dieses Ticket ist geschlossen. Daher kannst du hier keinen Text mehr eingeben."' : ''); ?>></textarea>
                     <?= form_error('message'); ?>
                 </div>
                 <div class="attachments_area">
@@ -146,7 +147,8 @@ foreach ($custom_fields as $field) {
             </div>
             <div class="panel-footer text-right">
                 <button class="btn btn-primary" type="submit" data-form="#ticket-reply" autocomplete="off"
-                    data-loading-text="<?= _l('wait_text'); ?>">
+                    data-loading-text="<?= _l('wait_text'); ?>"
+                    <?= ($ticket->ticketstatusid == 5 ? 'disabled title="Dieses Ticket ist geschlossen und kann nicht beantwortet werden."' : ''); ?>>
                     <?= _l('ticket_single_add_reply'); ?>
                 </button>
             </div>

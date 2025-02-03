@@ -1,6 +1,5 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed'); ?>
 
-
 <div class="mtop15 preview-top-wrapper">
     <div class="row">
         <div class="col-md-3">
@@ -82,6 +81,15 @@
                     <address class="invoice-html-customer-billing-info tw-text-neutral-500 tw-text-normal">
                         <?= format_customer_info($invoice, 'invoice', 'billing'); ?>
                     </address>
+                    <!-- shipping details -->
+                    <?php if ($invoice->include_shipping == 1 && $invoice->show_shipping_on_invoice == 1) { ?>
+                    <span class="tw-font-medium tw-text-neutral-700 invoice-html-ship-to">
+                        <?= _l('ship_to'); ?>
+                    </span>
+                    <address class="invoice-html-customer-shipping-info tw-text-neutral-500 tw-text-normal">
+                        <?= format_customer_info($invoice, 'invoice', 'shipping'); ?>
+                    </address>
+                    <?php } ?>
                     <p class="invoice-html-date tw-mb-0 tw-text-normal">
                         <span class="tw-font-medium tw-text-neutral-700">
                             <?= _l('invoice_data_date'); ?>
@@ -271,12 +279,6 @@ echo $items->table();
                     } ?>
                 </div>
                 <?php } ?>
-                <hr />
-                <div class="col-md-12 invoice-html-note">
-                    <p>
-                        <b>Girocode</b>
-                    </p>
-                </div>
                 <?php if (! empty($invoice->clientnote)) { ?>
                 <div class="col-md-12 invoice-html-note">
                     <p>

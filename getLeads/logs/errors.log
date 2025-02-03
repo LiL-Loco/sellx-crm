@@ -1,0 +1,34 @@
+[2025-02-01 23:33:39] Payload: {
+    "name": "Unbekannter Lead",
+    "company": "Keine Firma",
+    "email": "Keine E-Mail Adresse",
+    "phonenumber": "",
+    "source": "5",
+    "status": "2",
+    "assigned": "7",
+    "description": "Keine Beschreibung"
+}
+[2025-02-01 23:33:39] Lead erfolgreich erstellt: {"status":true,"message":"Lead add successful."}
+[2025-02-01 23:36:22] Payload: {
+    "name": "Unbekannter Lead",
+    "company": "Keine Firma",
+    "email": "Keine E-Mail Adresse",
+    "phonenumber": "",
+    "source": "5",
+    "status": "2",
+    "assigned": "7",
+    "description": "Keine Beschreibung"
+}
+[2025-02-01 23:36:22] Lead erfolgreich erstellt: {"status":true,"message":"Lead add successful."}
+[2025-02-01 23:37:36] Payload: {
+    "name": "Unbekannter Lead",
+    "company": "Keine Firma",
+    "email": "Keine E-Mail Adresse",
+    "phonenumber": "",
+    "source": "5",
+    "status": "2",
+    "assigned": "7",
+    "description": "Keine Beschreibung"
+}
+[2025-02-01 23:37:37] Lead erfolgreich erstellt: {"status":true,"message":"Lead add successful."}
+[2025-02-02 00:49:27] Keine gültigen Formulardaten empfangen.

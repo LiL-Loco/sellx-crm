@@ -181,12 +181,12 @@ class Paypal_checkout_gateway extends App_gateway
             $billing_address['admin_area_1'] = $admin_area_1;
         }
 
-        if (!empty($invoice->billing_zip)) {
-            $billing_address['postal_code'] = $invoice->billing_zip; // postal code
-        }
-
         if (!empty($invoice->billing_city)) {
             $billing_address['admin_area_2'] = $invoice->billing_city; // city
+        }
+
+        if (!empty($invoice->billing_zip)) {
+            $billing_address['postal_code'] = $invoice->billing_zip; // postal code
         }
 
         if ($country) {

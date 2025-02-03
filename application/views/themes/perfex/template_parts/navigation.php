@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed'); ?>
 <nav class="navbar navbar-default header">
-    <div class="container">
+    <div class="container" style="width:1300px">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
@@ -70,11 +70,6 @@
                             </a>
                         </li>
                         <?php } ?>
-                        <li class="customers-nav-item-stripe-card">
-                            <a href="<?= site_url('clients/client_api'); ?>">
-                                <?= _l('API Token'); ?>
-                            </a>
-                        </li>
                         <?php if (is_gdpr() && get_option('show_gdpr_in_customers_menu') == '1') { ?>
                         <li class="customers-nav-item-announcements">
                             <a

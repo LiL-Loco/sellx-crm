@@ -24,7 +24,7 @@ if (! empty($company_val)) {
     }
 }
 ?>
-                            <input type="text" class="form-control" id="company" name="company" autocomplete="on"
+                            <input type="text" class="form-control" name="company"
                                 value="<?= set_value('company', $company_val); ?>">
                             <?= form_error('company'); ?>
                         </div>
@@ -32,7 +32,7 @@ if (! empty($company_val)) {
                         <div class="form-group company-profile-vat-group">
                             <label for="vat"
                                 class="control-label"><?= _l('clients_vat'); ?></label>
-                            <input type="text" class="form-control" id="vat" name="vat"
+                            <input type="text" class="form-control" name="vat"
                                 value="<?= e($client->vat); ?>">
                         </div>
                         <?php } ?>
@@ -50,10 +50,10 @@ if (! empty($company_val)) {
                         </div>
                         <div class="form-group company-profile-country-group">
                             <label
-                                for="country"><?= _l('clients_country'); ?></label>
+                                for="lastname"><?= _l('clients_country'); ?></label>
                             <select
                                 data-none-selected-text="<?= _l('dropdown_non_selected_tex'); ?>"
-                                data-live-search="true" name="country" class="form-control" id="country" autocomplete="on" >
+                                data-live-search="true" name="country" class="form-control" id="country">
                                 <option value=""></option>
                                 <?php foreach (get_all_countries() as $country) { ?>
                                 <?php
@@ -72,24 +72,24 @@ if (! empty($company_val)) {
                         </div>
                     </div>
                     <div class="col-md-6">
-                    <div class="form-group company-profile-address-group">
-                            <label
-                                for="address"><?= _l('clients_address'); ?></label>
-                                <input type="text" name="address" id="address" class="form-control" value="<?= e($client->address); ?>">
-                        </div>
-                    <div class="form-group company-profile-zip-group">
-                            <label
-                                for="zip"><?= _l('clients_zip'); ?></label>
-                            <input type="text" class="form-control" name="zip" id="zip"
-                                value="<?= e($client->zip); ?>">
-                        </div>
                         <div class="form-group company-profile-city-group">
                             <label
                                 for="city"><?= _l('clients_city'); ?></label>
                             <input type="text" class="form-control" name="city" id="city"
                                 value="<?= e($client->city); ?>">
                         </div>
-                        
+                        <div class="form-group company-profile-address-group">
+                            <label
+                                for="address"><?= _l('clients_address'); ?></label>
+                            <textarea name="address" id="address" class="form-control"
+                                rows="4"><?= clear_textarea_breaks($client->address); ?></textarea>
+                        </div>
+                        <div class="form-group company-profile-zip-group">
+                            <label
+                                for="zip"><?= _l('clients_zip'); ?></label>
+                            <input type="text" class="form-control" name="zip" id="zip"
+                                value="<?= e($client->zip); ?>">
+                        </div>
                         <div class="form-group company-profile-state-group">
                             <label
                                 for="state"><?= _l('clients_state'); ?></label>
@@ -142,14 +142,8 @@ if (! empty($company_val)) {
                         <div class="form-group company-profile-billing-street-group">
                             <label
                                 for="billing_street"><?= _l('billing_street'); ?></label>
-                                <input type="text" class="form-control" name="billing_street" id="billing_street"
-                                value="<?= e($client->billing_street); ?>">
-                        </div>
-                        <div class="form-group company-profile-billing-zip-group">
-                            <label
-                                for="billing_zip"><?= _l('billing_zip'); ?></label>
-                            <input type="text" class="form-control" name="billing_zip" id="billing_zip"
-                                value="<?= e($client->billing_zip); ?>">
+                            <textarea name="billing_street" id="billing_street" class="form-control"
+                                rows="4"><?= clear_textarea_breaks($client->billing_street); ?></textarea>
                         </div>
                         <div class="form-group company-profile-billing-city-group">
                             <label
@@ -162,6 +156,12 @@ if (! empty($company_val)) {
                                 for="billing_state"><?= _l('billing_state'); ?></label>
                             <input type="text" class="form-control" name="billing_state" id="billing_state"
                                 value="<?= e($client->billing_state); ?>">
+                        </div>
+                        <div class="form-group company-profile-billing-zip-group">
+                            <label
+                                for="billing_zip"><?= _l('billing_zip'); ?></label>
+                            <input type="text" class="form-control" name="billing_zip" id="billing_zip"
+                                value="<?= e($client->billing_zip); ?>">
                         </div>
                         <div class="form-group company-profile-billing-country-group">
                             <label
@@ -189,14 +189,8 @@ if (! empty($company_val)) {
                         <div class="form-group company-profile-shipping-street-group">
                             <label
                                 for="shipping_street"><?= _l('shipping_street'); ?></label>
-                                <input type="text" class="form-control" name="shipping_street" id="shipping_street"
-                                value="<?= e($client->shipping_street); ?>">
-                        </div>
-                        <div class="form-group company-profile-shipping-zip-group">
-                            <label
-                                for="shipping_zip"><?= _l('shipping_zip'); ?></label>
-                            <input type="text" class="form-control" name="shipping_zip" id="shipping_zip"
-                                value="<?= e($client->shipping_zip); ?>">
+                            <textarea name="shipping_street" id="shipping_street" class="form-control"
+                                rows="4"><?= clear_textarea_breaks($client->shipping_street); ?></textarea>
                         </div>
                         <div class="form-group company-profile-shipping-city-group">
                             <label
@@ -205,9 +199,16 @@ if (! empty($company_val)) {
                                 value="<?= e($client->shipping_city); ?>">
                         </div>
                         <div class="form-group company-profile-shipping-state-group">
-                            <label for="shipping_state"><?= _l('shipping_state'); ?></label>
+                            <label
+                                for="shipping_state"><?= _l('shipping_state'); ?></label>
                             <input type="text" class="form-control" name="shipping_state" id="shipping_state"
                                 value="<?= e($client->shipping_state); ?>">
+                        </div>
+                        <div class="form-group company-profile-shipping-zip-group">
+                            <label
+                                for="shipping_zip"><?= _l('shipping_zip'); ?></label>
+                            <input type="text" class="form-control" name="shipping_zip" id="shipping_zip"
+                                value="<?= e($client->shipping_zip); ?>">
                         </div>
                         <div class="form-group company-profile-shipping-country-group">
                             <label

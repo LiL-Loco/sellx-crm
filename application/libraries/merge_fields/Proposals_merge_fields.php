@@ -71,13 +71,6 @@ class Proposals_merge_fields extends App_merge_fields
                     ],
                 ],
                 [
-                    'name'      => 'Zip Code',
-                    'key'       => '{proposal_zip}',
-                    'available' => [
-                        'proposals',
-                    ],
-                ],
-                [
                     'name'      => 'City',
                     'key'       => '{proposal_city}',
                     'available' => [
@@ -87,6 +80,13 @@ class Proposals_merge_fields extends App_merge_fields
                 [
                     'name'      => 'State',
                     'key'       => '{proposal_state}',
+                    'available' => [
+                        'proposals',
+                    ],
+                ],
+                [
+                    'name'      => 'Zip Code',
+                    'key'       => '{proposal_zip}',
                     'available' => [
                         'proposals',
                     ],

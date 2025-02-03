@@ -95,7 +95,7 @@ class Migration_Version_111 extends CI_Migration
     add_option('pdf_font_size','10');
     add_option('defaut_leads_kanban_sort','dateadded');
     add_option('defaut_leads_kanban_sort_type','desc');
-    add_option('allowed_files','.gif,.png,.jpeg,.jpg,.pdf,.doc,.txt,.docx,.xls,.zip,.rar,.xlsx,.mp4,.csv');
+    add_option('allowed_files','.gif,.png,.jpeg,.jpg,.pdf,.doc,.txt,.docx,.xls,.zip,.rar,.xlsx,.mp4');
 
     delete_option('newsfeed_upload_file_extensions');
 

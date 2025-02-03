@@ -763,9 +763,9 @@ $lang['clients_company']   = 'Company';
 $lang['clients_vat']       = 'VAT Number';
 $lang['clients_phone']     = 'Phone';
 $lang['clients_country']   = 'Country';
-$lang['clients_zip']       = 'Zip Code';
 $lang['clients_city']      = 'City';
 $lang['clients_address']   = 'Address';
+$lang['clients_zip']       = 'Zip Code';
 $lang['clients_state']     = 'State';
 # Used for edit profile and register END
 

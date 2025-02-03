@@ -280,6 +280,7 @@ function app_init_customer_profile_tabs()
 
     $CI->app_tabs->add_customer_profile_tab('subscriptions', [
         'name'     => _l('subscriptions'),
+        'icon'     => 'fa fa-repeat',
         'view'     => 'admin/clients/groups/subscriptions',
         'visible'  => (staff_can('view', 'subscriptions') || staff_can('view_own', 'subscriptions')),
         'position' => 50,
@@ -1389,9 +1390,9 @@ function get_required_fields_for_registration()
             'company_vat'         => ['label' => _l('clients_vat'), 'is_required' => in_array('company_vat', $required), 'disabled' => false],
             'company_phonenumber' => ['label' => _l('clients_phone'), 'is_required' => in_array('company_phonenumber', $required), 'disabled' => false],
             'company_country'     => ['label' => _l('clients_country'), 'is_required' => in_array('company_country', $required), 'disabled' => false],
-            'company_zip'         => ['label' => _l('clients_zip'), 'is_required' => in_array('company_zip', $required), 'disabled' => false],
             'company_city'        => ['label' => _l('clients_city'), 'is_required' => in_array('company_city', $required), 'disabled' => false],
             'company_address'     => ['label' => _l('clients_address'), 'is_required' => in_array('company_address', $required), 'disabled' => false],
+            'company_zip'         => ['label' => _l('clients_zip'), 'is_required' => in_array('company_zip', $required), 'disabled' => false],
             'company_state'       => ['label' => _l('clients_state'), 'is_required' => in_array('company_state', $required), 'disabled' => false],
         ],
     ];
