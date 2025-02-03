@@ -45,7 +45,7 @@ function api_init_menu_items()
     * If the logged in user is administrator, add custom menu in Setup
     */
     if (is_admin()) {
-        $CI = &get_instance();
+        $CI = &get_instance(); 
         $CI->app_menu->add_setup_menu_item('api-options', [
             'collapse' => true,
             'name'     => _l('api'),

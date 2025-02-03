@@ -23,7 +23,7 @@ foreach($categories as $category){
 }
 ?>
 </div>
-<div class="btn-group pull-right mleft4 btn-with-tooltip-group _filter_data" data-toggle="tooltip" data-title="<?php echo _l('filter_by'); ?>">
+<div class="btn-group pull-right mleft4 btn-with-tooltip-group _filter_data" data-toggle="tooltip" data-title="<?php echo _l(' filter_by'); ?>">
     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <i class="fa fa-filter" aria-hidden="true"></i>
     </button>
@@ -31,37 +31,37 @@ foreach($categories as $category){
     <ul class="dropdown-menu dropdown-menu-right width300">
         <li>
             <a href="#" data-cview="all" onclick="dt_custom_view('','.table-expenses',''); return false;">
-                All            </a>
+                Alle            </a>
         </li>
         <li class="divider"></li>
         <li>
             <a href="#" data-cview="billable" onclick="dt_custom_view('billable','.table-expenses','billable'); return false;">
-                Billable            </a>
+                Abrechenbar            </a>
         </li>
         <li>
             <a href="#" data-cview="non-billable" onclick="dt_custom_view('non-billable','.table-expenses','non-billable'); return false;">
-                Non Billable            </a>
+                Nicht Abrechenbar            </a>
         </li>
         <li>
             <a href="#" data-cview="invoiced" onclick="dt_custom_view('invoiced','.table-expenses','invoiced'); return false;">
-                Invoiced            </a>
+            In Rechnung gestellt            </a>
         </li>
         <li>
             <a href="#" data-cview="unbilled" onclick="dt_custom_view('unbilled','.table-expenses','unbilled'); return false;">
-                Not Invoiced            </a>
+            Nicht in Rechnung gestellt           </a>
         </li>
         <li>
             <a href="#" data-cview="recurring" onclick="dt_custom_view('recurring','.table-expenses','recurring'); return false;">
-                Recurring            </a>
+            Wiederkehrend            </a>
         </li>
         <li class="divider years-divider"></li>
         <li class="active expenses-filter-year">
-            <a href="#" data-cview="year_2020" onclick="dt_custom_view(2020,'.table-expenses','year_2020'); return false;">2020</a>
+            <a href="#" data-cview="year_2025" onclick="dt_custom_view(2020,'.table-expenses','year_2020'); return false;">2025</a>
         </li>
         <div class="clearfix"></div>
         <li class="divider"></li>
         <li class="dropdown-submenu pull-left">
-            <a href="#" tabindex="-1">By Categories</a>
+            <a href="#" tabindex="-1">Nach Kategorie</a>
             <ul class="dropdown-menu dropdown-menu-left">
                 <li>
                     <a href="#" data-cview="expenses_by_category_2" onclick="dt_custom_view(2,'.table-expenses','expenses_by_category_2'); return false;">111</a>

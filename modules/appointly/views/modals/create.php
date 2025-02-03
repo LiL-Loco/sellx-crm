@@ -18,14 +18,14 @@
                     <div class="col-md-12">
                         <div class="checkbox pull-right mrtopmin5" id="showOutlookCheckbox">
                             <input type="checkbox" id="outlook-checkbox">
-                            <label data-toggle="tooltip" for="outlook-checkbox" title="<?= _l('appointment_add_to_outlook'); ?>" for="outlook">
+                            <label for="outlook-checkbox" title="<?= _l('appointment_add_to_outlook'); ?>" for="outlook">
                                 <?= _l('appointment_add_to_outlook'); ?>
                             </label>
                         </div>
                         <?php if (appointlyGoogleAuth() && get_option('appointly_google_client_secret')) : ?>
                             <div class="checkbox pull-right mright15 mtop1">
                                 <input type="checkbox" name="google" id="google" checked>
-                                <label data-toggle="tooltip" title="<?= _l('appointment_add_to_google_calendar'); ?>" for="google">
+                                <label title="<?= _l('appointment_add_to_google_calendar'); ?>" for="google">
                                     <?= _l('appointment_add_to_google_calendar'); ?>
                                 </label>
                             </div>
@@ -67,7 +67,7 @@
                             <input type="email" value="" class="form-control" name="email" id="email">
                         </div>
                         <div class="form-group hidden" id="div_phone">
-                            <label for="phone"><?= _l('appointment_phone'); ?> (zB: <?= _l('appointment_your_phone_example'); ?>) </label>
+                            <label for="phone"><?= _l('appointment_phone'); ?> (Ex: <?= _l('appointment_your_phone_example'); ?>) </label>
                             <input type="text" value="" class="form-control" name="phone" id="phone">
                         </div>
                         <div class="pull-right available_times_labels">
@@ -142,7 +142,7 @@
                                 <div class="col-md-6">
                                     <div class="input-group">
                                         <input type="number" class="form-control" name="reminder_before" value="" id="reminder_before">
-                                        <span class="input-group-addon"><i class="fa fa-question-circle" data-toggle="tooltip" data-title="<?php echo _l('reminder_notification_placeholder'); ?>"></i></span>
+                                        <span class="input-group-addon"><i class="fa fa-question-circle" data-title="<?php echo _l('reminder_notification_placeholder'); ?>"></i></span>
                                     </div>
                                 </div>
                                 <div class="col-md-6">

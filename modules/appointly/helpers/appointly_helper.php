@@ -1289,7 +1289,7 @@ if ( ! function_exists('callbacks_handle_call_type')) {
                 $source = str_replace('.', '', $source);
             }
         } else {
-            $sources = ['phone', 'skype', 'viber', 'messenger', 'whatsapp', 'wechat', 'instagram', 'linkedin', 'telegram', 'vk'];
+            $sources = ['phone'];
         }
 
         foreach ($types as $type) {
@@ -1325,7 +1325,7 @@ if ( ! function_exists('render_callbacks_handle_call_type')) {
                 $source = str_replace('.', '', $source);
             }
         } else {
-            $sources = ['phone', 'skype', 'viber', 'messenger', 'whatsapp', 'wechat', 'instagram', 'linkedin', 'telegram', 'vk'];
+            $sources = ['phone'];
         }
 
         foreach ($sources as $type) {

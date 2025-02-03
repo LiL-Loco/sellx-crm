@@ -673,7 +673,7 @@ class Call_logs_model extends App_Model
         $this->db->insert(db_prefix() . 'call_logs_rel_types', $data);
         $insert_id = $this->db->insert_id();
         if ($insert_id) {
-            log_activity('New Type Added [ID: ' . $insert_id . ']');
+            log_activity('Anruftyp Hinzugefügt [ID: ' . $insert_id . ']');
 
             return $insert_id;
         }
@@ -693,7 +693,7 @@ class Call_logs_model extends App_Model
         $this->db->where('id', $id);
         $this->db->update(db_prefix() . 'call_logs_rel_types', $data);
         if ($this->db->affected_rows() > 0) {
-            log_activity('Type Updated [ID: ' . $id . ']');
+            log_activity('Anruftyp Updated [ID: ' . $id . ']');
 
             return true;
         }
@@ -716,7 +716,7 @@ class Call_logs_model extends App_Model
         $this->db->where('id', $id);
         $this->db->delete(db_prefix() . 'call_logs_rel_types');
         if ($this->db->affected_rows() > 0) {
-            log_activity('Type Deleted [' . $id . ']');
+            log_activity('Anruftyp Gelöscht [' . $id . ']');
 
             return true;
         }
@@ -754,7 +754,7 @@ class Call_logs_model extends App_Model
         $this->db->insert(db_prefix() . 'call_logs_directions', $data);
         $insert_id = $this->db->insert_id();
         if ($insert_id) {
-            log_activity('New Call Type Added [ID: ' . $insert_id . ']');
+            log_activity('Anruftyp hinzugefügt [ID: ' . $insert_id . ']');
 
             return $insert_id;
         }
@@ -773,7 +773,7 @@ class Call_logs_model extends App_Model
         $this->db->where('id', $id);
         $this->db->update(db_prefix() . 'call_logs_directions', $data);
         if ($this->db->affected_rows() > 0) {
-            log_activity('Call Type Updated [ID: ' . $id . ']');
+            log_activity('Anruftyp Updated [ID: ' . $id . ']');
 
             return true;
         }
@@ -796,7 +796,7 @@ class Call_logs_model extends App_Model
         $this->db->where('id', $id);
         $this->db->delete(db_prefix() . 'call_logs_directions');
         if ($this->db->affected_rows() > 0) {
-            log_activity('Call Type Deleted [' . $id . ']');
+            log_activity('Anruftyp gelöscht [' . $id . ']');
 
             return true;
         }

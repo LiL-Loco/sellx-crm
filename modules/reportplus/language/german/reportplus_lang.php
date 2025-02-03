@@ -23,6 +23,7 @@ $lang['reportplus_total_staff_tasks_completed'] = 'Bericht über die Top 10 Mita
 $lang['reportplus_total_staff_closed_tickets'] = 'Bericht über die Top 10 Mitarbeiter mit den meisten geschlossenen Tickets';
 $lang['reportplus_total_expenses_based_on_categories'] = 'Bericht über Ausgaben nach Kategorien';
 $lang['reportplus_count_total_payment_modes_payments'] = 'Bericht über Zahlungen nach Zahlungsarten';
+$lang['reportplus_unbilled_finished_tasks'] = 'Nicht abgerechnete, erledigte Projektaufgaben';
 $lang['reportplus_email_to'] = 'Bericht per E-Mail senden an';
 $lang['reportplus_report_types'] = 'Berichtstypen';
 $lang['reportplus_generate_report'] = 'Bericht generieren';

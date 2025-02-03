@@ -117,7 +117,7 @@ $edit_appointment_id = ($this->session->userdata('from_view_id')) ? $this->sessi
                                 }
                                 ?>
                             </div>
-                            <div class="btn-group pull-right btn-with-tooltip-group _filter_data" data-toggle="tooltip"
+                            <div class="btn-group pull-right btn-with-tooltip-group _filter_data" 
                                  data-title="<?php echo _l('filter_by'); ?>">
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
                                         aria-haspopup="true" aria-expanded="false">
@@ -144,7 +144,7 @@ $edit_appointment_id = ($this->session->userdata('from_view_id')) ? $this->sessi
                                     <?php } ?>
                                 </ul>
                             </div>
-                            <div class="btn-group pull-right btn-with-tooltip-group mright5" data-toggle="tooltip"
+                            <div class="btn-group pull-right btn-with-tooltip-group mright5" 
                                  data-title="<?php echo _l('appointly_integrations'); ?>">
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
                                         aria-haspopup="true" aria-expanded="false">
@@ -153,13 +153,13 @@ $edit_appointment_id = ($this->session->userdata('from_view_id')) ? $this->sessi
                                 <ul class="dropdown-menu dropdown-menu-left w-max-content">
                                     <?php if ($appointly_outlook_client_id !== '' && strlen($appointly_outlook_client_id) === 36) : ?>
                                         <li>
-                                        <a href="#" data-toggle="tooltip" id="sign_in_outlook"
+                                        <a href="#" id="sign_in_outlook"
                                            onclick="signInToOutlook(); return false">
                                             <i class="fa-regular fa-envelope" style="margin-right: 6px;"
                                                aria-hidden="true"></i> <?= _l('appointment_login_to_outlook'); ?>
                                         </a>
                                     <?php else : ?>
-                                        <a href="#" data-toggle="tooltip"
+                                        <a href="#" 
                                            title="<?= _l('appointments_outlook_revoke'); ?>" id="sign_in_outlook"
                                            onclick="signInToOutlook(); return false">
                                             <i class="fa-regular fa-envelope"
@@ -177,7 +177,7 @@ $edit_appointment_id = ($this->session->userdata('from_view_id')) ? $this->sessi
                                                     &nbsp;&nbsp;<?= _l('appointments_sign_in_google'); ?>
                                                 </a>
                                             <?php else : ?>
-                                                <a data-toggle="tooltip" title="<?= _l('appointments_google_revoke') ?>"
+                                                <a title="<?= _l('appointments_google_revoke') ?>"
                                                    href="<?= site_url('appointly/google/auth/logout'); ?>">
                                                     <i class="fa-brands fa-google" aria-hidden="true"></i>
                                                     &nbsp;&nbsp;<?= _l('appointments_sign_out_google'); ?></a>

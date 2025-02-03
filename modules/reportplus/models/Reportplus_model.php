@@ -91,6 +91,10 @@ class Reportplus_model extends App_Model
             $generatedReports['count_total_payment_modes_payments'] = $this->count_total_payment_modes_payments($start_date, $end_date);
         }
 
+        if (in_array('unbilled_finished_tasks', $reportsToBeGenerated)) {
+            $generatedReports['unbilled_finished_tasks'] = $this->unbilled_finished_tasks($start_date, $end_date);
+        }
+
         return $generatedReports;
     }
 
@@ -494,6 +498,22 @@ class Reportplus_model extends App_Model
         $this->db->order_by('total_payments', 'DESC');
         $this->db->limit(10);
 
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
+    public function unbilled_finished_tasks($from_date, $to_date)
+    {
+        $this->db->select(db_prefix() . 'projects.name AS project_name, COUNT(' . db_prefix() . 'tasks.id) AS total_unbilled_tasks');
+        $this->db->from(db_prefix() . 'tasks');
+        $this->db->join(db_prefix() . 'projects', db_prefix() . 'tasks.id = ' . db_prefix() . 'projects.id');
+        $this->db->where(db_prefix() . 'tasks.billable', 1);
+        $this->db->where(db_prefix() . 'tasks.billed', 0);
+        $this->db->where("DATE(" . db_prefix() . "tasks.dateadded) BETWEEN '" . $this->db->escape_str($from_date) . "' AND '" . $this->db->escape_str($to_date) . "'");
+        $this->db->group_by(db_prefix() . 'projects.name');
+        $this->db->order_by('total_unbilled_tasks', 'DESC');
+        $this->db->limit(10);
+        
         $query = $this->db->get();
         return $query->result_array();
     }

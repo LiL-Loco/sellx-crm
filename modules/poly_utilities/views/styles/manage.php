@@ -13,12 +13,14 @@ if (!empty($obj_storage)) {
         <div class="row">
             <div class="col-md-12">
                 <div class="tw-mb-2 sm:tw-mb-4">
-
+                    <?php
+                    if (has_permission('poly_utilities_styles_extend', '', 'create')) {
+                    ?>
                         <a href="<?php echo admin_url('poly_utilities/styles_add'); ?>">
                             <i class="far fa-plus-square tw-mr-1"></i>
                             <?php echo _l('new_poly_utilities_style'); ?>
                         </a>
-
+                    <?php } ?>
                 </div>
                 <div class="panel_s">
                     <div class="panel-body panel-table-full">
@@ -31,22 +33,30 @@ if (!empty($obj_storage)) {
                         ?>
                                 <div class="<?php echo ($is_lock == 'true' ? 'disabled' : '') ?>" data-title="<?php echo "{$value->title}"; ?>" data-index="<?php echo "{$value->file}"; ?>" data-id="<?php echo "mn_{$idx}"; ?>">
                                     <span><?php echo $idx ?>. <a href="<?php echo base_url('modules/poly_utilities/uploads/css/' . $value->file) . '.css' ?>" target="_blank" rel="nofollow"><?php echo $value->title ?></a></span>
-
+                                    <?php
+                                    if (has_permission('poly_utilities_styles_extend', '', 'delete')) {
+                                    ?>
                                         <span class="tw-mr-1 poly-resource-delete delete text-muted pull-right" data-id="<?php echo "{$value->file}" ?>"><i class="fas fa-trash"></i></span>
-
+                                    <?php
+                                    }
+                                    ?>
                                     <span class="tw-mr-1 pull-right">
                                         <a rel="nofollow" target="_blank" download="<?php echo $value->file . '.css' ?>" href="<?php echo base_url('modules/poly_utilities/uploads/css/' . $value->file) . '.css' ?>">
                                             <i class="fa-solid fa-download"></i>
                                         </a>
                                     </span>
                                     <span class="tw-mr-1 pull-right"><a href="#" class="text-muted toggle-menu-options main-item-options"><i class="fas fa-cog"></i></a></span>
-
+                                    <?php
+                                    if (has_permission('poly_utilities_styles_extend', '', 'edit')) {
+                                    ?>
                                         <span class="tw-mr-1 pull-right">
                                             <a href="<?php echo admin_url('poly_utilities/styles_add?id=' . $value->file); ?>">
                                                 <i class="fa-regular fa-pen-to-square poly-icon"></i>
                                             </a>
                                         </span>
-
+                                    <?php
+                                    }
+                                    ?>
                                     <div id="poly_resource_status_<?php echo $value->file ?>">
 
                                         <!-- Is Lock? -->

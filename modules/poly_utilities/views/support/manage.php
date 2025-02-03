@@ -3,6 +3,7 @@
 init_head();
 
 if (!empty($poly_utilities_aio_supports)) {
+  $is_admin = $poly_utilities_aio_supports['is_admin'] ?? 'false';
   $is_clients = $poly_utilities_aio_supports['is_clients'] ?? 'false';
   $is_messages = $poly_utilities_aio_supports['is_messages'] ?? 'false';
   $is_messages_mobile = $poly_utilities_aio_supports['is_messages_mobile'] ?? 'false';
@@ -15,6 +16,7 @@ if (!empty($poly_utilities_aio_supports)) {
   $messages = $poly_utilities_aio_supports['messages'] ?? '';
   $supports = $poly_utilities_aio_supports['supports'] ?? '';
   $supports = ($supports) ? json_decode($supports) : [];
+  $is_edit = (is_admin() || has_permission('poly_utilities_supports', '', 'edit'));
 }
 $messages_value = $messages ? implode("\n", $messages) : '';
 ?>
@@ -144,7 +146,13 @@ $messages_value = $messages ? implode("\n", $messages) : '';
                           <div class="col-md-3 col-xs-4"><label class="row col-md-12"><?php echo _l('poly_aio_supports_list_item_content') ?></label><input type="text" class="form-control poly_aio_supports_content" placeholder="<?php echo _l('poly_aio_supports_list_item_content') ?>" value="<?php echo $support->content ?>"></div>
                           <div class="col-md-1 col-xs-3">
                             <div class="cursor poly-aio-handle-sortable"><i class="fa-solid fa-arrows-up-down-left-right"></i></div>
+                            <?php
+                            if (is_admin() || has_permission('poly_utilities_supports', '', 'delete')) {
+                            ?>
                               <div class="cursor poly-aio-handle-delete" data-id="poly_field_<?php echo $key ?>"><i class="fa fa-trash"></i></div>
+                            <?php
+                            }
+                            ?>
                           </div>
                         </div>
                     <?php
@@ -174,14 +182,24 @@ $messages_value = $messages ? implode("\n", $messages) : '';
                         <div class="col-md-3 col-xs-4"><label class="row col-md-12"><?php echo _l('poly_aio_supports_list_item_content') ?></label><input type="text" class="form-control poly_aio_supports_content" placeholder="<?php echo _l('poly_aio_supports_list_item_content') ?>"></div>
                         <div class="col-md-1 col-xs-3">
                           <div class="cursor poly-aio-handle-sortable"><i class="fa-solid fa-arrows-up-down-left-right"></i></div>
+                          <?php
+                          if (is_admin() || has_permission('poly_utilities_supports', '', 'delete')) {
+                          ?>
                             <div class="cursor poly-aio-handle-delete"><i class="fa fa-trash"></i></div>
+                          <?php
+                          }
+                          ?>
                         </div>
                       </div>
                     </div>
                   </div>
-
+                  <?php
+                  if (is_admin() || has_permission('poly_utilities_supports', '', 'create')) {
+                  ?>
                     <div class="btn" id="add-field"><i class="far fa-plus-square tw-mr-1"></i>&nbsp;<?php echo _l('poly_aio_supports_add_new_contact'); ?></div>
-
+                  <?php
+                  }
+                  ?>
                   <!-- Template for fields -->
                 </div>
 
@@ -189,7 +207,9 @@ $messages_value = $messages ? implode("\n", $messages) : '';
               <!-- All in one Supports -->
 
             </div>
-
+            <?php echo form_close();
+            if (is_admin() || has_permission('poly_utilities_supports', '', 'edit')) {
+            ?>
               <div class="panel-footer poly-aio-panel-footer">
                 <div class="row">
                   <div class="btn-bottom-toolbar tw-flex tw-justify-between tw-items-center">
@@ -197,7 +217,9 @@ $messages_value = $messages ? implode("\n", $messages) : '';
                   </div>
                 </div>
               </div>
-
+            <?php
+            }
+            ?>
           </div>
         </div>
       </div>

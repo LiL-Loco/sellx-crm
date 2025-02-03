@@ -8,10 +8,10 @@ class poly_utilities_widget_helper
      * Display permission information for widgets.
      */
     public static $roles = array(
-        array('name' => 'active', 'type' => 'checkbox', 'label' => 'Active', 'value' => true),
-        array('name' => 'active_admin', 'type' => 'checkbox', 'label' => 'Active Admin', 'value' => true),
-        array('name' => 'active_staff', 'type' => 'checkbox', 'label' => 'Active Staff', 'value' => true),
-        array('name' => 'active_client', 'type' => 'checkbox', 'label' => 'Active Client', 'value' => true)
+        array('name' => 'active', 'type' => 'checkbox', 'label' => 'Active', 'value' => false),
+        array('name' => 'active_admin', 'type' => 'checkbox', 'label' => 'Active Admin', 'value' => false),
+        array('name' => 'active_staff', 'type' => 'checkbox', 'label' => 'Active Staff', 'value' => false),
+        array('name' => 'active_client', 'type' => 'checkbox', 'label' => 'Active Client', 'value' => false)
     );
     public static $widget_blocks;
     public static $avaible_widgets;

@@ -28,7 +28,7 @@
                         <?php if ($history['outlook_event_id'] && $history['outlook_added_by_id'] == get_staff_user_id()) : ?>
                             <div class="checkbox pull-right mleft10" id="addedToOutlook">
                                 <input disabled type="checkbox" id="outlook" checked>
-                                <label data-toggle="tooltip" title="<?= _l('appointment_is_added_to_outlook'); ?>"
+                                <label title="<?= _l('appointment_is_added_to_outlook'); ?>"
                                        for="outlook">
                                     <i class="fa-regular fa-envelope" aria-hidden="true"></i></label>
                             </div>
@@ -41,10 +41,10 @@
                             <?php } ?>
                             <?php if ($history['google_event_id'] && $history['google_added_by_id'] == get_staff_user_id()) : ?>
                                 <div class="checkbox pull-right mleft10 mtop1">
-                                    <input disabled data-toggle="tooltip"
+                                    <input disabled 
                                            title="<?= _l('appointments_added_to_google_calendar'); ?>" type="checkbox"
                                            id="google" checked/>
-                                    <label data-toggle="tooltip"
+                                    <label 
                                            title="<?= _l('appointments_added_to_google_calendar'); ?>" for="google">
                                         <i class="fa-brands fa-google" aria-hidden="true"></i></label>
                                 </div>
@@ -110,7 +110,7 @@
                         </div>
                         <div class="form-group" id="div_phone">
                             <label for="phone"><?= _l('appointment_phone'); ?>
-                                (zB: <?= _l('appointment_your_phone_example'); ?>)</label>
+                                (Ex: <?= _l('appointment_your_phone_example'); ?>)</label>
                             <input type="text" <?= isset($history['details']) || $history['source'] == 'lead_related' ? 'disabled' : ''; ?>
                                    value="<?php if (isset($history['phone'])) echo $history['phone']; else if (isset($history['details']['phone'])) echo $history['details']['phone']; ?>"
                                    class="form-control" name="phone" id="phone">
@@ -216,7 +216,7 @@
                                         <input type="text" class="form-control" name="reminder_before"
                                                value="<?php echo $history['reminder_before']; ?>" id="reminder_before">
                                         <span class="input-group-addon"><i class="fa fa-question-circle"
-                                                                           data-toggle="tooltip"
+                                                                           
                                                                            data-title="<?php echo _l('reminder_notification_placeholder'); ?>"></i></span>
                                     </div>
                                 </div>
@@ -268,7 +268,7 @@
                         && $history['google_added_by_id'] === null
                         && $history['approved']
                     ) { ?>
-                        <button type="button" data-toggle="tooltip"
+                        <button type="button" 
                                 title="<?= _l('appointment_google_not_added_yet'); ?>"
                                 onclick="addEventToGoogleCalendar(this)"
                                 class="btn btn-primary"><?= _l('appointment_add_to_calendar'); ?>&nbsp;<i
@@ -284,7 +284,7 @@
                     && $history['outlook_added_by_id'] === null
                     && $history['approved']
                 ) { ?>
-                    <button type="button" data-toggle="tooltip" id="addToOutlookBtn"
+                    <button type="button" id="addToOutlookBtn"
                             title="<?= _l('appointment_outlook_not_added_yet'); ?>"
                             onclick="addEventToOutlookCalendar(this, '<?= $history['appointment_id']; ?>')"
                             class="btn btn-primary"><?= _l('appointment_add_to_outlook'); ?>&nbsp;<i

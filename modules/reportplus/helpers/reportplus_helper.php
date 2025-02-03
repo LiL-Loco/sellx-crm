@@ -71,6 +71,10 @@ function reportplus_report_types()
             'value' => 'count_total_payment_modes_payments',
             'name' => _l('reportplus_count_total_payment_modes_payments')
         ],
+        [
+            'value' => 'unbilled_finished_tasks',
+            'name' => _l('reportplus_unbilled_finished_tasks')
+        ],
     ];
 }
 

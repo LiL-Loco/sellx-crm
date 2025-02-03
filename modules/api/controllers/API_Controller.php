@@ -14,7 +14,7 @@ use \WpOrg\Requests\Requests as RestapiRequests;
  * @license         MIT
  * @version         1.1.6
  */
-class API_Controller extends CI_Controller
+class API_Controller extends App_Controller
 {
     /**
      * List of allowed HTTP methods

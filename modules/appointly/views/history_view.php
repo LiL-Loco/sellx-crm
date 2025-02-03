@@ -25,7 +25,7 @@ init_head();
                     <div class="panel_s">
                          <div class="panel-body">
                               <div class="_buttons">
-                                   <a href="#" class="btn btn-default btn-with-tooltip toggle-small-view hidden-xs pull-right hidden" id="toggleTableBtn" onclick="toggle_appointment_table_view(); return false;" data-toggle="tooltip" title="" data-original-title="Toggle Table">
+                                   <a href="#" class="btn btn-default btn-with-tooltip toggle-small-view hidden-xs pull-right hidden" id="toggleTableBtn" onclick="toggle_appointment_table_view(); return false;" title="" data-original-title="Toggle Table">
                                         <i class="fa fa-angle-double-right"></i>
                                    </a>
                                    <a href="<?= admin_url('appointly/appointments'); ?>" class="btn btn-primary pull-left display-block mleft10">

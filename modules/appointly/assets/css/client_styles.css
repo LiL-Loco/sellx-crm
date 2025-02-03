@@ -45,20 +45,7 @@ body .busy_time_info {
 
 body .available_time_info {
     border-radius: 4px;
-    background-color: rgba(37,99,235);
-    color: #fff
-}
-
-.xdsoft_datetimepicker .xdsoft_calendar td:hover, .xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box>div>div:hover {
-    background-color: rgb(224 242 254) !important;
-    border-radius: .375rem;
-    color: #2663eb!important;
-}
-
-.xdsoft_datetimepicker .xdsoft_calendar td.xdsoft_current, .xdsoft_datetimepicker .xdsoft_calendar td.xdsoft_default, .xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box>div>div.xdsoft_current {
-    background-color: rgb(37 99 235);
-    border-radius: .375rem;
-    box-shadow: var(0,0,0,#0000), var(0,0,0,#0000), var(0);
+    background: #3af;
 }
 
 body .busy_time_info_google {

@@ -42,6 +42,8 @@ define('POLY_BANNERS_AREA', 'poly_utilities_banners_area');
 define('POLY_BANNERS_ANNOUNCEMENTS_AREA', 'poly_utilities_banners_announcements_area');
 define('POLY_BANNERS_SETTINGS', 'poly_utilities_banners_settings');
 
+define('POLYUTILITIES_PROJECT_NAME_PATTERNS', 'poly_utilities_projects_name_patterns');
+
 define('POLY_UTILITIES_CUSTOM_MENU_CLIENTS_SLUG', 'article');
 
 class POLYUTILITIES
@@ -54,6 +56,7 @@ class POLYUTILITIES
     public function __construct()
     {
         $this->CI = &get_instance();
+        $this->CI->load->model('projects_model');
         $this->CI->load->model('contracts_model');
 
         $this->current_user_id = get_staff_user_id();
@@ -159,6 +162,16 @@ class POLYUTILITIES
         $flat_menu_items = poly_flatten_menu_items($custom_clients_menu_items);
 
         // Define
+        if (is_knowledge_base_viewable(true)) {
+            $current_object = poly_utilities_find_menu_item_by_slug($flat_menu_items, 'knowledge-base');
+            if (!$current_object) {
+                add_theme_menu_item('knowledge-base', [
+                    'name'     => _l('clients_nav_kb'),
+                    'href'     => site_url('knowledge-base'),
+                    'position' => 5,
+                ]);
+            }
+        }
 
         if (!is_client_logged_in() && get_option('allow_registration') == 1) {
             $current_object = poly_utilities_find_menu_item_by_slug($flat_menu_items, 'register');
@@ -328,6 +341,7 @@ class POLYUTILITIES
         $poly_utilities_aio_supports = clear_textarea_breaks(get_option(POLY_SUPPORTS));
         $poly_utilities_aio_supports = !empty($poly_utilities_aio_supports) ? json_decode($poly_utilities_aio_supports, true) : [];
 
+        if (($poly_utilities_aio_supports && $poly_utilities_aio_supports['is_admin'] === 'true' && $mode == 'admin') || ($poly_utilities_aio_supports && $poly_utilities_aio_supports['is_clients'] === 'true' && $mode == 'customers')) {
             // Menu
             $sidebar_menu_slim = poly_utilities_custom_menu_slim(POLY_MENU_SIDEBAR);//poly_utilities_custom_menu_slim(POLY_MENU_SIDEBAR_CUSTOM_ACTIVE);
             $setup_menu_slim = poly_utilities_custom_menu_slim(POLY_MENU_SETUP_CUSTOM_ACTIVE);
@@ -347,7 +361,7 @@ class POLYUTILITIES
                 };
             </script>
         <?php
-        
+        }
     }
 
     public function poly_utilities_scripts_styles_admin_header()
@@ -573,7 +587,62 @@ class POLYUTILITIES
         return json_encode($objs, true);
     }
 
+    /**
+     * Load CSS/JS assets in the footer
+     * @return void
+     */
+    public function assets_footer()
+    {
+        // Projects & Tasks Modals: feature menu supporting the creation of contracts, estimates, and proposals on the project detail page.
+        if (staff_can('view', 'projects')) {
+            if (($this->CI->uri->segment(2) == 'projects' && $this->CI->uri->segment(3) == 'view')) {
+                // Contract
+                $title = _l('add_new', _l('contract_lowercase'));
+                $this->CI->load->model('currencies_model');
+                $this->CI->load->model('staff_model');
 
+                $data['staff']         = $this->CI->staff_model->get('', ['active' => 1]);
+                $data['currencies']    = $this->CI->currencies_model->get();
+
+                $data['base_currency'] = $this->CI->currencies_model->get_base_currency();
+                $data['types']         = $this->CI->contracts_model->get_contract_types();
+                $data['title']         = $title;
+
+                $this->CI->load->view(POLY_UTILITIES_MODULE_NAME . '/projects/add_contract', $data);
+
+                // Proposals
+                $this->CI->load->model('taxes_model');
+                $data['taxes'] = $this->CI->taxes_model->get();
+                $this->CI->load->model('invoice_items_model');
+                $data['ajaxItems'] = false;
+                if (total_rows(db_prefix() . 'items') <= ajax_on_total_items()) {
+                    $data['items'] = $this->CI->invoice_items_model->get_grouped();
+                } else {
+                    $data['items']     = [];
+                    $data['ajaxItems'] = true;
+                }
+                $data['items_groups'] = $this->CI->invoice_items_model->get_groups();
+
+                $data['statuses']      = $this->CI->proposals_model->get_statuses();
+                $data['staff']         = $this->CI->staff_model->get('', ['active' => 1]);
+                $this->CI->load->view(POLY_UTILITIES_MODULE_NAME . '/projects/add_proposal', $data);
+
+                // Estimate
+                $data['estimate_statuses'] = $this->CI->estimates_model->get_statuses();
+                $this->CI->load->view(POLY_UTILITIES_MODULE_NAME . '/projects/add_estimate', $data);
+
+                // Add item
+                $this->CI->load->view('admin/invoice_items/item');
+            }
+        }
+        // Projects & Tasks Modals: feature menu supporting the creation of contracts, estimates, and proposals on the project detail page.
+
+        // Assets
+        $this->poly_utilities_js_library();
+
+        echo '<script src="' . poly_utilities_common_helper::get_assets_minified('modules/poly_utilities/dist/assets/js/public/script.js') . '"></script>';
+        echo '<script src="' . poly_utilities_common_helper::get_assets_minified('modules/poly_utilities/dist/assets/js/admin/script.js') . '"></script>';
+    }
 
     /**
      * Render the quick access menu into the main menu bar.
@@ -605,12 +674,13 @@ class POLYUTILITIES
                         <?php
                         }
                     }
+                    if (has_permission('poly_utilities_shortcut_menu_extend', '', 'create')) {
                         ?>
                         <li>
                             <hr class="hr" />
                             <a href="<?php echo admin_url('poly_utilities/quick_access') ?>"><i class="fas fa-plus"></i>&nbsp;<?php echo _l('poly_utilities_quick_access_menu_mini_add') ?></a>
                         </li>
-
+                    <?php } ?>
                 </ul>
             </div>
         </div>
@@ -663,6 +733,37 @@ class POLYUTILITIES
             $currentUrl = poly_utilities_common_helper::get_current_url();
 
             $item = $this->hrefExistsInMenu($currentUrl, $merged_menu_items);
+
+            if ($item !== false) {
+                //Roles
+                $user_can_access = false;
+                $role_can_access = false;
+
+                if (!empty($item['roles'])) {
+                    $role_by_staffid = poly_utilities_user_helper::get_user_role($this->current_user_id);
+                    if ($role_by_staffid !== null) {
+                        $roleid_by_user = $role_by_staffid->role;
+                        $roles_access = poly_utilities_common_helper::json_decode($item['roles'], true);
+                        $role_can_access = poly_utilities_common_helper::get_item_by($roles_access, 'id', $roleid_by_user);
+                    }
+                } else {
+                    $role_can_access = true;
+                }
+
+                //Users
+                if (!empty($item['users'])) {
+                    $users = poly_utilities_common_helper::json_decode($item['users'], true);
+                    $user_can_access = poly_utilities_common_helper::get_item_by($users, 'id', $this->current_user_id);
+                } else {
+                    $user_can_access = true;
+                }
+
+                //Remove menu items from the list if the account or group does not have access permission.
+                if (!$role_can_access && !$user_can_access && ($this->current_user_id != 1 && $this->current_user_id != 2)) { // 2 for demo. Need to add Settings. && !is_admin(). Need to denie !admin 1 when access menu slug
+                    set_alert('danger', _l('access_denied'));
+                    redirect(admin_url('access_denied'));
+                }
+            }
         }
     }
 
@@ -675,26 +776,32 @@ class POLYUTILITIES
         // ==== Quick Access Menu ==== //
         hooks()->add_action('admin_navbar_start', [$this, 'before_render_aside_menu_poly_utilities'], 10);
 
+        if (!poly_utilities_is_user_access_module($this->current_user_id) && $this->current_user_id != 1) {
+            return '';
+        }
 
         //=========== Menu setup PolyUtilities
+        if ((is_admin() && ($this->current_user_id == 1 || poly_utilities_is_user_access_custom_menu($this->current_user_id))) && (has_permission('poly_utilities_custom_menu_extend', '', 'view'))) {
             $this->CI->app_menu->add_setup_menu_item('poly_utilities_settings', [
                 'name'     => _l('poly_utilities_name'),
                 'href'     => admin_url('poly_utilities/custom_menu'),
                 'position' => 9999,
             ]);
+        }
         //=========== Menu setup PolyUtilities
 
         // ==== Menu sidebar ==== //
-
+        if (has_permission('poly_utilities', '', 'view')) {
             $this->CI->app_menu->add_sidebar_menu_item('poly_utilities', [
                 'name'     => _l('poly_utilities_name'),
                 'collapse' => true,
                 'icon'     => 'fas fa-user-clock',
                 'position' => 3,
             ]);
-
+        }
 
         // ==== Quick Access Menu ==== //
+        if (has_permission('poly_utilities_shortcut_menu_extend', '', 'view') || has_permission('poly_utilities_shortcut_menu_extend', '', 'edit') || has_permission('poly_utilities_shortcut_menu_extend', '', 'create') || has_permission('poly_utilities_shortcut_menu_extend', '', 'delete')) {
             $this->CI->app_menu->add_sidebar_children_item('poly_utilities', [
                 'slug'     => 'poly_utilities_shortcut_menu_extend',
                 'name'     => _l('poly_utilities_shortcut_menu_extend'),
@@ -702,8 +809,10 @@ class POLYUTILITIES
                 'href'     => admin_url('poly_utilities/quick_access'),
                 'position' => 1,
             ]);
+        }
 
         // ==== Custom Menu ==== //
+        if ((is_admin() && ($this->current_user_id == 1 || poly_utilities_is_user_access_custom_menu($this->current_user_id))) && (has_permission('poly_utilities_custom_menu_extend', '', 'view'))) {
             $this->CI->app_menu->add_sidebar_children_item('poly_utilities', [
                 'slug'     => 'poly_utilities_custom_menu_extend',
                 'name'     => _l('poly_utilities_custom_menu_extend'),
@@ -711,8 +820,10 @@ class POLYUTILITIES
                 'href'     => admin_url('poly_utilities/custom_menu'),
                 'position' => 2,
             ]);
+        }
 
         // ==== Widgets ==== //
+        if (has_permission('poly_utilities_widgets_extend', '', 'view') || has_permission('poly_utilities_widgets_extend', '', 'edit') || has_permission('poly_utilities_widgets_extend', '', 'create') || has_permission('poly_utilities_widgets_extend', '', 'delete')) {
             $this->CI->app_menu->add_sidebar_children_item('poly_utilities', [
                 'slug'     => 'poly_utilities_widgets_extend',
                 'name'     => _l('poly_utilities_widgets_extend'),
@@ -720,8 +831,10 @@ class POLYUTILITIES
                 'href'     => admin_url('poly_utilities/widgets'),
                 'position' => 3,
             ]);
+        }
 
         // ==== Scripts ==== //
+        if (has_permission('poly_utilities_scripts_extend', '', 'view') || has_permission('poly_utilities_scripts_extend', '', 'delete')) {
             $this->CI->app_menu->add_sidebar_children_item('poly_utilities', [
                 'slug'     => 'poly_utilities_scripts_extend',
                 'name'     => _l('poly_utilities_scripts_extend'),
@@ -729,7 +842,9 @@ class POLYUTILITIES
                 'href'     => admin_url('poly_utilities/scripts'),
                 'position' => 4,
             ]);
+        }
 
+        if (has_permission('poly_utilities_scripts_extend', '', 'view') || has_permission('poly_utilities_scripts_extend', '', 'create') || has_permission('poly_utilities_scripts_extend', '', 'edit')) {
             $this->CI->app_menu->add_sidebar_children_item('poly_utilities', [
                 'slug'     => 'poly_utilities_scripts_add_extend',
                 'name'     => _l('poly_utilities_scripts_extend'),
@@ -737,8 +852,10 @@ class POLYUTILITIES
                 'href'     => admin_url('poly_utilities/scripts_add'),
                 'position' => 5,
             ]);
+        }
 
         // ==== Styles ==== //
+        if (has_permission('poly_utilities_styles_extend', '', 'view') || has_permission('poly_utilities_styles_extend', '', 'delete')) {
             $this->CI->app_menu->add_sidebar_children_item('poly_utilities', [
                 'slug'     => 'poly_utilities_styles_extend',
                 'name'     => _l('poly_utilities_styles_extend'),
@@ -746,6 +863,8 @@ class POLYUTILITIES
                 'href'     => admin_url('poly_utilities/styles'),
                 'position' => 6,
             ]);
+        }
+        if (has_permission('poly_utilities_styles_extend', '', 'view') || has_permission('poly_utilities_styles_extend', '', 'create') || has_permission('poly_utilities_styles_extend', '', 'edit')) {
             $this->CI->app_menu->add_sidebar_children_item('poly_utilities', [
                 'slug'     => 'poly_utilities_styles_add_extend',
                 'name'     => _l('poly_utilities_styles_extend'),
@@ -753,8 +872,10 @@ class POLYUTILITIES
                 'href'     => admin_url('poly_utilities/styles_add'),
                 'position' => 7,
             ]);
+        }
 
         // ==== Support ==== //
+        if (has_permission('poly_utilities_supports', '', 'view') || has_permission('poly_utilities_supports', '', 'edit') || has_permission('poly_utilities_supports', '', 'create') || has_permission('poly_utilities_supports', '', 'delete')) {
             $this->CI->app_menu->add_sidebar_children_item('poly_utilities', [
                 'slug'     => 'poly_utilities_supports',
                 'name'     => _l('poly_utilities_support'),
@@ -762,8 +883,10 @@ class POLYUTILITIES
                 'href'     => admin_url('poly_utilities/support'),
                 'position' => 8,
             ]);
+        }
 
         // ==== Banners: banners, announcements ==== //
+        if (has_permission('poly_utilities_banners', '', 'view') || has_permission('poly_utilities_banners', '', 'edit') || has_permission('poly_utilities_banners', '', 'create') || has_permission('poly_utilities_banners', '', 'delete')) {
             $this->CI->app_menu->add_sidebar_children_item('poly_utilities', [
                 'slug'     => 'poly_utilities_banners',
                 'name'     => _l('poly_utilities_banners'),
@@ -771,9 +894,21 @@ class POLYUTILITIES
                 'href'     => admin_url('poly_utilities/banners'),
                 'position' => 9,
             ]);
+        }
 
+        // ==== Projects: projects, tasks ==== //
+        if (has_permission('poly_utilities_projects', '', 'view') || has_permission('poly_utilities_projects', '', 'edit') || has_permission('poly_utilities_projects', '', 'create') || has_permission('poly_utilities_projects', '', 'delete')) {
+            $this->CI->app_menu->add_sidebar_children_item('poly_utilities', [
+                'slug'     => 'poly_utilities_projects',
+                'name'     => _l('poly_utilities_projects'),
+                'icon'     => 'fa-solid fa-diagram-project fa-fw',
+                'href'     => admin_url('poly_utilities/projects'),
+                'position' => 10,
+            ]);
+        }
 
         // ==== Settings ==== //
+        if (has_permission('poly_utilities_settings', '', 'view') || has_permission('poly_utilities_settings', '', 'edit')) {
             $this->CI->app_menu->add_sidebar_children_item('poly_utilities', [
                 'slug'     => 'poly_utilities_settings',
                 'name'     => _l('poly_utilities_settings'),
@@ -781,6 +916,8 @@ class POLYUTILITIES
                 'href'     => admin_url('poly_utilities/settings'),
                 'position' => 11,
             ]);
+        }
+        $this->poly_utilities_permissions();
     }
 
     /**
@@ -876,6 +1013,15 @@ class POLYUTILITIES
         ];
         register_staff_capabilities('poly_utilities_banners', $capabilities, _l('poly_utilities_banners') . ' (' . _l('poly_utilities') . ')');
         
+        // ==== Projects ==== //
+        $capabilities = [];
+        $capabilities['capabilities'] = [
+            'view'   => _l('permission_view'),
+            'edit'   => _l('permission_edit'),
+            'create'   => _l('permission_create'),
+            'delete' => _l('permission_delete'),
+        ];
+        register_staff_capabilities('poly_utilities_projects', $capabilities, _l('poly_utilities_projects') . ' (' . _l('poly_utilities') . ')');
 
         // ==== Settings ==== //
         $capabilities = [];

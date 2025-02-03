@@ -24,7 +24,7 @@ $scroll_icon_button_bottom = isset($poly_utilities_settings['scroll_to_top_botto
 
 $is_toggle_sidebar_menu = isset($poly_utilities_settings['is_toggle_sidebar_menu']) ? $poly_utilities_settings['is_toggle_sidebar_menu'] : 'false';
 $is_admin_breadcrumb = isset($poly_utilities_settings['is_admin_breadcrumb']) ? $poly_utilities_settings['is_admin_breadcrumb'] : 'true';
-
+$is_edit = has_permission('poly_utilities_settings', '', 'edit');
 $current_user_id = get_staff_user_id();
 ?>
 <div id="wrapper">

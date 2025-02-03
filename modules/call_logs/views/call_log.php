@@ -50,26 +50,30 @@ if (isset($call_log)) {
 
                         <div class="form-group select-placeholder">
                             <label for="customer_type" class="control-label"><?php echo _l('cl_related'); ?></label>
-                            <select name="customer_type" id="customer_type" class="selectpicker" data-width="100%" data-none-selected-text="<?php echo _l('dropdown_non_selected_tex'); ?>">
+                            <select name="customer_type" id="customer_type" class="selectpicker" data-width="100%"
+                                data-none-selected-text="<?php echo _l('dropdown_non_selected_tex'); ?>">
                                 <option value=""></option>
                                 <option value="lead" <?php if ((isset($call_log) && $call_log->customer_type == 'lead') || $this->input->get('customer_type')) {
-                                                            if ($customer_type == 'lead') {
-                                                                echo 'selected';
-                                                            }
-                                                        } ?>><?php echo _l('cl_lead'); ?></option>
-                                <option value="customer" <?php if ((isset($call_log) &&  $call_log->customer_type == 'customer') || $this->input->get('customer_type')) {
-                                                                if ($customer_type == 'customer') {
-                                                                    echo 'selected';
-                                                                }
-                                                            } ?>><?php echo _l('cl_customer'); ?></option>
+                                    if ($customer_type == 'lead') {
+                                        echo 'selected';
+                                    }
+                                } ?>><?php echo _l('cl_lead'); ?></option>
+                                <option value="customer" <?php if ((isset($call_log) && $call_log->customer_type == 'customer') || $this->input->get('customer_type')) {
+                                    if ($customer_type == 'customer') {
+                                        echo 'selected';
+                                    }
+                                } ?>><?php echo _l('cl_customer'); ?></option>
                             </select>
                         </div>
                         <div class="form-group select-placeholder<?php if ($clientid == '') {
-                                                                        echo ' hide';
-                                                                    } ?> " id="clientid_wrapper">
+                            echo ' hide';
+                        } ?> " id="clientid_wrapper">
                             <label for="clientid"><span class="clientid_label"></span></label>
                             <div id="clientid_select">
-                                <select name="clientid" id="clientid" class="ajax-search" data-width="100%" data-live-search="true" data-none-selected-text="<?php echo _l('dropdown_non_selected_tex'); ?>" onchange="myFunction()">
+                                <select name="clientid" id="clientid" class="ajax-search" data-width="100%"
+                                    data-live-search="true"
+                                    data-none-selected-text="<?php echo _l('dropdown_non_selected_tex'); ?>"
+                                    onchange="myFunction()">
                                     <?php if ($clientid != '' && $customer_type != '') {
                                         $rel_data = get_relation_data($customer_type, $clientid);
                                         $rel_val = get_relation_values($rel_data, $customer_type);
@@ -81,11 +85,14 @@ if (isset($call_log)) {
 
 
                         <div class="form-group select-placeholder <?php if ($contactid == '') {
-                                                                        echo ' hide';
-                                                                    } ?> " id="contactid_wrapper">
+                            echo ' hide';
+                        } ?> " id="contactid_wrapper">
                             <label for="contactid"><span class="contactid_label">Contact</span></label>
                             <div id="contactid_select">
-                                <select name="contactid" id="contactid" class="ajax-search" data-width="100%" data-live-search="true" data-none-selected-text="<?php echo _l('dropdown_non_selected_tex'); ?>" onchange="myFunction2()">
+                                <select name="contactid" id="contactid" class="ajax-search" data-width="100%"
+                                    data-live-search="true"
+                                    data-none-selected-text="<?php echo _l('dropdown_non_selected_tex'); ?>"
+                                    onchange="myFunction2()">
                                     <?php
                                     if ($contactid != '') {
                                         echo '<option value="' . $call_log->contactid . '" selected>' . $call_log->contact_name . ' - ' . $call_log->contact_email . '</option>';
@@ -105,11 +112,13 @@ if (isset($call_log)) {
                         } ?>
 
                         <div class="form-group select-placeholder<?php if ($rel_type != 'proposal' && $rel_type != 'estimate') {
-                                                                        echo ' hide';
-                                                                    } ?> " id="rel_id_wrapper">
+                            echo ' hide';
+                        } ?> " id="rel_id_wrapper">
                             <label for="rel_id"><span class="rel_id_label"></span></label>
                             <div id="rel_id_select">
-                                <select name="rel_id" id="rel_id" class="ajax-search" data-width="100%" data-live-search="true" data-none-selected-text="<?php echo _l('dropdown_non_selected_tex'); ?>">
+                                <select name="rel_id" id="rel_id" class="ajax-search" data-width="100%"
+                                    data-live-search="true"
+                                    data-none-selected-text="<?php echo _l('dropdown_non_selected_tex'); ?>">
                                     <?php if ($rel_id != '' && $rel_type != '') {
                                         $rel_data = get_relation_data($rel_type, $rel_id);
                                         $rel_val = get_relation_values($rel_data, $rel_type);
@@ -140,23 +149,23 @@ if (isset($call_log)) {
                                 <span><?php echo _l('cl_follow_up_requried'); ?></span>
                                 <div class="radio radio-primary radio-inline">
                                     <input type="radio" value="1" id="has_follow_1" name="has_follow_up" <?php if (isset($call_log) && $call_log->has_follow_up == 1) {
-                                                                                                                echo 'checked';
-                                                                                                            } ?>>
+                                        echo 'checked';
+                                    } ?>>
                                     <label for="has_follow_1"><?php echo _l('cl_follow_up_yes'); ?></label>
                                 </div>
                                 <div class="radio radio-primary radio-inline">
                                     <input type="radio" value="0" id="has_follow_0" name="has_follow_up" <?php if (isset($call_log) && $call_log->has_follow_up == 0) {
-                                                                                                                echo 'checked';
-                                                                                                            } else if (!isset($call_log)) {
-                                                                                                                echo 'checked';
-                                                                                                            } ?>>
+                                        echo 'checked';
+                                    } else if (!isset($call_log)) {
+                                        echo 'checked';
+                                    } ?>>
                                     <label for="has_follow_0"><?php echo _l('cl_follow_up_no'); ?></label>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group followup-schedule <?php if (!isset($call_log) || $call_log->has_follow_up == 0) {
-                                                                        echo 'hide';
-                                                                    } ?>">
+                            echo 'hide';
+                        } ?>">
                             <?php $value = ((isset($call_log) && $call_log->follow_up_schedule != '') ? _d($call_log->follow_up_schedule) : _d(date('Y-m-d H:i'))) ?>
                             <?php echo render_datetime_input('follow_up_schedule', 'cl_follow_up_schedule', $value, ['readonly' => 'readonly']); ?>
                         </div>
@@ -177,17 +186,23 @@ if (isset($call_log)) {
                             </div>
                             <div class="col-lg-6 text-right">
 
-                                <button type="button" class="btn btn-sm btn-danger" id="endcall" style="display: none;"><span><i class="fa fa-phone" style="padding-right: 3px;"></i></span><?php echo _l('end_call'); ?></button>
-                                <button type="button" class="btn btn-sm btn-success" id="answer-button" style="display: none;"><span><i class="fa fa-phone" style="padding-right: 3px;"></i></span><?php echo _l('call_answer'); ?></button>
+                                <button type="button" class="btn btn-sm btn-danger" id="endcall"
+                                    style="display: none;"><span><i class="fa fa-phone"
+                                            style="padding-right: 3px;"></i></span><?php echo _l('end_call'); ?></button>
+                                <button type="button" class="btn btn-sm btn-success" id="answer-button"
+                                    style="display: none;"><span><i class="fa fa-phone"
+                                            style="padding-right: 3px;"></i></span><?php echo _l('call_answer'); ?></button>
                             </div>
                         </div>
                         <hr class="hr-panel-heading" />
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="userphone" class="control-label"> <small class="req text-danger">* </small><?php echo _l('cl_opt_event_type'); ?></label><br>
+                                    <label for="userphone" class="control-label"> <small class="req text-danger">*
+                                        </small><?php echo _l('cl_opt_event_type'); ?></label><br>
                                     <div class="radio radio-primary radio-inline">
-                                        <input type="radio" value="call" id="opt_event_type_call" name="opt_event_type" checked>
+                                        <input type="radio" value="call" id="opt_event_type_call" name="opt_event_type"
+                                            checked>
                                         <label for="opt_event_type_call">Call</label>
                                     </div>
                                 </div>
@@ -200,10 +215,15 @@ if (isset($call_log)) {
                             </div>
                             <div class="" id="call-input">
                                 <div class="col-md-2" style="padding-left:10px;">
-                                    <button type="button" class="btn btn-sm btn-success" id="startcall" onclick="callCustomer()" style="margin-top: 26px;"><span><i class="fa fa-phone" style="padding-right: 3px;"></i></span><?php echo _l('call'); ?></button>
+                                    <button type="button" class="btn btn-sm btn-success" id="startcall"
+                                        onclick="callCustomer()" style="margin-top: 26px;"><span><i class="fa fa-phone"
+                                                style="padding-right: 3px;"></i></span><?php echo _l('call'); ?></button>
                                     <!-- <button type="button" class="btn btn-sm btn-danger" id="endcall"  style="margin-top: 26px;display: none;"><span><i class="fa fa-phone" style="padding-right: 3px;"></i></span><?php echo _l('end_call'); ?></button>
                          <button type="button" class="btn btn-sm btn-success" id="answer-button"  style="margin-top: 26px;display: none;"><span><i class="fa fa-phone" style="padding-right: 3px;"></i></span><?php echo _l('call_answer'); ?></button> -->
-                                    <button type="button" class="btn btn-sm btn-primary call-support-button" onclick="callSupport()" style="margin-top: 26px;display: none;"><span><i class="fa fa-phone" style="padding-right: 3px;"></i></span><?php echo _l('call_support'); ?></button>
+                                    <button type="button" class="btn btn-sm btn-primary call-support-button"
+                                        onclick="callSupport()" style="margin-top: 26px;display: none;"><span><i
+                                                class="fa fa-phone"
+                                                style="padding-right: 3px;"></i></span><?php echo _l('call_support'); ?></button>
                                 </div>
                                 <div class="col-md-12">
                                     <p id="call_message" style="display: none;"></p>
@@ -263,16 +283,16 @@ if (isset($call_log)) {
                                 <span><?php echo _l('cl_call_log_completed'); ?></span>
                                 <div class="radio radio-primary radio-inline">
                                     <input type="radio" value="1" id="is_completed_1" name="is_completed" <?php if (isset($call_log) && $call_log->is_completed == 1) {
-                                                                                                                echo 'checked';
-                                                                                                            } ?>>
+                                        echo 'checked';
+                                    } ?>>
                                     <label for="is_completed_1"><?php echo _l('cl_follow_up_yes'); ?></label>
                                 </div>
                                 <div class="radio radio-primary radio-inline">
                                     <input type="radio" value="0" id="is_completed_0" name="is_completed" <?php if (isset($call_log) && $call_log->is_completed == 0) {
-                                                                                                                echo 'checked';
-                                                                                                            } else if (!isset($call_log)) {
-                                                                                                                echo 'checked';
-                                                                                                            } ?>>
+                                        echo 'checked';
+                                    } else if (!isset($call_log)) {
+                                        echo 'checked';
+                                    } ?>>
                                     <label for="is_completed_0"><?php echo _l('cl_follow_up_no'); ?></label>
                                 </div>
                             </div>
@@ -283,16 +303,16 @@ if (isset($call_log)) {
                                 <span><?php echo _l('cl_call_log_important'); ?>&nbsp;&nbsp;</span>
                                 <div class="radio radio-primary radio-inline">
                                     <input type="radio" value="1" id="is_important_1" name="is_important" <?php if (isset($call_log) && $call_log->is_important == 1) {
-                                                                                                                echo 'checked';
-                                                                                                            } ?>>
+                                        echo 'checked';
+                                    } ?>>
                                     <label for="is_important_1"><?php echo _l('cl_follow_up_yes'); ?></label>
                                 </div>
                                 <div class="radio radio-primary radio-inline">
                                     <input type="radio" value="0" id="is_important_0" name="is_important" <?php if (isset($call_log) && $call_log->is_important == 0) {
-                                                                                                                echo 'checked';
-                                                                                                            } else if (!isset($call_log)) {
-                                                                                                                echo 'checked';
-                                                                                                            } ?>>
+                                        echo 'checked';
+                                    } else if (!isset($call_log)) {
+                                        echo 'checked';
+                                    } ?>>
                                     <label for="is_important_0"><?php echo _l('cl_follow_up_no'); ?></label>
                                 </div>
                             </div>
@@ -315,7 +335,7 @@ if (isset($call_log)) {
 
 <?php if ($contactid != ''): ?>
     <script type="text/javascript">
-        $(function() {
+        $(function () {
             init_ajax_search('contactid', $('#contactid'), {
                 clientid: $('#clientid').val()
             }, admin_url + 'call_logs/get_contact');
@@ -334,7 +354,7 @@ if (isset($call_log)) {
                 url: admin_url + 'call_logs/get_contact_info',
                 type: 'POST',
                 data: $('#calllog-form').serialize(),
-                success: function(result) {
+                success: function (result) {
                     $('#userphone').val(result);
                 }
             });
@@ -354,7 +374,7 @@ if (isset($call_log)) {
                     url: admin_url + 'call_logs/get_lead_info',
                     type: 'POST',
                     data: $('#calllog-form').serialize(),
-                    success: function(result) {
+                    success: function (result) {
                         $('#userphone').val(result);
                     }
                 });
@@ -384,19 +404,19 @@ if (isset($call_log)) {
 
     var recorded_blobs = [];
 
-    $(function() {
-        $('body').on('click', 'button.save-cl', function() {
+    $(function () {
+        $('body').on('click', 'button.save-cl', function () {
             $("#call_end_time").trigger('blur');
             $('form#calllog-form').submit();
         });
 
-        $('body').on('change', '#clientid', function() {
+        $('body').on('change', '#clientid', function () {
             initRelIdCntrl();
         });
         validate_call_log_form();
 
         $('.clientid_label').html(_customer_type.find('option:selected').text());
-        _customer_type.on('change', function() {
+        _customer_type.on('change', function () {
 
             var clonedSelect = _clientid.html('').clone();
             _clientid.selectpicker('destroy').remove();
@@ -420,7 +440,7 @@ if (isset($call_log)) {
         <?php } ?>
 
         $('.rel_id_label').html(_rel_type.find('option:selected').text());
-        _rel_type.on('change', function() {
+        _rel_type.on('change', function () {
 
             var clonedSelect = _rel_id.html('').clone();
             _rel_id.selectpicker('destroy').remove();
@@ -440,7 +460,7 @@ if (isset($call_log)) {
             _rel_id.change();
         <?php } ?>
 
-        $("input[type='radio'][name='has_follow_up']").change(function() {
+        $("input[type='radio'][name='has_follow_up']").change(function () {
             if ($('input[type="radio"][name="has_follow_up"]:checked').val() == 1) {
                 $('div.followup-schedule').removeClass('hide');
             } else {
@@ -448,7 +468,7 @@ if (isset($call_log)) {
             }
         });
 
-        $("#call_start_time").blur(function() {
+        $("#call_start_time").blur(function () {
             /*
             var now = moment($(this).val()); //todays date
             var end = moment($( "#call_end_time" ).val()); // another date
@@ -459,7 +479,7 @@ if (isset($call_log)) {
             */
             calculate_duration($(this).val(), $('#call_end_time').val());
         });
-        $("#call_end_time").blur(function() {
+        $("#call_end_time").blur(function () {
             /*
             var now = moment($('#call_start_time').val()); //todays date
             var end = moment($( this ).val()); // another date
@@ -480,7 +500,7 @@ if (isset($call_log)) {
                 start_time: start_time,
                 end_time: end_time
             },
-            success: function(result) {
+            success: function (result) {
                 $("#call_duration").val(result)
             }
         });
@@ -508,7 +528,7 @@ if (isset($call_log)) {
             rel_type: 'required',
             rel_id: {
                 required: {
-                    depends: function() {
+                    depends: function () {
                         return (rel_type == '1' || rel_type == '2') ? true : false;
                     }
                 }
@@ -524,7 +544,7 @@ if (isset($call_log)) {
             call_duration: 'required',
             follow_up_schedule: {
                 required: {
-                    depends: function() {
+                    depends: function () {
                         return ($("input[name='has_follow_up']:checked").val() == '1') ? true : false;
                     }
                 }
@@ -552,7 +572,7 @@ if (isset($call_log)) {
             processData: false,
             contentType: false,
             //encode: true,
-        }).done(function(data) {
+        }).done(function (data) {
             window.location.href = admin_url + "call_logs";
 
         });
@@ -588,13 +608,13 @@ if (isset($call_log)) {
 
     function convertTime(sec) {
         var hours = Math.floor(sec / 3600);
-        (hours >= 1) ? sec = sec - (hours * 3600): hours = '00';
+        (hours >= 1) ? sec = sec - (hours * 3600) : hours = '00';
         var min = Math.floor(sec / 60);
-        (min >= 1) ? sec = sec - (min * 60): min = '00';
-        (sec < 1) ? sec = '00': void 0;
+        (min >= 1) ? sec = sec - (min * 60) : min = '00';
+        (sec < 1) ? sec = '00' : void 0;
 
-        (min.toString().length == 1) ? min = '0' + min: void 0;
-        (sec.toString().length == 1) ? sec = '0' + sec: void 0;
+        (min.toString().length == 1) ? min = '0' + min : void 0;
+        (sec.toString().length == 1) ? sec = '0' + sec : void 0;
 
         return hours + ':' + min + ':' + sec;
     }
@@ -602,15 +622,15 @@ if (isset($call_log)) {
     function sendcall() {
         var userphone = document.getElementById('userphone').value;
         if (userphone == '') {
-            alert('please enter your phone number');
+            alert('Gib\' bitte deine Telefonnummer ein');
         } else {
             $.ajax({
                 url: admin_url + 'call_logs/check_call',
                 type: 'POST',
                 data: $('#calllog-form').serialize(),
-                success: function(result) {
+                success: function (result) {
                     if (result == 'ok') {
-                        $('#call_message').html('<p style="color:green;">The call is currently ringing.' + '<img src="' + site_url + 'modules/call_logs/callingimage.gif" width="100px">');
+                        $('#call_message').html('<p style="color:green;">Es klingelt.' + '<img src="' + site_url + 'modules/call_logs/callingimage.gif" width="100px">');
                         $('#startcall').hide();
                         $('#endcall').show();
                         $('#call_message').show();
@@ -637,8 +657,8 @@ if (isset($call_log)) {
 
     // browser phone call integration
 
-    $(document).ready(function() {
-        $('input[type=radio][name=opt_event_type]').change(function(event) {
+    $(document).ready(function () {
+        $('input[type=radio][name=opt_event_type]').change(function (event) {
             if ($(this).val() == 'call') {
                 $("#userphone").closest("div .col-md-12").addClass('col-md-10')
                 $("#userphone").closest("div .col-md-12").removeClass('col-md-12')

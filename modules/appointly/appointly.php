@@ -5,6 +5,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
 Module Name: Appointly
 Description: Perfex CRM Appointments & Callback module
 Version: 1.2.4
+Author: iDev
+Author URI: https://idevalex.com
 Requires at least: 2.4.1
 */
 
@@ -153,7 +155,7 @@ function appointly_register_menu_items()
             'name'     => 'appointment_appointments',
             'href'     => admin_url('appointly/appointments'),
             'position' => 5,
-            'icon'     => '',
+            'icon'     => 'fa fa-th-list',
         ]);
 
         $CI->app_menu->add_sidebar_children_item(APPOINTLY_MODULE_NAME, [
@@ -161,7 +163,7 @@ function appointly_register_menu_items()
             'name'     => 'appointment_history_label',
             'href'     => admin_url('appointly/appointments_history'),
             'position' => 10,
-            'icon'     => '',
+            'icon'     => 'fa fa-history',
         ]);
 
         $CI->app_menu->add_sidebar_children_item(APPOINTLY_MODULE_NAME, [
@@ -169,7 +171,7 @@ function appointly_register_menu_items()
             'name'     => 'appointly_callbacks',
             'href'     => admin_url('appointly/callbacks'),
             'position' => 15,
-            'icon'     => '',
+            'icon'     => 'fa fa-phone',
         ]);
 
         $CI->app_menu->add_sidebar_children_item(APPOINTLY_MODULE_NAME, [
@@ -177,7 +179,7 @@ function appointly_register_menu_items()
             'name'     => 'appointments_your_settings',
             'href'     => admin_url('appointly/appointments/user_settings_view/settings'),
             'position' => 20,
-            'icon'     => '',
+            'icon'     => 'fa fa-cog',
         ]);
 
         $CI->app_menu->add_sidebar_children_item(APPOINTLY_MODULE_NAME, [
@@ -186,7 +188,7 @@ function appointly_register_menu_items()
             'href'            => site_url('appointly/appointments_public/form?col=col-md-8+col-md-offset-2'),
             'href_attributes' => 'target="_blank" rel="noopener noreferrer"',
             'position'        => 25,
-            'icon'            => '',
+            'icon'            => 'fa-brands fa-wpforms',
         ]);
     }
 }
@@ -484,7 +486,12 @@ if (staff_can('view', 'settings')) {
 
 function appointly_add_settings_tab()
 {
-    
+    $CI = &get_instance();
+    $CI->app_tabs->add_settings_tab('appointly-settings', [
+        'name'     => _l('appointment_appointments'),
+        'view'     => 'appointly/settings',
+        'position' => 36,
+    ]);
 }
 
 /*

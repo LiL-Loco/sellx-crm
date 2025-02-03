@@ -1,5 +1,4 @@
 <?php
-
 $lang['call_logs']                                             = 'Call Logs';
 $lang['call_log_info']                                         = 'Call Log Info';
 $lang['call_log']                                              = 'Call Log';
@@ -82,19 +81,15 @@ $lang['cl_today_calls']                                        = 'Today\'s Calls
 $lang['cl_weekly_calls']                                       = 'Weekly Calls';
 $lang['cl_weekly_calls']                                       = 'Weekly Calls';
 $lang['cl_monthly_calls']                                      = 'Monthly Calls';
-
-
 $lang['cl_types_enable_option']                                = 'Allow non-admin staff members to create <b>Type</b> in <b>Call Log</b> create/edit area?  ';
 $lang['cl_call_direction_enable_option']                       = 'Allow non-admin staff members to create <b>Call Type</b> in <b>Call Log</b> create/edit area?  ';
 $lang['cl_bulk_sms_disable_option']                             = 'Disable Bulk SMS for non-admin staff members?  ';
 $lang['cl_follow_up_notification']                             = 'You have a follow-up call with %s on %s';
-
 $lang['staff_members_daily_calls_target']                      = 'Non-admin Staff members daily number of calls';
 $lang['staff_members_monthly_calls_target']                    = 'Non-admin Staff members monthly number of calls';
 $lang['cl_goal_based_calls_tooltip']                           = 'Goal based non-admin Staff members call (0 for no goal)';
 $lang['cl_daily_calls_target_notification']                    = 'You have achieved daily calls goal of %s calls';
 $lang['cl_monthly_calls_target_notification']                  = 'You have achieved monthly calls goal of %s calls';
-
 // new code
 $lang['cl_opt_event_type']                                    = 'Log type';
 $lang['cl_sms_content']                                       = 'SMS';
@@ -127,5 +122,3 @@ $lang['twilio_phone_number']              		  	      	  = 'twiML Phone Number';
 $lang['sms_twilio_auth_token']              		  	      	  = 'Auth Token';
 $lang['sms_twilio_account_sid']              		  	      	  = 'Account SID';
 $lang['active']              		  	      	                = 'Active';
-
-

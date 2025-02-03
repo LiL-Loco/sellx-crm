@@ -108,19 +108,19 @@ if (isset($call_log)) {
                                         </div>
                                     </div>
                                 <?php } else { ?>
-                                    <?php render_datatable(array(
-                                        _l('cl_type'),
-                                        _l('cl_purpose_of_call'),
-                                        _l('cl_caller'),
-                                        _l('cl_contact'),
-                                        _l('cl_start_time'),
-                                        _l('cl_end_time'),
-                                        _l('cl_duration'),
-                                        _l('cl_call_follow_up'),
-                                        _l('cl_is_important'),
-                                        _l('cl_is_completed'),
-                                        _l('cl_opt_event_type'),
-                                    ), 'call_logs'); ?>
+                                    <?php render_datatable(headings: array(
+                                        _l(line: 'cl_type'),
+                                        _l(line: 'cl_purpose_of_call'),
+                                        _l(line: 'cl_caller'),
+                                        _l(line: 'cl_contact'),
+                                        _l(line: 'cl_start_time'),
+                                        _l(line: 'cl_end_time'),
+                                        _l(line: 'cl_duration'),
+                                        _l(line: 'cl_call_follow_up'),
+                                        _l(line: 'cl_is_important'),
+                                        _l(line: 'cl_is_completed'),
+                                        _l(line: 'cl_opt_event_type'),
+                                    ), class: 'call_logs'); ?>
                                 <?php } ?>
                             </div>
                         </div>

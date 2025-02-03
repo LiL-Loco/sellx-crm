@@ -36,7 +36,7 @@
                                 <div class="panel-heading info-header no-padding">
                                     <h3 class="pull-left"> <?= _l('appointment_overview'); ?>
                                     </h3>
-                                    <a data-toggle="tooltip" title="<?= _l('appointment_public_url'); ?>"
+                                    <a title="<?= _l('appointment_public_url'); ?>"
                                        class="appointment_public_url pull-right"
                                        href="<?= $appointment['public_url']; ?>" target="_blank">
                                         <i class="fa fa-external-link-square appointment_public_link"
@@ -45,7 +45,7 @@
                                     <?php if (isset($appointment['google_meet_link'])) : ?>
                                         <div class="google_meet_main">
                                             <a href="<?= $appointment['google_meet_link']; ?>" target="_blank"
-                                               data-toggle="tooltip" title="<?= _l('appointment_google_meet_info'); ?>">
+                                               title="<?= _l('appointment_google_meet_info'); ?>">
                                                 <img width="30"
                                                      src="<?= base_url('/modules/appointly/assets/images/google_meet.png') ?>"
                                                      alt="">
@@ -163,7 +163,7 @@
                                                 <a target="_blank"
                                                    href="<?= admin_url() . 'profile/' . $staff['staffid']; ?>">
                                                     <img src="<?= staff_profile_image_url($staff['staffid'], 'small'); ?>"
-                                                         data-toggle="tooltip"
+                                                         
                                                          data-title="<?= $staff['firstname'] . ' ' . $staff['lastname']; ?>"
                                                          class="staff-profile-image-small mright5"
                                                          data-original-title=""
@@ -207,7 +207,7 @@
                                                 <boldit><?= _l('appointment_name'); ?></boldit>
                                             <?php
                                             if ($appointment['source'] == 'internal') {
-                                                echo '<a data-toggle="tooltip" title="' . _l('client') . '" target="_blank" href="' . admin_url('clients/client/' . $appointment['details']['userid'] . '?group=contacts&contactid=' . $appointment['contact_id'] . '') . '">'
+                                                echo '<a title="' . _l('client') . '" target="_blank" href="' . admin_url('clients/client/' . $appointment['details']['userid'] . '?group=contacts&contactid=' . $appointment['contact_id'] . '') . '">'
                                                     . (isset($appointment['name']) ? $appointment['name'] : $appointment['details']['full_name']) . '</a>';
                                             }
                                             if ($appointment['source'] == 'lead_related') {
@@ -252,13 +252,13 @@
                                                 ?>
                                             <?php if ($phoneToCall !== '') : ?>
                                                 <div class="client_numbers">
-                                                        <a data-toggle="tooltip" class="label label-success"
+                                                        <a class="label label-success"
                                                            title="<?= _l('appointment_send_an_sms'); ?>"
                                                            href="sms:<?= $phoneToCall; ?>&body=Hello">SMS:
                                                             <?= $phoneToCall; ?></a>
-                                                        <a data-toggle="tooltip" class="label label-success mleft5"
+                                                        <a class="label label-success mleft5"
                                                            title="<?= _l('appointment_call_number') ?>"
-                                                           href="tel:<?= $phoneToCall; ?>">Anrufen:
+                                                           href="tel:<?= $phoneToCall; ?>">Call:
                                                             <?= $phoneToCall; ?></a>
                                                     </div>
                                             <?php endif; ?>
@@ -269,9 +269,9 @@
                                                 </boldit>
                                                 <?php $appAddress = isset($appointment['address']) ? $appointment['address'] : ''; ?>
 
-                                                <a data-toggle="tooltip" title="<?= _l('appointment_google_maps') ?>"
+                                                <a title="<?= _l('appointment_google_maps') ?>"
                                                    target="_blank"
-                                                   href="<?= $appAddress; ?>">Link zum Online Meeting</a>
+                                                   href="https://maps.google.com/?q=<?= $appAddress; ?>"><?= $appAddress; ?></a>
                                             </span><br>
 
                                         <?php if ($appointment['type_id'] != 0) { ?>
@@ -287,12 +287,12 @@
                                                 <?php $isEmailRead = get_tracked_emails($appointment['id'], 'appointment');
 
                                                 if ( ! empty($isEmailRead) && $isEmailRead[0]['opened']) { ?>
-                                                    <span data-toggle="tooltip"
+                                                    <span 
                                                           title="<?= _l('appointment_email_read_at'); ?>">
                                                         <?= _l('appointment_email_read_at') . ' <strong>' . $isEmailRead[0]['date'] . '</strong>'; ?>
                                                     </span>
                                                 <?php } else { ?>
-                                                    <span data-toggle="tooltip"
+                                                    <span 
                                                           title="<?= _l('appointment_email_not_read'); ?>">
                                                         <?= _l('appointment_email_not_read'); ?>
                                                     </span>
@@ -331,7 +331,12 @@
                             <?php if (get_option('google_api_key')): ?>
                         <?php if ($appointment['address'] !== ''): ?>
                             <div class="col-lg-12 col-xs-12 mtop20">
-
+                                <h4 class="appointly-default reorder-content"><?= _l('location'); ?> <?= _l('map'); ?></h4>
+                                <iframe
+                                        style="width:100%;height:400px;border:1px solid #cfcaca;border-radius: 4px;"
+                                        src="https://www.google.com/maps/embed/v1/place?key=<?= get_option('google_api_key'); ?>&q=<?= str_replace(',', '', str_replace(' ', '+', $appointment['address'])); ?>"
+                                        allowfullscreen>
+                                </iframe>
                                 <?php endif; ?>
                                 <?php else: ?>
                                     <span id="google_not_set">
@@ -391,7 +396,7 @@
                                         && $appointment['reminder_before'] !== null
                                         && $appointment['approved'] == 1
                                     ) { ?>
-                                        <button data-toggle="tooltip"
+                                        <button 
                                                 title="<?= _l('appointment_manually_send_reminders_info'); ?>"
                                                 class="btn btn-primary mbot10" type="submit"
                                                 onClick="sendAppointmentReminders()"
@@ -422,7 +427,7 @@
                                             <?php if ($appointment['created_by'] == get_staff_user_id() || staff_appointments_responsible()) { ?>
                                                 <button class="btn btn-primary" type="submit"
                                                         onClick="markAppointmentAsFinished()"
-                                                        id="markAsFinished"><?= _l('appointment_mark_as_finished'); ?></button>
+                                                        id="markAsFinished"><?= _l('task_mark_as') . ' ' . _l('appointment_mark_as_finished'); ?></button>
                                             <?php } ?>
 
                                         <?php } ?>
@@ -441,7 +446,7 @@
 
                                     <?php
                                     if ($appointment['google_meet_link'] !== null && $appointment['google_added_by_id'] == get_staff_user_id() && $appointment['finished'] == 0) { ?>
-                                        <button data-toggle="tooltip"
+                                        <button 
                                                 title="<?= _l('appointment_google_meet_connect_message');; ?>"
                                                 onclick="sendGoogleMeetRequestEmail(this)"
                                                 data-client="<?= $appointment['email']; ?>"
@@ -454,13 +459,13 @@
                                     <?php }
 
                                     if ($appointment['google_calendar_link'] !== null && $appointment['google_added_by_id'] == get_staff_user_id()) { ?>
-                                        <a data-toggle="tooltip" title="<?= _l('appointment_open_google_calendar'); ?>"
+                                        <a title="<?= _l('appointment_open_google_calendar'); ?>"
                                            href="<?= $appointment['google_calendar_link']; ?>" target="_blank"
                                            class="btn btn-primary-google"><i class="fa-brands fa-google"
                                                                                     aria-hidden="true"></i></a>
                                     <?php }
                                     if ($appointment['outlook_calendar_link'] !== null && $appointment['outlook_added_by_id'] == get_staff_user_id()) { ?>
-                                        <a data-toggle="tooltip" title="<?= _l('appointment_open_outlook_calendar'); ?>"
+                                        <a title="<?= _l('appointment_open_outlook_calendar'); ?>"
                                            href="<?= $appointment['outlook_calendar_link']; ?>" target="_blank"
                                            class="btn btn-primary-google"><i class="fa-regular fa-envelope"
                                                                                     aria-hidden="true"></i></a>

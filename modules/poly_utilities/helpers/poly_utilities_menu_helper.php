@@ -196,9 +196,11 @@ function app_admin_poly_custom_clients_menu_items()
             continue;
         }
 
+        if (is_admin() || !isset($item['require_login']) || $item['require_login'] !== 'on') {
             $menu_item = poly_custom_create_menu_item_array($item);
             add_theme_menu_item($menu_item['slug'], $menu_item);
             continue;
+        }
 
         if ($item['require_login'] === 'on' && !is_client_logged_in()) {
             continue;
@@ -444,7 +446,9 @@ function staff_can_poly_utilities_custom_menu()
     /**
      * TODO features: Handle the case where granting admin rights then removes permissions to install modules, backup
      */
-
+    if ((is_admin() && ($staff_id != 1 && !poly_utilities_is_user_access_custom_menu($staff_id))) || !staff_can('view', 'poly_utilities_custom_menu_extend')) {
+        access_denied();
+    }
 }
 
 /**
@@ -453,7 +457,12 @@ function staff_can_poly_utilities_custom_menu()
 function staff_can_poly_utilities()
 {
     $staff_id = get_staff_user_id();
-
+    /**
+     * TODO features: Handle the case where granting admin rights then removes permissions to install modules, backup
+     */
+    if ((is_admin() && ($staff_id != 1 && !poly_utilities_is_user_access_module($staff_id)))) {
+        access_denied();
+    }
 }
 
 /**
@@ -1103,6 +1112,14 @@ function poly_process_menu_items($flat_menu_items, &$custom_clients_menu_items)
     if (!empty($arr_slug)) {
         foreach ($arr_slug as $slug) {
             $current_object = poly_utilities_find_menu_item_by_slug($flat_menu_items, $slug);
+            if ($current_object) {
+                // Check permission for 'subscriptions' or general permission for other items
+                if (($slug === 'subscriptions' && !can_logged_in_contact_view_subscriptions()) ||
+                    (!has_contact_permission($slug))
+                ) {
+                    poly_remove_menu_item_by_slug($custom_clients_menu_items, $slug);
+                }
+            }
         }
     }
 }
@@ -1118,6 +1135,15 @@ function poly_client_logged_in_can_access()
     $access = [];
     if (!empty($arr_slug)) {
         $access = $arr_slug;
+        if (is_client_logged_in()) {
+            foreach ($arr_slug as $key => $slug) {
+                if (($slug === 'subscriptions' && !can_logged_in_contact_view_subscriptions()) ||
+                    (!has_contact_permission($slug))
+                ) {
+                    unset($arr_slug[$key]);
+                }
+            }
+        }
     }
     return array('can_access' => array_values($arr_slug), 'access' => array_values($access));
 }
@@ -1135,6 +1161,7 @@ function poly_remove_menu_items_logged(&$custom_clients_menu_items)
 function poly_add_default_menu_items($flat_menu_items, &$menu_items_custom)
 {
     $arr_slug = [
+        ['slug' => 'projects', 'name' => _l('clients_nav_projects'), 'href' => site_url('clients/projects'), 'position' => 10],
         ['slug' => 'invoices', 'name' => _l('clients_nav_invoices'), 'href' => site_url('clients/invoices'), 'position' => 15],
         ['slug' => 'contracts', 'name' => _l('clients_nav_contracts'), 'href' => site_url('clients/contracts'), 'position' => 20],
         ['slug' => 'estimates', 'name' => _l('clients_nav_estimates'), 'href' => site_url('clients/estimates'), 'position' => 25],

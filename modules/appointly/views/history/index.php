@@ -60,12 +60,12 @@ foreach ($rResult as $aRow) {
 
     if (date('Y-m-d H:i', strtotime($aRow['date'])) < date('Y-m-d H:i')) {
         $label_class = 'danger';
-        $tooltip = 'data-toggle="tooltip" title="' . _l('appointment_missed') . '"';
+        $tooltip = 'title="' . _l('appointment_missed') . '"';
     }
 
     $row = [];
 
-    $hrefAttr = 'data-toggle="tooltip" title="' . _l('appointment_view_meeting') . '" href="' . admin_url('appointly/appointments/view?appointment_id=' . $aRow['id']) . '"';
+    $hrefAttr = 'title="' . _l('appointment_view_meeting') . '" href="' . admin_url('appointly/appointments/view?appointment_id=' . $aRow['id']) . '"';
     $row[] = $aRow['id'];
 
     $nameRow = '<a href="' . admin_url('appointly/appointments/view?appointment_id=' . $aRow['id']) . '">' . $aRow['subject'] . '</a>';
@@ -79,14 +79,14 @@ foreach ($rResult as $aRow) {
     $nameRow .= '<a ' . $hrefAttr . '>' . _l('view') . '</a>';
 
     if (staff_can('edit', 'appointments') || staff_appointments_responsible()) {
-        $nameRow .= ' | <a data-toggle="tooltip" title="' . _l('appointment_edit_history_notes') . '" data-id="' . $aRow['id'] . '" onclick="editAppointmentNotes(this)" style="cursor:pointer;">' . _l('appointment_edit_history_notes') . '</a>';
+        $nameRow .= ' | <a title="' . _l('appointment_edit_history_notes') . '" data-id="' . $aRow['id'] . '" onclick="editAppointmentNotes(this)" style="cursor:pointer;">' . _l('appointment_edit_history_notes') . '</a>';
     }
 
     // If there is no feedback from client and if appintment is marked as finished
     if ($aRow['feedback'] !== null && $aRow['finished'] !== 1) {
-        $nameRow .= ' | <a data-toggle="tooltip" title="' . _l('appointment_view_feedback') . '" href="' . admin_url('appointly/appointments/view?appointment_id=' . $aRow['id']) . '#feedback_wrapper">' . _l('appointment_view_feedback') . '</a></li>';
+        $nameRow .= ' | <a title="' . _l('appointment_view_feedback') . '" href="' . admin_url('appointly/appointments/view?appointment_id=' . $aRow['id']) . '#feedback_wrapper">' . _l('appointment_view_feedback') . '</a></li>';
     } else if ($aRow['finished'] == 1) {
-        $nameRow .= ' | <a onclick="request_appointment_feedback(\'' . $aRow['id'] . '\')" data-toggle="tooltip" title="' . _l('appointments_request_feedback_from_client') . '" href="#">' . _l('appointments_request_feedback') . '</a>';
+        $nameRow .= ' | <a onclick="request_appointment_feedback(\'' . $aRow['id'] . '\')" title="' . _l('appointments_request_feedback_from_client') . '" href="#">' . _l('appointments_request_feedback') . '</a>';
     }
 
     $nameRow .= '</div>';
@@ -94,12 +94,12 @@ foreach ($rResult as $aRow) {
 
     $row[] = $nameRow;
 
-    $row[] = '<span  ' . $tooltip . ' class="label label-' . $label_class . '">' . _dt($aRow['date']) . '</span>';
+    $row[] = '<span class="label label-' . $label_class . '">' . _dt($aRow['date']) . '</span>';
 
     if ($aRow['creator_firstname']) {
         $staff_fullname = $aRow['creator_firstname'] . ' ' . $aRow['creator_lastname'];
 
-        $row[] = '<a class="initiated_by" target="_blank" href="' . admin_url() . "profile/" . $aRow["created_by"] . '"><img src="' . staff_profile_image_url($aRow["created_by"], "small") . '" data-toggle="tooltip" data-title="' . $staff_fullname . '" class="staff-profile-image-small mright5" data-original-title="" title="' . $staff_fullname . '">' . $staff_fullname . '</a>';
+        $row[] = '<a class="initiated_by" target="_blank" href="' . admin_url() . "profile/" . $aRow["created_by"] . '"><img src="' . staff_profile_image_url($aRow["created_by"], "small") . '" data-title="' . $staff_fullname . '" class="staff-profile-image-small mright5" data-original-title="" title="' . $staff_fullname . '">' . $staff_fullname . '</a>';
     } else {
         $row[] = $aRow['name'];
     }
@@ -126,11 +126,11 @@ foreach ($rResult as $aRow) {
     $options .= '<div class="text-center">';
 
     if ($_google_calendar_link) {
-        $options .= '<a data-toggle="tooltip" title="' . _l('appointment_open_google_calendar') . '" href="' . $aRow['google_calendar_link'] . '" target="_blank" class="mleft10 calendar_list"><i class="fa-brands fa-google" aria-hidden="true"></i></a>';
+        $options .= '<a title="' . _l('appointment_open_google_calendar') . '" href="' . $aRow['google_calendar_link'] . '" target="_blank" class="mleft10 calendar_list"><i class="fa-brands fa-google" aria-hidden="true"></i></a>';
     }
 
     if ($_outlook_calendar_link) {
-        $options .= '<a data-outlook-id="' . $aRow['outlook_event_id'] . '" id="outlookLink_' . $aRow['id'] . '" data-toggle="tooltip" title="' . _l('appointment_open_outlook_calendar') . '" href="' . $aRow['outlook_calendar_link'] . '" target="_blank" class="mleft5 calendar_list float-right"><i class="fa-regular fa-envelope" aria-hidden="true"></i></a>';
+        $options .= '<a data-outlook-id="' . $aRow['outlook_event_id'] . '" id="outlookLink_' . $aRow['id'] . '" title="' . _l('appointment_open_outlook_calendar') . '" href="' . $aRow['outlook_calendar_link'] . '" target="_blank" class="mleft5 calendar_list float-right"><i class="fa-regular fa-envelope" aria-hidden="true"></i></a>';
     }
     if (!$_google_calendar_link && !$_outlook_calendar_link) {
         $options .= '<p class="text-muted">' . _l('appointment_not_added_to_calendars_yet') . '</p>'; #lang

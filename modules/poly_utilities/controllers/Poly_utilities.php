@@ -16,8 +16,10 @@ class Poly_utilities extends AdminController
 
         staff_can_poly_utilities();
 
+        $this->load->model('project_name_patterns_model');
 
         $this->load->model('currencies_model');
+        $this->load->model('projects_model');
         $this->load->model('contracts_model');
         $this->load->model('proposals_model');
     }
@@ -394,7 +396,7 @@ class Poly_utilities extends AdminController
         $result = [];
         if (isset($_GET['search'])) {
             $search_keywords = $_GET['search'];
-
+            if (has_permission('staff', '', 'view')) {
                 $this->db->select('staffid, firstname, lastname');
                 $this->db->from(db_prefix() . 'staff');
                 $this->db->group_start();
@@ -416,6 +418,7 @@ class Poly_utilities extends AdminController
                     $value['avatar'] = staff_profile_image_url($value['staffid']);
                 }
                 unset($value);
+            }
         }
         header('Content-Type: application/json');
         echo json_encode($result);
@@ -870,6 +873,35 @@ class Poly_utilities extends AdminController
         $this->load->view('support/manage', $data);
     }
 
+    /**
+     * Projects
+     * @return view
+     */
+    public function projects()
+    {
+        $data['title'] = _l('poly_utilities_projects');
+        $tab = $this->input->get('group');
+        $data['current_tab'] = $tab;
+
+        $data['tabs'] = [
+            "project_name_patterns" => $this->createTab("project_name_patterns", _l('poly_utilities_projects_tabs_name_template'), "poly_utilities/projects/project_name_patterns", 5, 'fa-solid fa-puzzle-piece fa-fw'),
+            //"settings" => $this->createTab("settings", _l('poly_utilities_projects_tabs_settings'), "poly_utilities/projects/settings", 10, "fa fa-sliders-h")
+            //Waiting for newest version: Tasks
+        ];
+
+        if (!$tab || (in_array($tab, $data['tabs']) && !is_admin())) {
+            $tab = 'project_name_patterns';
+        }
+
+        //if ($tab === 'settings') {// Waiting for newest version: Tasks
+        //$data['tab'] = $this->createTab("settings", _l('poly_utilities_projects_tabs_settings'), "poly_utilities/projects/settings", 10, "fa fa-th");
+        //} else {
+        if (!in_array($tab, $data['tabs'])) {
+            $data['tab'] = $this->app_tabs->filter_tab($data['tabs'], $tab);
+        }
+        //}
+        $this->load->view('projects/index', $data);
+    }
 
     /**
      * Banners & Annoucements
@@ -887,7 +919,9 @@ class Poly_utilities extends AdminController
             "settings" => $this->createTab("settings", _l('poly_utilities_banner_media_tabs_settings'), "poly_utilities/banners/settings", 15, "fa fa-sliders-h")
         ];
 
+        if (!$tab || (in_array($tab, $data['tabs']) && !is_admin())) {
             $tab = 'manage';
+        }
 
         if ($tab === 'settings') {
             $data['tab'] = $this->createTab("settings", _l('poly_utilities_banner_media_tabs_settings'), "poly_utilities/banners/settings", 15, "fa fa-th");
@@ -1286,9 +1320,13 @@ class Poly_utilities extends AdminController
 
     public function update_widget()
     {
+        if (is_admin() || has_permission('poly_utilities_widgets_extend', '', 'edit') || has_permission('poly_utilities_widgets_extend', '', 'delete')) {
             $objs = $this->input->post('data', FALSE);
             update_option(POLY_WIDGETS, json_encode($objs));
             poly_utilities_ajax_response_helper::response_success(_l('poly_utilities_response_success'));
+        } else {
+            poly_utilities_ajax_response_helper::response_data_not_saved(_l('access_denied'));
+        }
     }
 
     //#region display custom menu
@@ -1805,6 +1843,123 @@ class Poly_utilities extends AdminController
 
     #endregion modules action
 
+    #region projects & tasks
+    public function delete_project_name_pattern($id)
+    {
+        if (empty($id)) {
+            poly_utilities_ajax_response_helper::response_error('ID is required.');
+        }
+
+        $deleted = $this->project_name_patterns_model->delete_project_name_pattern($id);
+
+        if ($deleted) {
+            poly_utilities_ajax_response_helper::response_success('Project name pattern deleted successfully.');
+        } else {
+            poly_utilities_ajax_response_helper::response_error('Project name pattern not found.');
+        }
+    }
+
+    public function get_project_name_patterns()
+    {
+        $isActive = $this->input->get('active') ?? null;
+        if ($isActive !== null) {
+            $isActive = $isActive === '1' ? true : false;
+        }
+
+        $data = $this->project_name_patterns_model->get_all($isActive) ?? [];
+        poly_utilities_common_helper::sortByFieldName($data, 'created');
+
+        $page = intval($this->input->get('page') ?? 1);
+        $items_per_page = intval($this->input->get('items_per_page') ?? 10);
+
+        $total_items = count($data);
+        $total_pages = ceil($total_items / $items_per_page);
+        $offset = ($page - 1) * $items_per_page;
+        $paginated_data = array_slice($data, $offset, $items_per_page);
+
+        $start_item = $offset + 1;
+        $end_item = min($offset + $items_per_page, $total_items);
+
+        $data_info = _l('poly_utilities_dt_info', [$start_item, $end_item, $total_items]) . ' ' . _l('poly_utilities_dt_entries');
+
+        $response = [
+            'code' => 200,
+            'total_items' => $total_items,
+            'total_pages' => $total_pages,
+            'current_page' => $page,
+            'data' => $paginated_data,
+            'data_info' => $data_info,
+        ];
+
+        $this->output
+            ->set_content_type('application/json')
+            ->set_output(json_encode($response));
+    }
+
+    public function project_name_pattern_add()
+    {
+        if ($this->input->post()) {
+            $post_data        = $this->input->post();
+
+            $name = $post_data['name'];
+            $note = $post_data['note'];
+
+            $active = $post_data['active'];
+            $active = ($active == 'on') ? 1 : 0;
+
+            if (empty($name)) {
+                poly_utilities_ajax_response_helper::response_error(_l('poly_utilities_projects_field_name_validate'));
+            }
+
+            if (!$this->input->post('id')) { // Add new
+
+                if ($this->project_name_patterns_model->is_existed($name)) {
+                    poly_utilities_ajax_response_helper::response_data_exists(_l('poly_utilities_data_existed'));
+                }
+
+                $created_by =  $this->current_user_id;
+                $updated_by =  $created_by;
+
+                $this->project_name_patterns_model->add($name, $note, $active, $created_by, $updated_by);
+                poly_utilities_ajax_response_helper::response_success(_l('poly_utilities_response_add_success'));
+            } else { // Update
+                $id = $post_data['id'];
+                unset($post_data['id']);
+                $updated_by = $this->current_user_id;
+                $is_update = $this->project_name_patterns_model->update($id, $name, $note, $active, $updated_by);
+                if ($is_update) {
+                    poly_utilities_ajax_response_helper::response_success(_l('poly_utilities_response_update_success'));
+                } else {
+                    poly_utilities_ajax_response_helper::response_error(_l('poly_utilities_response_unsuccess'));
+                }
+            }
+        }
+    }
+
+    public function update_pattern_status()
+    {
+        if ($this->input->post() && $this->input->post('id')) {
+
+            $post_data  = $this->input->post();
+
+            $created_by =  $this->current_user_id;
+            $updated_by =  $created_by;
+
+            $id = $post_data['id'];
+            unset($post_data['id']);
+            $active = $post_data['active'];
+
+            $updated_by = $this->current_user_id;
+
+            $is_update = $this->project_name_patterns_model->update($id, null, null, $active, $updated_by);
+            if ($is_update) {
+                poly_utilities_ajax_response_helper::response_success(_l('poly_utilities_response_update_success'));
+            } else {
+                poly_utilities_ajax_response_helper::response_error(_l('poly_utilities_response_unsuccess'));
+            }
+        }
+        poly_utilities_ajax_response_helper::response_error(_l('poly_utilities_response_error'));
+    }
 
     // Add estimate
     public function add_estimate($id = '')

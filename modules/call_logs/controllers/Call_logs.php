@@ -53,8 +53,8 @@ class Call_logs extends AdminController
         $data['clcustomers'] = $this->clients_model->get();
         $data['rel_types'] = $this->call_logs_model->get_rel_types();
         $data['cl_filter_status'] = [
-            ['id' => '1', 'name' => 'Complete'],
-            ['id' => '2', 'name' => 'Incomplete'],
+            ['id' => '1', 'name' => 'Abgeschlossen'],
+            ['id' => '2', 'name' => 'Noch Offen'],
         ];
 
         $data['title']     = _l('call_logs_tracking');
@@ -100,7 +100,7 @@ class Call_logs extends AdminController
 
         if (!$call_log) {
             header('HTTP/1.0 404 Not Found');
-            echo 'Call Log not found';
+            echo 'Anrufprotokoll nicht gefunden';
             die();
         }
 

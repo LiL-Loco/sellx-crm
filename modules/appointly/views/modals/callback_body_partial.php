@@ -64,7 +64,7 @@
                                     <a href="#" class="pull-right mright5" onclick="toggle_edit_note(<?php echo $note['id']; ?>);return false;"><i class="fa fa-pencil-square-o"></i></a>
                                 <?php } ?>
                                 <?php if (!empty($note['date_contacted'])) { ?>
-                                    <span data-toggle="tooltip" data-title="<?php echo _l('callback_date_contacted') . ' ' . _dt($note['date_contacted']); ?>">
+                                    <span data-title="<?php echo _l('callback_date_contacted') . ' ' . _dt($note['date_contacted']); ?>">
                                         <i class="fa fa-phone-square text-success font-medium valign" aria-hidden="true"></i>
                                     </span>
                                 <?php } ?>

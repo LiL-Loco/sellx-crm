@@ -28,8 +28,6 @@
             client_firstname: "required",
             client_lastname: "required",
             client_email: "required",
-            date_from: "required",
-            date_to: "required",
             client_phone: "required",
         }, callbacksHandleFormSubmit);
 

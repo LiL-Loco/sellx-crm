@@ -8,7 +8,7 @@ init_head();
                 <div class="panel_s">
                     <div class="panel-body">
                         <div class="_buttons">
-                            <a data-toggle="tooltip" title="<?= _l('appointly_back_to_appointments'); ?>" href="<?= admin_url('appointly/appointments'); ?>" id="backToAppointments" class="btn btn-primary pull-left display-block">
+                            <a title="<?= _l('appointly_back_to_appointments'); ?>" href="<?= admin_url('appointly/appointments'); ?>" id="backToAppointments" class="btn btn-primary pull-left display-block">
                                 <?php echo _l('appointment_appointments'); ?>
                             </a>
                             <div class="_filters _hidden_inputs hidden">
@@ -16,7 +16,7 @@ init_head();
                                     'custom_view'
                                 ); ?>
                             </div>
-                            <div class="btn-group pull-right btn-with-tooltip-group _filter_data" data-toggle="tooltip" data-title="<?php echo _l('filter_by'); ?>">
+                            <div class="btn-group pull-right btn-with-tooltip-group _filter_data" data-title="<?php echo _l('filter_by'); ?>">
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fa fa-filter" aria-hidden="true"></i>
                                 </button>

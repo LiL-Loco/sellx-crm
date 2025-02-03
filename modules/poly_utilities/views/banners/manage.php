@@ -58,11 +58,18 @@
           </td>
           <td>
             <div class="flex-center">
+              <?php
+              if (has_permission('poly_utilities', '', 'create')) {
+              ?>
                 <span class="cursor" @click.stop="handleEdit(item)" :data-id="item.id" :data-username="item.username"><i class="fa-regular fa-pen-to-square"></i></span>
 
                 <span class="cursor" @click.stop="handleDelete(item)" :data-id="item.id">
                   <i class="fa fa-trash"></i>
                 </span>
+
+              <?php
+              }
+              ?>
             </div>
           </td>
         </tr>

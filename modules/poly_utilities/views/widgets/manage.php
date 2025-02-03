@@ -1,6 +1,7 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
 init_head();
+$is_edit = (is_admin() || has_permission('poly_utilities_widgets_extend', '', 'edit'));
 
 function get_widget_by_id($widget_data, $id)
 {
@@ -103,7 +104,9 @@ function poly_render_widget($current_widget, $is_disabled = false)
     <li class="ui-widget-default" data-type="<?php echo $current_widget['type'] ?>" data-id="zzzz" data-name="<?php echo $current_widget['name'] ?>">
         <!-- Text widget -->
         <div class="widget"><span><?php echo $current_widget['name'] ?></span><a href="#" class="tw-mr-1 text-muted toggle-widgets widget-item-blocks pull-right"><i class="fa-solid fa-caret-up">&nbsp;</i></a>
-
+            <?php
+            if (is_admin() || has_permission('poly_utilities_widgets_extend', '', 'delete')) {
+            ?>
                 <a href="#" class="widget-delete text-muted pull-right"><i class="fas fa-trash">&nbsp;</i></a>
                 <a href="#" class="widget-clone text-muted pull-right"><i class="fa-solid fa-clone fa-fw">&nbsp;</i></a>
             <?php
@@ -112,7 +115,7 @@ function poly_render_widget($current_widget, $is_disabled = false)
                         echo '<label class="item-roles-label pull-right"><input class="item-roles-property" label="' . $role['label'] . '" type="' . $role['type'] . '" field="' . $role['name'] . '" ' . (($role['value'] === 'true') ? 'checked' : '') . $is_disabled . '/>&nbsp;</label>';
                     }
                 }
-
+            }
             ?>
         </div>
         <div class="widget-item-block poly-hide tw-mt-2.5" widget-target="zzzz">
@@ -145,20 +148,26 @@ function poly_render_widget($current_widget, $is_disabled = false)
                 }
                 ?>
             </div>
-
+            <?php
+            if (is_admin() || has_permission('poly_utilities_widgets_extend', '', 'delete')) {
+            ?>
                 <div class="row">
                     <div class="col-md-12 poly_utilities_widgets_extend--action">
                         <a href="#" class="widget-delete"><?php echo _l('poly_utilities_widget_button_action_delete') ?></a> | <a href="#" class="widget-clone"><?php echo _l('poly_utilities_widget_button_action_clone') ?></a> | <a href="#" class="widget-close"><?php echo _l('poly_utilities_widget_button_action_done') ?></a>
                     </div>
                 </div>
-
-
+            <?php
+            }
+            if (is_admin() || has_permission('poly_utilities_widgets_extend', '', 'edit')) {
+            ?>
                 <div class="row">
                     <div class="col-md-12">
                         <div class="btn btn-primary pull-right poly-widgets-submit"><?php echo _l('poly_utilities_widget_button_action_save') ?></div>
                     </div>
                 </div>
-
+            <?php
+            }
+            ?>
         </div>
         <!-- END Text widget -->
     </li>
@@ -215,6 +224,7 @@ function poly_utilities_display_widgets_area($is_disabled = false)
         <div class="row poly_utilities_quick_access_menu_manage">
             <div class="col-md-12 tw-p-1">
                 <?php
+                $is_disabled = (is_admin() || has_permission('poly_utilities_widgets_extend', '', 'edit') ? '' : ' disabled');
                 poly_utilities_display_avaible_widgets($is_disabled);
                 poly_utilities_display_widgets_area($is_disabled);
                 ?>

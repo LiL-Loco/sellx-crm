@@ -7,7 +7,9 @@ $this->load->view('poly_utilities/code_editor_js');
 $editResource = '';
 $contents = '';
 if (isset($_GET['id'])) {
-
+    if (!has_permission('poly_utilities_styles_extend', '', 'edit')) {
+        access_denied();
+    }
     $editResource = $_GET['id'];
 
     $obj_storage = clear_textarea_breaks(get_option(POLY_STYLES));
@@ -28,7 +30,11 @@ if (isset($_GET['id'])) {
             $contents = $fileResourceContent;
         }
     }
-} 
+} else {
+    if (!has_permission('poly_utilities_styles_extend', '', 'create')) {
+        access_denied();
+    }
+}
 
 if (isset($resourceEdit) && (isset($resourceEdit->is_lock) && $resourceEdit->is_lock === 'true') && $current_user_id!=1) {
     access_denied();
@@ -46,12 +52,14 @@ $fileNameAttr = (!empty($editResource)) ? array('placeholder' => 'poly-utilities
                     <i class="fas fa-arrow-left tw-mr-1"></i>
                     <?php echo _l('poly_utilities_styles'); ?>
                 </a>
-
+                <?php
+                if (has_permission('poly_utilities_styles_extend', '', 'create')) {
+                ?>
                     <a href="<?php echo admin_url('poly_utilities/styles_add'); ?>">
                         <i class="far fa-plus-square tw-mr-1"></i>
                         <?php echo _l('new_poly_utilities_style'); ?>
                     </a>
-
+                <?php } ?>
                 <h4 class="tw-mt-0 tw-font-semibold tw-text-lg tw-text-neutral-700">
                     <?php echo $title; ?>
                 </h4>

@@ -4,7 +4,7 @@
  * Included in modules/poly_utilities/views/quick_access/manage.php
  */
 echo '<script src="' . base_url('modules/poly_utilities/dist/assets/js/sortable/1.15.0/sortable.min.js') . '"></script>';
-
+$this->load->view('poly_utilities/head_js');
 ?>
 <script>
     (function($) {

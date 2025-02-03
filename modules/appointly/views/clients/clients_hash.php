@@ -50,7 +50,7 @@
                                 <h3> <?= _l('appointment_overview'); ?>
                                     <?php if (isset($appointment['google_meet_link'])) : ?>
                                         <div class="google_meet_client_main">
-                                            <a href="<?= $appointment['google_meet_link']; ?>" target="_blank" data-toggle="tooltip" title="<?= _l('appointment_google_client_meet_info'); ?>">
+                                            <a href="<?= $appointment['google_meet_link']; ?>" target="_blank" title="<?= _l('appointment_google_client_meet_info'); ?>">
                                                 <img width="30" src="<?= base_url('/modules/appointly/assets/images/google_meet.png') ?>" alt="">
                                             </a>
                                         </div>
@@ -107,9 +107,9 @@
                                             ?>
                                             <?php if ($phoneToCall !== '') : ?>
                                                 <div class="client_numbers">
-                                                    <a data-toggle="tooltip" class="label label-success" title="<?= _l('appointment_send_an_sms'); ?>" href="sms:<?= $phoneToCall; ?>&body=Hello">SMS:
+                                                    <a class="label label-success" title="<?= _l('appointment_send_an_sms'); ?>" href="sms:<?= $phoneToCall; ?>&body=Hello">SMS:
                                                         <?= $phoneToCall; ?></a>
-                                                    <a data-toggle="tooltip" class="label label-success mleft5" title="<?= _l('appointment_call_number') ?>" href="tel:<?= $phoneToCall; ?>">Anrufen:
+                                                    <a class="label label-success mleft5" title="<?= _l('appointment_call_number') ?>" href="tel:<?= $phoneToCall; ?>">Call:
                                                         <?= $phoneToCall; ?></a>
                                                 </div>
                                             <?php endif; ?>
@@ -120,7 +120,7 @@
                                         </boldit>
                                         <?php $appAddress = $appointment['address'] ? $appointment['address'] : ''; ?>
 
-                                        <a data-toggle="tooltip" title="Open in Google Maps" target="_blank" href="https://maps.google.com/?q=<?= $appAddress; ?>"><?= $appAddress; ?></a>
+                                        <a title="Open in Google Maps" target="_blank" href="https://maps.google.com/?q=<?= $appAddress; ?>"><?= $appAddress; ?></a>
                                     </span><br>
                                     <span class="spmodified">
                                         <boldit><?= _l('appointment_meeting_time'); ?>

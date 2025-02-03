@@ -97,12 +97,12 @@ foreach ($rResult as $aRow) {
     // Check with Perfex CRM default timezone configured in Setup->Settings->Localization
     if (date('Y-m-d H:i', strtotime($aRow['date'])) < date('Y-m-d H:i')) {
         $label_class = 'danger';
-        $tooltip = 'data-toggle="tooltip" title="' . _l('appointment_missed') . '"';
+        $tooltip = 'title="' . _l('appointment_missed') . '"';
     }
 
     $row = [];
 
-    $hrefAttr = 'data-toggle="tooltip" title="' . _l('appointment_view_meeting') . '" href="' . admin_url('appointly/appointments/view?appointment_id=' . $aRow['id']) . '"';
+    $hrefAttr = 'title="' . _l('appointment_view_meeting') . '" href="' . admin_url('appointly/appointments/view?appointment_id=' . $aRow['id']) . '"';
     $row[] = $aRow['id'];
 
     $nameRow = '<a href="' . admin_url('appointly/appointments/view?appointment_id=' . $aRow['id']) . '">' . $aRow['subject'] . '</a>';
@@ -124,9 +124,9 @@ foreach ($rResult as $aRow) {
     }
     if (staff_can('edit', 'appointments') || staff_appointments_responsible()) {
         if ($aRow['source'] != 'internal_staff_crm') {
-            $nameRow .= ' | <a href="" data-toggle="tooltip" title="' . _l('appointment_edit_meeting') . '" data-id="' . $aRow['id'] . '" onclick="appointmentUpdateModal(this); return false;">' . _l('edit') . '</a>';
+            $nameRow .= ' | <a href="" title="' . _l('appointment_edit_meeting') . '" data-id="' . $aRow['id'] . '" onclick="appointmentUpdateModal(this); return false;">' . _l('edit') . '</a>';
         } else {
-            $nameRow .= ' | <a href="" data-toggle="tooltip" title="' . _l('appointment_edit_meeting') . '" data-id="' . $aRow['id'] . '" onclick="appointmentGlobalStaffModal(this); return false;">' . _l('edit') . '</a>';
+            $nameRow .= ' | <a href="" title="' . _l('appointment_edit_meeting') . '" data-id="' . $aRow['id'] . '" onclick="appointmentGlobalStaffModal(this); return false;">' . _l('edit') . '</a>';
         }
     }
     // If contact id is not 0 then it means that contact is internal as for that dont show convert to lead
@@ -134,23 +134,23 @@ foreach ($rResult as $aRow) {
 
     // convert to task
     $nameRow .= (staff_can('create', 'tasks') && $aRow['approved'] == 1 && $aRow['source'] != 'internal_staff_crm') ?
-        ' | <a data-toggle="tooltip" title="' . _l('appointments_create_task_tooltip') . '" href="#" data-customer-id="' . appointly_get_contact_customer_id($aRow['contact_id']) . '" data-source="' . $aRow['source'] . '" data-contact-id="' . $aRow['contact_id'] . '" data-name="' . $aRow['name'] . '" onclick="new_task_from_relation_appointment(this); return false;">' . _l('new_task') . '</a>'
+        ' | <a title="' . _l('appointments_create_task_tooltip') . '" href="#" data-customer-id="' . appointly_get_contact_customer_id($aRow['contact_id']) . '" data-source="' . $aRow['source'] . '" data-contact-id="' . $aRow['contact_id'] . '" data-name="' . $aRow['name'] . '" onclick="new_task_from_relation_appointment(this); return false;">' . _l('new_task') . '</a>'
         : '';
 
     // convert to lead
     $nameRow .= ($isContact && $aRow['approved'] == 1 && $aRow['source'] != 'internal_staff_crm') ?
-        ' | <a data-toggle="tooltip" title="' . _l('appointments_convert_to_lead_tooltip') . '" href="#" data-name="' . $aRow['name'] . '" data-email="' . $aRow['contact_email'] . '" data-phone="' . $aRow['phone'] . '" onclick="init_appointment_lead(this);return false;">' . _l("appointments_convert_to_lead_label") . '</a>'
+        ' | <a title="' . _l('appointments_convert_to_lead_tooltip') . '" href="#" data-name="' . $aRow['name'] . '" data-email="' . $aRow['contact_email'] . '" data-phone="' . $aRow['phone'] . '" onclick="init_appointment_lead(this);return false;">' . _l("appointments_convert_to_lead_label") . '</a>'
         : '';
 
     // If there is no feedback from client and if appintment is marked as finished
     if ($aRow['feedback'] !== null && $aRow['finished'] !== 1) {
-        $nameRow .= ' | <a data-toggle="tooltip" title="' . _l('appointment_view_feedback') . '" href="' . admin_url('appointly/appointments/view?appointment_id=' . $aRow['id']) . '#feedback_wrapper">' . _l('appointment_view_feedback') . '</a></li>';
+        $nameRow .= ' | <a title="' . _l('appointment_view_feedback') . '" href="' . admin_url('appointly/appointments/view?appointment_id=' . $aRow['id']) . '#feedback_wrapper">' . _l('appointment_view_feedback') . '</a></li>';
     } else if ($aRow['finished'] == 1) {
-        $nameRow .= ' | <a onclick="request_appointment_feedback(\'' . $aRow['id'] . '\'); return false" data-toggle="tooltip" title="' . _l('appointments_request_feedback_from_client') . '" href="">' . _l('appointments_request_feedback') . '</a>';
+        $nameRow .= ' | <a onclick="request_appointment_feedback(\'' . $aRow['id'] . '\'); return false" title="' . _l('appointments_request_feedback_from_client') . '" href="">' . _l('appointments_request_feedback') . '</a>';
     }
 
     if (staff_can('delete', 'appointments') && $aRow['created_by'] == get_staff_user_id() || staff_appointments_responsible()) {
-        $nameRow .= ' | <a id="confirmDelete" data-toggle="tooltip" class="text-danger" title="' . _l('appointment_dismiss_meeting') . '" href="" onclick="deleteAppointment(' . $aRow['id'] . ',this); return false;">' . _l('delete') . '</a>';
+        $nameRow .= ' | <a id="confirmDelete" class="text-danger" title="' . _l('appointment_dismiss_meeting') . '" href="" onclick="deleteAppointment(' . $aRow['id'] . ',this); return false;">' . _l('delete') . '</a>';
     }
 
     $nameRow .= '</div>';
@@ -162,7 +162,7 @@ foreach ($rResult as $aRow) {
     if ($aRow['creator_firstname']) {
         $staff_fullname = $aRow['creator_firstname'] . ' ' . $aRow['creator_lastname'];
 
-        $row[] = '<a class="initiated_by" target="_blank" href="' . admin_url() . "profile/" . $aRow["created_by"] . '"><img src="' . staff_profile_image_url($aRow["created_by"], "small") . '" data-toggle="tooltip" data-title="' . $staff_fullname . '" class="staff-profile-image-small mright5" data-original-title="" title="' . $staff_fullname . '">' . $staff_fullname . '</a>';
+        $row[] = '<a class="initiated_by" target="_blank" href="' . admin_url() . "profile/" . $aRow["created_by"] . '"><img src="' . staff_profile_image_url($aRow["created_by"], "small") . '" data-title="' . $staff_fullname . '" class="staff-profile-image-small mright5" data-original-title="" title="' . $staff_fullname . '">' . $staff_fullname . '</a>';
     } else {
         $row[] = $aRow['name'];
     }
@@ -210,7 +210,7 @@ foreach ($rResult as $aRow) {
         $outputStatus .= '</span>';
     } else {
         $outputStatus = '<div>';
-        $outputStatus .= '<a data-toggle="tooltip" title="' . $currentStatus . '" href="#" style="font-size:14px;vertical-align:middle;cursor:context-menu;" class="text-dark">';
+        $outputStatus .= '<a title="' . $currentStatus . '" href="#" style="font-size:14px;vertical-align:middle;cursor:context-menu;" class="text-dark">';
         $outputStatus .= '<span class="label label-callback-status-' . $currentStatus . '">' . $currentStatus . '</span>';
         $outputStatus .= '</a>';
         $outputStatus .= '</div>';
@@ -238,11 +238,11 @@ foreach ($rResult as $aRow) {
     $options .= '<div class="text-center">';
 
     if ($_google_calendar_link) {
-        $options .= '<a data-toggle="tooltip" title="' . _l('appointment_open_google_calendar') . '" href="' . $aRow['google_calendar_link'] . '" target="_blank" class="mleft10 calendar_list"><i class="fa-brands fa-google" aria-hidden="true"></i></a>';
+        $options .= '<a title="' . _l('appointment_open_google_calendar') . '" href="' . $aRow['google_calendar_link'] . '" target="_blank" class="mleft10 calendar_list"><i class="fa-brands fa-google" aria-hidden="true"></i></a>';
     }
 
     if ($_outlook_calendar_link) {
-        $options .= '<a data-outlook-id="' . $aRow['outlook_event_id'] . '" id="outlookLink_' . $aRow['id'] . '" data-toggle="tooltip" title="' . _l('appointment_open_outlook_calendar') . '" href="' . $aRow['outlook_calendar_link'] . '" target="_blank" class="mleft5 calendar_list float-right"><i class="fa-regular fa-envelope" aria-hidden="true"></i></a>';
+        $options .= '<a data-outlook-id="' . $aRow['outlook_event_id'] . '" id="outlookLink_' . $aRow['id'] . '" title="' . _l('appointment_open_outlook_calendar') . '" href="' . $aRow['outlook_calendar_link'] . '" target="_blank" class="mleft5 calendar_list float-right"><i class="fa-regular fa-envelope" aria-hidden="true"></i></a>';
     }
     if (!$_google_calendar_link && !$_outlook_calendar_link) {
         $options .= '<p class="text-muted">Not added to any calendar yet.</p>'; //lang

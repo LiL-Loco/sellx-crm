@@ -4,7 +4,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 /**
  * Included in modules/poly_utilities/views/styles/manage.php
  */
-
+$this->load->view('poly_utilities/head_js');
 ?>
 <script>
     (function($) {

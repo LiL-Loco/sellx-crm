@@ -28,8 +28,8 @@
                             <?php } ?>
                             <?php if ($history['google_event_id'] && $history['google_added_by_id'] == get_staff_user_id()) : ?>
                                 <div class="checkbox pull-right mleft10 mtop1">
-                                    <input disabled data-toggle="tooltip" title="<?= _l('appointments_added_to_google_calendar'); ?>" type="checkbox" id="google" checked />
-                                    <label data-toggle="tooltip" title="<?= _l('appointments_added_to_google_calendar'); ?>" for="google">
+                                    <input disabled title="<?= _l('appointments_added_to_google_calendar'); ?>" type="checkbox" id="google" checked />
+                                    <label title="<?= _l('appointments_added_to_google_calendar'); ?>" for="google">
                                         <i class="fa-brands fa-google" aria-hidden="true"></i></label>
                                 </div>
                             <?php endif; ?>
@@ -42,7 +42,7 @@
                         <input type="text" class="form-control" name="subject" id="subject" value="<?= $history['subject']; ?>">
                         <div class="form-group mtop20">
                             <label for="description"><?= _l('appointment_description'); ?></label>
-                            <textarea name="description" class="form-control" id="description" rows="5"><div style="white-space:pre-line;"><?= $history['description']; ?></div></textarea>
+                            <textarea name="description" class="form-control" id="description" rows="5"><?= $history['description']; ?></textarea>
                         </div>
                         <div class="form-group">
                             <?php echo render_select('attendees[]', $staff_members, ['staffid', ['firstname', 'lastname']], 'appointment_select_attendees', $history['selected_staff'], ['multiple' => true], [], '', '', false); ?>
@@ -126,7 +126,7 @@
                                 <div class="col-md-6">
                                     <div class="input-group">
                                         <input type="text" class="form-control" name="reminder_before" value="<?php echo $history['reminder_before']; ?>" id="reminder_before">
-                                        <span class="input-group-addon"><i class="fa fa-question-circle" data-toggle="tooltip" data-title="<?php echo _l('reminder_notification_placeholder'); ?>"></i></span>
+                                        <span class="input-group-addon"><i class="fa fa-question-circle" data-title="<?php echo _l('reminder_notification_placeholder'); ?>"></i></span>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -171,7 +171,7 @@
                         && $history['google_added_by_id'] === null
                         && $history['approved']
                     ) { ?>
-                        <button type="button" data-toggle="tooltip" title="<?= _l('appointment_google_not_added_yet'); ?>" onclick="addEventToGoogleCalendar(this)" class="btn btn-primary"><?= _l('appointment_add_to_calendar'); ?>&nbsp;<i class="fa-brands fa-google" aria-hidden="true"></i>
+                        <button type="button" title="<?= _l('appointment_google_not_added_yet'); ?>" onclick="addEventToGoogleCalendar(this)" class="btn btn-primary"><?= _l('appointment_add_to_calendar'); ?>&nbsp;<i class="fa-brands fa-google" aria-hidden="true"></i>
                         </button>
                     <?php } ?>
                 <?php } ?>

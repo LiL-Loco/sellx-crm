@@ -19,6 +19,7 @@ echo '<link rel="stylesheet" href="' . poly_utilities_common_helper::get_assets(
                     <div class="tw-mb-2 sm:tw-mb-4">
                         <!-- Add Custom Link -->
                         <?php
+                        if (has_permission('poly_utilities_custom_menu_extend', '', 'create')) {
                             echo form_open(admin_url('poly_utilities/update_custom_clients_menu'), ['id' => 'poly_utilities_add_custom_sidebar_form', '@submit.prevent' => 'handleSubmit']);
                         ?>
                             <div class="panel_s">
@@ -125,7 +126,7 @@ echo '<link rel="stylesheet" href="' . poly_utilities_common_helper::get_assets(
                                 </div>
                             </div>
                         <?php echo form_close();
-
+                        }
                         ?>
 
                         <!-- END Add Custom Link -->

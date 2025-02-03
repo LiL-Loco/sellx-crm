@@ -10,6 +10,8 @@ init_head();
                 <div class="tw-mb-2 sm:tw-mb-4">
 
                     <?php
+                    if (has_permission('poly_utilities_shortcut_menu_extend', '', 'create')) {
+
                         echo form_open($this->uri->uri_string(), array('class' => 'quick_access-form')); ?>
                         <div class="panel_s">
                             <div class="panel-body">
@@ -56,6 +58,7 @@ init_head();
                             </div>
                         </div>
                     <?php echo form_close();
+                    }
                     ?>
 
                 </div>
@@ -84,7 +87,7 @@ init_head();
                                                         echo "{$icon_html}<a href='{$value->link}' target='_blank' rel='nofollow'>{$value->title}</a> <span class='poly-quick-access-shortcut-key'>{$value->shortcut_key}</span>";
                                                         ?>
                                                         <?php
-                                               
+                                                        if (has_permission('poly_utilities_shortcut_menu_extend', '', 'delete')) {
                                                         ?>
                                                             <span data-link="<?php echo "{$value->link}" ?>" class="poly-quick-access-menu-delete delete text-muted pull-right"><i class="fas fa-trash"></i></span>
                                                         <?php
@@ -129,7 +132,7 @@ init_head();
                                                     <!-- Toggle -->
                                                 </li>
                                             <?php
-                                       
+                                            }
                                             ?>
                                         </ol>
                                     </div>
@@ -150,7 +153,7 @@ init_head();
                                 </div>
                             </div>
                             <?php
-              
+                            if (has_permission('poly_utilities_shortcut_menu_extend', '', 'edit')) {
                             ?>
                                 <div class="panel-footer">
                                     <div class="tw-flex tw-justify-between tw-items-center">
@@ -158,7 +161,7 @@ init_head();
                                     </div>
                                 </div>
                             <?php
-            
+                            }
                             ?>
                     <?php
                         }

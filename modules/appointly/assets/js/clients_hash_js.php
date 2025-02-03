@@ -1,6 +1,6 @@
 <script>
     $(function() {
-        $('[data-toggle="tooltip"]').tooltip();
+        $('[]').tooltip();
         // Star rating functionality
         $(document).on('mouseover', 'span.feedback_star', function() {
             var onStar = parseInt($(this).data('count'));
@@ -120,7 +120,7 @@
                         $('#appointment_feedbacks span:first').html("<?= _l('appointment_feedback_label'); ?>");
                         $('#appointment_feedbacks span:first').removeClass('label-success').addClass('label-primary');
                     }, 2000);
-                    $('[data-toggle="tooltip"]').tooltip();
+                    $('[]').tooltip();
                     location.reload(3000);
                 } else {
                     appendLoadingAnimation('addstar');
@@ -153,7 +153,7 @@
 
                     if (response.success == true) {
                         $('#appointment_feedbacks').html(response._html);
-                        $('[data-toggle="tooltip"]').tooltip();
+                        $('[]').tooltip();
                         location.reload(2000);
                     }
                 }).fail(function(err) {

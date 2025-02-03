@@ -21,3 +21,5 @@ add_option(POLY_MENU_CLIENTS_CUSTOM_ACTIVE, '[]');
 add_option(POLY_BANNERS, '[]');
 add_option(POLY_BANNERS_ANNOUNCEMENTS, '[]');
 add_option(POLY_BANNERS_SETTINGS, '');
+
+add_option(POLYUTILITIES_PROJECT_NAME_PATTERNS, '[]');

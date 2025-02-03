@@ -140,12 +140,6 @@
                                     <?= _l('callbacks_m_client_message'); ?>:</label>
                                 <textarea class="callbacks-textarea-message" disabled id="callbacks-textarea-message"><?= $callback['message']; ?></textarea>
                                 <hr>
-                                <p class="callbacks_phone"><i class="fa fa-info fa-fw fa-lg"></i>
-                                    <strong><?= _l('callback_m_perfered_client_call'); ?>:</strong>
-                                    <?= callbacks_handle_call_type(json_decode($callback['call_type'])) ?>
-                                    <hr>
-                                </p>
-                                <hr>
                                 <p>
                                     <i class="fa task-info-icon fa-fw fa-lg fa-calendar-plus-o pull-left fa-margin"></i>
                                     <?= _l('callbacks_m_best_time_to_call'); ?>

@@ -1,5 +1,4 @@
 <?php
-
 $lang['call_logs']                                             = 'Anrufprotokolle';
 $lang['call_log_info']                                         = 'Anrufprotokoll-Info';
 $lang['call_log']                                              = 'Anrufprotokoll';
@@ -38,11 +37,11 @@ $lang['cl_follow_up_schedule']                                 = 'Nachverfolgung
 $lang['cl_call_log_completed']                                 = 'Abgeschlossen';
 $lang['cl_call_log_important']                                 = 'Wichtig';
 $lang['cl_is_important_1']                                     = '🔥';
-$lang['cl_is_important_0']                                     = 'NEIN';
+$lang['cl_is_important_0']                                     = 'Nein';
 $lang['cl_is_completed_1']                                     = '👏';
-$lang['cl_is_completed_0']                                     = 'NEIN';
+$lang['cl_is_completed_0']                                     = 'Nein';
 $lang['cl_has_followup_1']                                     = '📲';
-$lang['cl_has_followup_0']                                     = 'NEIN';
+$lang['cl_has_followup_0']                                     = 'Nein';
 $lang['cl_is_important']                                       = 'Wichtig';
 $lang['cl_is_completed']                                       = 'Abgeschlossen';
 $lang['cl_call_with_staff']                                    = 'Mit Mitarbeiter';
@@ -82,18 +81,15 @@ $lang['cl_today_calls']                                        = 'Heutige Anrufe
 $lang['cl_weekly_calls']                                       = 'Wöchentliche Anrufe';
 $lang['cl_weekly_calls']                                       = 'Wöchentliche Anrufe';
 $lang['cl_monthly_calls']                                      = 'Monatliche Anrufe';
-
 $lang['cl_types_enable_option']                                = 'Erlaube Mitarbeitern ohne Administratorrechte, <b>Typen</b> im Bereich <b>Anrufprotokoll erstellen/bearbeiten</b> zu erstellen?';
 $lang['cl_call_direction_enable_option']                       = 'Erlaube Mitarbeitern ohne Administratorrechte, <b>Anruftypen</b> im Bereich <b>Anrufprotokoll erstellen/bearbeiten</b> zu erstellen?';
 $lang['cl_bulk_sms_disable_option']                            = 'Deaktiviere Bulk-SMS für Mitarbeiter ohne Administratorrechte?';
 $lang['cl_follow_up_notification']                             = 'Du hast einen Nachfassanruf mit %s am %s';
-
 $lang['staff_members_daily_calls_target']                      = 'Tägliches Anrufziel für Mitarbeiter ohne Administratorrechte';
 $lang['staff_members_monthly_calls_target']                    = 'Monatliches Anrufziel für Mitarbeiter ohne Administratorrechte';
 $lang['cl_goal_based_calls_tooltip']                           = 'Zielbasierte Anrufe für Mitarbeiter ohne Administratorrechte (0 für kein Ziel)';
 $lang['cl_daily_calls_target_notification']                    = 'Du hast das tägliche Anrufziel von %s Anrufen erreicht';
 $lang['cl_monthly_calls_target_notification']                  = 'Du hast das monatliche Anrufziel von %s Anrufen erreicht';
-
 // Neuer Code
 $lang['cl_opt_event_type']                                    = 'Protokolltyp';
 $lang['cl_sms_content']                                       = 'SMS';

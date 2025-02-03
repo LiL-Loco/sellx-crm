@@ -2,7 +2,7 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Calls extends CI_Controller
+class Calls extends App_Controller
 {
     public function __construct()
     {
