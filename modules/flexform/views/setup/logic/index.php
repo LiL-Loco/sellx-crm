@@ -8,7 +8,7 @@ $other_cases_goto = (isset($existing_logics[0]['other_cases_goto'])) ? $existing
     <div class="row">
         <div class="col-sm-12">
             <span class="h4"><?php echo _flexform_lang('logic-for-this-question') ?></span>
-            <div data-id="<?php echo $block['id'] ?>" class="tw-flex tw-items-center tw-mb-2 tw-px-3 tw-py-3  tw-rounded tw-shadow ff-each-block active">
+            <div data-id="<?php echo $block['id'] ?>" class="tw-flex tw-items-center tw-mb-4 tw-px-3 tw-py-3  tw-rounded tw-shadow ff-each-block active">
                 <a href="#" class="tw-text-primary tw-mr-2" data-id="<?php echo $block['id'] ?>">
                     <i class="fa <?php echo $block['static']['icon'] ?> tw-text-primary tw-mr-2"></i>
                     <span> <?php echo flexform_str_limit($block['title']) ?> </span>

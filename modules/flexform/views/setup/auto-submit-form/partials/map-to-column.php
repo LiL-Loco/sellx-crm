@@ -1,4 +1,4 @@
-<div class="form-group tw-mb-2">
+<div class="form-group tw-mb-4">
     <?php
     $columns = [
         ['id' => 'name', 'name' => 'Name'],

@@ -3,7 +3,7 @@
 //create an object with recaptcha and gdpr
 $form_object = new stdClass();
 $form_object->recaptcha = $form['enable_captcha'];
-$form_object->language = 'german';
+$form_object->language = 'english';
 ?>
 <?php app_external_form_header($form_object); ?>
 <?php echo $this->load->view('client/navigation'); ?>

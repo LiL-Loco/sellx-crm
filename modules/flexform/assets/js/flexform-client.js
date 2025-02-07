@@ -205,6 +205,7 @@ $(document).on('click', '.flexform-rating__stars label', function() {
 function flexform_client_inits(limit = 1){
     appColorPicker();
     appDatepicker();
+    $('select').selectpicker('destroy');
     appSelectPicker($('select'));
     $(".bootstrap-select").click(function () {
         $(this).addClass("open");
@@ -213,12 +214,12 @@ function flexform_client_inits(limit = 1){
     flexform_init_dropzone(limit);
 }
 
-function flexform_init_signature(){
-    //check if signature ui is present
-    if($('.ff-signature-wrapper').length === 0) return false;
+function flexform_init_signature() {
+    // Check if signature UI is present
+    if ($('.ff-signature-wrapper').length === 0) return false;
+
     SignaturePad.prototype.toDataURLAndRemoveBlanks = function() {
         var canvas = this._ctx.canvas;
-        // First duplicate the canvas to not alter the original
         var croppedCanvas = document.createElement('canvas'),
             croppedCtx = croppedCanvas.getContext('2d');
 
@@ -226,13 +227,9 @@ function flexform_init_signature(){
         croppedCanvas.height = canvas.height;
         croppedCtx.drawImage(canvas, 0, 0);
 
-        // Next do the actual cropping
         var w = croppedCanvas.width,
             h = croppedCanvas.height,
-            pix = {
-                x: [],
-                y: []
-            },
+            pix = { x: [], y: [] },
             imageData = croppedCtx.getImageData(0, 0, croppedCanvas.width, croppedCanvas.height),
             x, y, index;
 
@@ -242,16 +239,11 @@ function flexform_init_signature(){
                 if (imageData.data[index + 3] > 0) {
                     pix.x.push(x);
                     pix.y.push(y);
-
                 }
             }
         }
-        pix.x.sort(function(a, b) {
-            return a - b
-        });
-        pix.y.sort(function(a, b) {
-            return a - b
-        });
+        pix.x.sort((a, b) => a - b);
+        pix.y.sort((a, b) => a - b);
         var n = pix.x.length - 1;
 
         w = pix.x[n] - pix.x[0];
@@ -265,55 +257,54 @@ function flexform_init_signature(){
         return croppedCanvas.toDataURL();
     };
 
+    $('.ff-signature-wrapper').each(function(index, wrapper) {
+        var $wrapper = $(wrapper);
+        var canvas = $wrapper.find("canvas")[0];
+        var clearButton = $wrapper.find("[data-action=clear]")[0];
+        var undoButton = $wrapper.find("[data-action=undo]")[0];
+        var input = $wrapper.find("input")[0];
 
-    function signaturePadChanged() {
+        var signaturePad = new SignaturePad(canvas, {
+            maxWidth: 2,
+            onEnd: function() {
+                signaturePadChanged(signaturePad, input);
+            }
+        });
 
-        var input = document.getElementById('signatureInput');
-        var $signatureLabel = $('#signatureLabel');
-        $signatureLabel.removeClass('text-danger');
+        function signaturePadChanged(signaturePad, input) {
+            if (signaturePad.isEmpty()) {
+                $(input).val('');
+                return false;
+            }
 
-        if (signaturePad.isEmpty()) {
-            $signatureLabel.addClass('text-danger');
-            input.value = '';
-            return false;
+            var partBase64 = signaturePad.toDataURLAndRemoveBlanks();
+            partBase64 = partBase64.split(',')[1];
+            $(input).val(partBase64);
         }
 
-        $('#signatureInput-error').remove();
-        var partBase64 = signaturePad.toDataURLAndRemoveBlanks();
-        partBase64 = partBase64.split(',')[1];
-        input.value = partBase64;
-    }
+        clearButton.addEventListener("click", function(event) {
+            signaturePad.clear();
+            signaturePadChanged(signaturePad, input);
+        });
 
-    var canvas = document.getElementById("signature");
-    var clearButton = wrapper.querySelector("[data-action=clear]");
-    var undoButton = wrapper.querySelector("[data-action=undo]");
-    var identityFormSubmit = document.getElementById('identityConfirmationForm');
-
-    var signaturePad = new SignaturePad(canvas, {
-        maxWidth: 2,
-        onEnd:function(){
-            signaturePadChanged();
-        }
-    });
-
-    clearButton.addEventListener("click", function(event) {
-        signaturePad.clear();
-        signaturePadChanged();
-    });
-
-    undoButton.addEventListener("click", function(event) {
-        var data = signaturePad.toData();
-        if (data) {
-            data.pop(); // remove the last dot or line
-            signaturePad.fromData(data);
-            signaturePadChanged();
-        }
+        undoButton.addEventListener("click", function(event) {
+            var data = signaturePad.toData();
+            if (data) {
+                data.pop();
+                signaturePad.fromData(data);
+                signaturePadChanged(signaturePad, input);
+            }
+        });
     });
 
     $('#identityConfirmationForm').submit(function() {
-        signaturePadChanged();
+        $('.ff-signature-wrapper').each(function(index, wrapper) {
+            var canvas = $(wrapper).find("canvas")[0];
+            var input = $(wrapper).find("input")[0];
+            var signaturePad = new SignaturePad(canvas);
+            signaturePadChanged(signaturePad, input);
+        });
     });
-
 }
 
 //inits when the page loads
@@ -346,4 +337,136 @@ $(document).ready(function() {
 
 });
 
+//listen to when an input is changed for spa
+$(document).on('change', '.flexform-sp-client-form input,.flexform-sp-client-form textarea,.flexform-sp-client-form select', function(e) {
+   //get the field value and name
+    //if the input is a a file input, we will not send the data to the server
+    if($(this).attr('type') === 'file') return false;
+    //if the name is a checkbox and name is terms_and_conditions, we will not send the data to the server
+    if($(this).attr('type') === 'checkbox' && $(this).attr('name') === 'terms_and_conditions') return false;
+    const name = $(this).attr('name');
+    var value = $(this).val();
+    //check if name is checkbox
+    if($(this).attr('type') == 'checkbox'){
+        //use the name to get the value
+        const escapedName = name.replace(/([\[\]])/g, '\\$1'); // Escape square brackets
+        value =  $(`input[name='${escapedName}']:checked`).map(function () {
+            return $(this).val(); // Return the value of each checked checkbox
+        }).get();
+    }
+
+    //let us send
+    //console.log('send the data to the server');
+    const currentBlockId = $(this).closest('.flexform-single-page-each-block').data('block-id');
+    const url = $('.flexform-single-page-layout').attr('data-spurl'); //skip questions url
+    //search for the csrf token
+    //any input with the name csrf token
+    const csrfName = $('#flexform-spa-token').attr('name');
+    const csrfHash = $('#flexform-spa-token').val();
+    $.ajax({
+        url: url,
+        type: 'POST',
+        data: {
+            name: name,
+            value: value,
+            id: currentBlockId,
+            ff_bnh: $('#ff_bnh').val(),
+            svalue : $('#ff_svalue').val(),
+            [csrfName]: csrfHash
+        },
+        success: function(response) {
+            const r = JSON.parse(response);
+            if(r.status === 'error') {
+                alert_float('danger', r.message);
+                return false;
+            }
+            var currentBlockIdIndex = flexform_getblock_index(currentBlockId);
+            //if the skipped_blockes array is returned, loop through it and hide the blocks
+            if(r.skipped_blocks){
+                $('.flexform-single-page-each-block').each(function(i){
+                    const blockId = parseInt($(this).data('block-id'));
+                    //show the blocks whose index is ahead of the current block
+                    if(i > currentBlockIdIndex){
+                        $(this).show();
+                    }
+                });
+
+                r.skipped_blocks.forEach(function(block){
+                    $('.flexform-single-page-each-block[data-block-id="'+block+'"]').hide();
+                });
+            }else{
+                //if the skipped_blocks array is not returned, show all the blocks after the current block
+                $('.flexform-single-page-each-block').each(function(i){
+                    const blockId = parseInt($(this).data('block-id'));
+                    //show the blocks whose index is ahead of the current block
+                    if(i > currentBlockIdIndex){
+                        $(this).show();
+                    }
+                });
+            }
+        },
+        error: function(xhr, status, error) {
+            alert_float('danger', error);
+        }
+    });
+});
+
+function flexform_getblock_index(blockId){
+    var blockIndex = -1;
+    $('.flexform-single-page-each-block').each(function(index){
+        if(parseInt($(this).data('block-id')) === blockId){
+            blockIndex = index;
+        }
+    });
+    return blockIndex;
+}
+
+//listen to when submit button is clicked for Spa
+$(document).on('click', '.flexform-sp-client-form .ff-submit-button', function() {
+    //get the field value and name
+    const obj = $(this);
+    $(obj).prop('disabled', true);
+    var form = $(obj).closest('form');
+    $.ajax({
+        url: $(form).attr('action'),
+        type: 'POST',
+        data: new FormData(form[0]),
+        contentType: false,
+        processData: false,
+        success: function(response) {
+            //update the middle panel
+            const r = JSON.parse(response);
+            if(r.status === 'error') {
+                alert_float('danger', r.message);
+                try{
+                    grecaptcha.reset();
+                }catch (e) {
+                }
+                //enable the button
+                $(obj).prop('disabled', false);
+                return false;
+            }
+            if(r.status === 'info') {
+                alert_float('info', r.message);
+                try{
+                    grecaptcha.reset();
+                }catch (e) {
+                }
+                //enable the button
+                $(obj).prop('disabled', false);
+                //shake the form
+                return false;
+            }
+            if(r.html){
+                $('.flexform-single-page-layout').html(r.html);
+                flexform_client_inits();
+                //remove the session value from the local storage
+                const formSessionName = $('#ff_sname').val();
+                localStorage.removeItem(formSessionName);
+            }
+        },
+        error: function(xhr, status, error) {
+        }
+    });
+});
 

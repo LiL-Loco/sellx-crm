@@ -54,7 +54,7 @@ if (staff_can('view', 'settings')) {
 function prchat_add_settings_tab()
 {
   $CI = &get_instance();
-  $CI->app_tabs->add_settings_tab('prchat-settings', [
+  $CI->app->add_settings_section('prchat-settings', [
     'name'     => '' . _l('chat_settings_name') . '',
     'view'     => 'prchat/prchat_settings',
     'position' => 36,

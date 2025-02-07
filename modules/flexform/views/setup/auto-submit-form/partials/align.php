@@ -1,4 +1,4 @@
-<div class="form-group tw-mb-2">
+<div class="form-group tw-mb-4">
     <div class="form-group">
         <label for="button_text" class="control-label"><?php echo _flexform_lang('align') ?></label><br/>
         <!-- align button icon -->

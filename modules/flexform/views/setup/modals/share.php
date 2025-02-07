@@ -13,8 +13,8 @@ $share_msg = _flexform_lang('share-msg'); ?>
                 </h4>
             </div>
             <div class="modal-body">
-                <div class="tw-mb-2 flexform-share-wrapper">
-                    <div class="tw-mb-2">
+                <div class="tw-mb-4 flexform-share-wrapper">
+                    <div class="tw-mb-4">
                         <input type="text" class="form-control"
                                id="flexform-share-link"
                                value="<?php echo $url; ?>">
@@ -24,7 +24,7 @@ $share_msg = _flexform_lang('share-msg'); ?>
                                 data-emsg="<?php echo _flexform_lang('link-not-copied'); ?>"
                                 onclick="flexformcopyToClipboard(this)"><i class="fa-regular fa-clipboard"></i> <?php echo _flexform_lang('copy-link'); ?></button>
                     </div>
-                    <div class="tw-mb-2">
+                    <div class="tw-mb-4">
                         <label for="" class="h5 tw-font-semibold"><?php echo _flexform_lang('embed-code'); ?></label>
                         <div class="flexform-code-wrapper text-white">
                                 <code id="flexform-publish-form-embed-code">&lt;iframe width=&quot;100%&quot; height=&quot;850&quot; src=&quot;<?php echo $url ?>&quot; frameborder=&quot;0&quot; loading=&quot;lazy&quot; sandbox=&quot;allow-scripts allow-top-navigation allow-forms allow-same-origin allow-popups&quot; allowfullscreen&gt;&lt;/iframe&gt;</code>
@@ -36,11 +36,11 @@ $share_msg = _flexform_lang('share-msg'); ?>
                                onclick="flexformcopyToClipboard(this)"><i class="fa fa-copy"></i></a>
                         </div>
                     </div>
-                    <div class="tw-mb-2">
+                    <div class="tw-mb-4">
                         <h4 class="mtop15 font-medium bold"><?php echo _flexform_lang('optional-logo-flag') ?></h4>
                         <span class="label label-default"> with_logo=1 </span>
                     </div>
-                    <div class="tw-mb-2">
+                    <div class="tw-mb-4">
                         <label for="" class="h5 tw-font-semibold"><?php echo _flexform_lang('share-on-social-media'); ?></label>
                         <div class="tw-flex tw-items-center">
                             <!--open in new tab-->

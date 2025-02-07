@@ -10,7 +10,7 @@
             </div>
             <div class="modal-body">
                 <!-- general section -->
-                <div class="tw-mb-2">
+                <div class="tw-mb-4">
                     <div class="ff-section">
                         <h5 class="ff-section_title"><?php echo _flexform_lang('general'); ?></h5>
                     </div>
@@ -20,19 +20,19 @@
                     <?php $value = (isset($form) && $form['submit_btn_name'] ? $form['submit_btn_name'] : 'Submit'); ?>
                     <?php echo render_input('submit_btn_name', 'form_btn_submit_text', $value); ?>
                     <div class="row">
-                        <div class="col-md-12  tw-mb-2">
+                        <div class="col-md-12  tw-mb-4">
                             <?php $value = (isset($form) && $form['submit_btn_bg_color'] ? $form['submit_btn_bg_color'] : '#0a0a0a'); ?>
                             <?php echo render_color_picker('submit_btn_bg_color', _flexform_lang('form-button-background-color'), $value); ?>
                         </div>
-                        <div class="col-md-12  tw-mb-2">
+                        <div class="col-md-12  tw-mb-4">
                             <?php $value = (isset($form) && $form['submit_btn_text_color'] ? $form['submit_btn_text_color'] : '#ffffff'); ?>
                             <?php echo render_color_picker('submit_btn_text_color', _flexform_lang('form-button-text-color'), $value); ?>
                         </div>
-                        <div class="col-md-12 tw-mb-2">
+                        <div class="col-md-12 tw-mb-4">
                             <?php $value = (isset($form) && $form['end_date'] ? $form['end_date'] : ''); ?>
                             <?php echo render_datetime_input('end_date', _flexform_lang('end-date'), $value); ?>
                         </div>
-                        <div class="col-md-12 tw-mb-2">
+                        <div class="col-md-12 tw-mb-4">
                             <div class="checkbox checkbox-primary">
                                 <input type="checkbox" name="require_terms_and_conditions"
                                        id="require_terms_and_conditions"
@@ -42,7 +42,7 @@
                                 </label>
                             </div>
                         </div>
-                        <div class="col-md-12 tw-mb-2">
+                        <div class="col-md-12 tw-mb-4">
                             <div class="checkbox checkbox-primary">
                                 <input type="checkbox" name="enable_captcha"
                                        id="enable_captcha"
@@ -52,15 +52,27 @@
                                 </label>
                             </div>
                         </div>
+                        <div class="col-md-12 tw-mb-4">
+                            <div class="checkbox checkbox-primary">
+                                <input type="checkbox" name="enable_single_page"
+                                       id="enable_single_page"
+                                    <?php echo isset($form['enable_single_page']) && $form['enable_single_page'] == 1 ? 'checked' : ''; ?>>
+                                <label for="enable_single_page">
+                                    <?php echo _flexform_lang('enable_single_page'); ?>
+                                </label>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <!-- end general section -->
 
                 <!--  notification section-->
-                <div class="tw-mb-2">
-                    <div class="ff-section tw-mb-2">
+                <div class="tw-mb-4">
+                    <div class="ff-section tw-mb-4">
                         <h5 class="ff-section_title"><?php echo _flexform_lang('notification'); ?></h5>
                     </div>
+                    <?php $value = isset($form['data_submission_notification_emails']) ? $form['data_submission_notification_emails'] : ''; ?>
+                    <?php echo render_input('data_submission_notification_emails', _flexform_lang('form-data-submission-email-notification'),$value ); ?>
                     <div class="checkbox checkbox-primary">
                         <input type="checkbox" name="notify_form_submission"
                                id="notify_form_submission"
@@ -112,7 +124,7 @@
                             <?php echo render_select('notify_ids_roles[]', $roles, ['roleid', ['name']], 'leads_email_integration_notify_roles', $selected, ['multiple' => true]); ?>
                         </div>
                     </div>
-                    <div class="tw-mt-4 tw-mb-2">
+                    <div class="tw-mt-4 tw-mb-4">
                         <?php
                         $selected = isset($form) ? $form['responsible'] : '';
                         foreach ($members as $staff) {

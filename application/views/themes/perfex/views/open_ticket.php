@@ -103,7 +103,7 @@
                 <div class="form-group open-ticket-message-group">
                     <label
                         for="message"><?= _l('clients_ticket_open_body'); ?></label>
-                    <textarea name="message" id="message" class="form-control"
+                    <textarea name="message" id="message" class="form-control tinymce"
                         placeholder="<?= _l('clients_ticket_open_body'); ?>"
                         rows="8"><?= set_value('message'); ?></textarea>
                 </div>

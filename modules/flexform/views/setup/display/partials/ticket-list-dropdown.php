@@ -1,7 +1,7 @@
 <?php
 $this->load->model('tickets_model');
 $this->load->model('departments_model');
-
+$departments = $this->departments_model->get();
 $priorities  = $this->tickets_model->get_priority();
 $priorities['callback_translate'] = 'ticket_priority_translate';
 $services  = $this->tickets_model->get_service();

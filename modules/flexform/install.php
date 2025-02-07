@@ -14,7 +14,9 @@ if (!$CI->db->table_exists(db_prefix() .'flexforms' )) {
     `allow_duplicate_leads` enum("0","1") NOT NULL DEFAULT "0",
     `require_terms_and_conditions` enum("0","1") NOT NULL DEFAULT "0",
     `enable_captcha` enum("0","1") NOT NULL DEFAULT "0",
+    `enable_single_page` enum("0","1") NOT NULL DEFAULT "0",
     `lead_name_prefix` mediumtext NOT NULL,
+    `data_submission_notification_emails` mediumtext NOT NULL,
     `lead_source` int(11) NOT NULL,
     `lead_status` int(11) NOT NULL,
     `notify_form_submission` enum("0","1") NOT NULL DEFAULT "0",
@@ -64,6 +66,10 @@ if (!$CI->db->table_exists(db_prefix() .'flexformblocks' )) {
     `button_text` TEXT NOT NULL,
     `images` TEXT NOT NULL,
     `allow_multiple` enum("0","1") NOT NULL DEFAULT "0",
+    `simple_uploader` enum("0","1") NOT NULL DEFAULT "0",
+    `file_types` VARCHAR(250) NOT NULL DEFAULT "gif,jpg,png,jpeg",
+    `left_label` VARCHAR(250) NOT NULL DEFAULT "",
+    `right_label` VARCHAR(250) NOT NULL DEFAULT "",
     `map_to_column` TEXT NOT NULL,
     `redirect_url` VARCHAR(250) NOT NULL,
     `redirect_message` VARCHAR(250) NOT NULL,
@@ -152,3 +158,7 @@ if (!$CI->db->table_exists(db_prefix() .'flexformcompleted' )) {
 
 //create flexform storage folder
 flexform_create_storage_directory();
+
+//create submission email template
+$CI->load->library('flexform/flexform_module');
+$CI->flexform_module->create_email_template();

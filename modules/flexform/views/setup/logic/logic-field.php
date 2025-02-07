@@ -4,7 +4,7 @@ $index = (isset($index)) ? $index : 0;
 $logic = (isset($logic)) ? $logic : [];
 $goto = (isset($logic['goto'])) ? $logic['goto'] : 0;
 ?>
-<div class="flexform_block_logic_wrapper_each tw-mb-2" data-index="<?php echo $index; ?>">
+<div class="flexform_block_logic_wrapper_each tw-mb-4" data-index="<?php echo $index; ?>">
     <input type="hidden" name="index[]" value="<?php echo $index; ?>" />
     <a href="" class="pull-right flexform-remove-logic-btn text-danger tw-underline"> <i class="fa-solid fa-trash-can"></i></a>
     <div class="flexform-condition-wrapper">

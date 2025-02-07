@@ -1,8 +1,8 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed'); ?>
-<div class="justify-content-center row mt-5">
-    <div class="col-xl-5">
-        <div class="auth-card card">
-            <div class="px-3 py-5 card-body">
+<div class="justify-content-center row" style="margin-top:120px">
+    <div class="container"style="width:50%">
+        <div class="panel_s">
+            <div class="px-3 py-5 panel-body">
                 <div class="px-4">
                     <div class="mx-auto mb-4 text-center auth-logo">
                         <a href="https://kundenportal.sellx.studio/" class="logo-dark">
@@ -16,7 +16,7 @@
                     <?= form_open($this->uri->uri_string(), ['class' => 'authentication-form login-form']); ?>
                     <?php hooks()->do_action('clients_login_form_start'); ?>
 
-                    <div class="mb-3">
+                    <div style="margin-bottom:5px">
                         <div>
                             <label for="email" class="form-label"><?= _l('clients_login_email'); ?></label>
                             <input type="text" autofocus="true" class="bg-light bg-opacity-50 border-light py-2 form-control" name="email" id="email">
@@ -24,9 +24,9 @@
                         </div>
                     </div>
 
-                    <div class="mb-3">
+                    <div>
                         <a class="float-end text-muted text-unline-dashed ms-1" href=<?= site_url('authentication/forgot_password'); ?></a>Passwort vergessen?</a>
-                        <div>
+                        <div style="margin-top:20px">
                             <label for="password" class="form-label"><?= _l('clients_login_password'); ?></label>
                             <input type="password" class="bg-light bg-opacity-50 border-light py-2 form-control" name="password" id="password">
                             <?= form_error('password'); ?>

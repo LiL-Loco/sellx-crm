@@ -1,4 +1,4 @@
-<div class="form-group tw-mb-2">
+<div class="form-group tw-mb-4">
     <div class="form-group">
         <label for="<?php echo $name ?>" class="control-label clearfix"><?php echo _flexform_lang($label) ?> </label>
         <div class="radio radio-primary radio-inline">

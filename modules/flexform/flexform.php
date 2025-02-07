@@ -5,16 +5,15 @@ defined('BASEPATH') or exit('No direct script access allowed');
 /*
 Module Name: Flex Form Builder for Perfex CRM
 Description: Create Reactive Forms to collect data for leads, contacts, customers, opportunities, projects, tasks, tickets, estimates e.t.c.
-Version: 1.0.3
+Version: 1.0.4
 Requires at least: 2.3.*
 */
 
 
 define('FLEXFORM_MODULE_NAME', 'flexform');
-
+register_merge_fields("flexform/merge_fields/flexform_response_merge_fields");
 hooks()->add_action('admin_init', FLEXFORM_MODULE_NAME . '_permissions');
 hooks()->add_action('admin_init', FLEXFORM_MODULE_NAME.'_module_init_menu_items');
-hooks()->add_action('clients_init', FLEXFORM_MODULE_NAME.'_module_clients_area_menu_items');
 
 define('FLEXFORM_FOLDER', FCPATH . 'uploads/flexform' . '/');
 /**
@@ -60,18 +59,7 @@ function flexform_module_init_menu_items()
             'name' => _flexform_lang('ultimate_form_builder'),
             'href' => admin_url('flexform'),
             'position' => 16,
-        ]);
-    }
-}
-
-function flexform_module_clients_area_menu_items()
-{   
-    // Show menu item only if client is logged in
-    if (is_client_logged_in()) {
-        add_theme_menu_item('flexform-logged-in-item-id', [
-            'name'     => 'Zugangsdaten Übermitteln',
-            'href'     => site_url('flexform/vf/617d40c010507fa15183624b6b1b3bb6?with_logo=1'),
-            'position' => 7,
+            'icon' => 'fa-solid fa-cubes',
         ]);
     }
 }
@@ -274,6 +262,14 @@ function flexform_blocks($block_key = ''): array
             'description'=> _flexform_lang('date-time-block-description'),
             'default_label'=> _flexform_lang('please_provide_date_and_time'),
         ],
+        'time'=> [
+            'name' => _flexform_lang('time'),
+            'icon' => 'fa-solid fa-clock',
+            'img'=> module_dir_url('flexform', 'assets/images/time.png'),
+            'heading'=> _flexform_lang('time-block'),
+            'description'=> _flexform_lang('time-block-description'),
+            'default_label'=> _flexform_lang('please_provide_time'),
+        ],
         'number'=> [
             'name' => _flexform_lang('number'),
             'icon' => 'fa-solid fa-hashtag',
@@ -297,6 +293,14 @@ function flexform_blocks($block_key = ''): array
             'heading'=> _flexform_lang('star-rating-block'),
             'description'=> _flexform_lang('star-rating-block-description'),
             'default_label'=> _flexform_lang('please_provide_star_rating'),
+        ],
+        'opinion-scale'=> [
+            'name' => _flexform_lang('opinion-scale'),
+            'icon' => 'fa-signal',
+            'img'=> module_dir_url('flexform', 'assets/images/opinion-scale.png'),
+            'heading'=> _flexform_lang('opinion-scale-block'),
+            'description'=> _flexform_lang('opinion-scale-block-description'),
+            'default_label'=> _flexform_lang('please_provide_opinion_scale'),
         ],
         'color-picker'=> [
             'name' => _flexform_lang('color-picker'),
@@ -593,4 +597,58 @@ function flexform_add_default_blocks($form_id){
         'block_order' => $order,
     ];
     $CI->flexformblocks_model->add($thank_you);
+}
+
+function flexform_get_response($form_id, $session_id,$active_tab = 'complete'){
+    $CI = &get_instance();
+    $CI->load->model('flexformcompleted_model');
+    $CI->load->model('flexformblockanswer_model');
+    $all_form_blocks = flexform_get_all_blocks($form_id);
+    $responses = [];
+    //loop through all the blocks
+    foreach ($all_form_blocks as $block){
+        //skip thank you and statement
+        if($block['block_type'] == 'thank-you' || $block['block_type'] == 'statement') {
+            continue;
+        }
+        $answer =  $CI->flexformblockanswer_model->get(['session_id' => $session_id, 'block_id' => $block['id']]);
+        $date_added = $answer ? $answer['date_added'] : '';
+        //if we are getting completed responses, the time will be on the form completed table
+        if($active_tab == 'complete'){
+            $completed = $CI->flexformcompleted_model->get(['session_id' => $session_id]);
+            $date_added = $completed ? $completed['date_added'] : '';
+        }
+        $responses[$session_id][] = array(
+            'answer' => $answer ? flexformPerfectUnserialize($answer['answers']) : '',
+            'block' => $block,
+            'date_added' => $date_added,
+        );
+    }
+    return $responses;
+}
+
+function flexform_app_pdf($path, ...$params)
+{
+    $basename = ucfirst(basename(strbefore($path, EXT)));
+    if (!endsWith($path, EXT)) {
+        $path .= EXT;
+    }
+    include_once($path);
+    return (new $basename(...$params))->prepare();
+}
+
+function flexform_response_pdf($responses,$form){
+    return flexform_app_pdf(APP_MODULES_PATH .FLEXFORM_MODULE_NAME . '/libraries/pdf/Form_submission_data_pdf', $responses,$form);
+}
+
+function flexform_is_thank_you_block($block){
+    return $block['block_type'] == 'thank-you';
+}
+
+function flexform_is_form_single_page($form){
+    return $form['enable_single_page'] == 1;
+}
+
+function flexform_is_statement_block($block){
+    return $block['block_type'] == 'statement';
 }

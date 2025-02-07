@@ -1,4 +1,4 @@
-<div class="form-group tw-mb-2">
+<div class="form-group tw-mb-4">
     <div class="form-group">
         <label for="images" class="control-label"><?php echo _flexform_lang('cover-image') ?></label>
         <div class="fileinput fileinput-new" data-provides="fileinput">

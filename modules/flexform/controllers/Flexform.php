@@ -83,6 +83,8 @@ class Flexform extends AdminController
             'end_date' => to_sql_date($this->input->post('end_date'),true),
             'enable_captcha' => $this->input->post('enable_captcha') ? "1" : "0",
             'require_terms_and_conditions' => $this->input->post('require_terms_and_conditions') ? "1" : "0",
+            'enable_single_page' => $this->input->post('enable_single_page') ? "1" : "0",
+            'data_submission_notification_emails'=> $this->input->post('data_submission_notification_emails'),
             ];
         //print_r($data);die();
         $this->flexform_model->update($data, $form_id);
@@ -316,8 +318,6 @@ class Flexform extends AdminController
                 break;
 
             case 'load_response':
-                $this->load->model('flexformcompleted_model');
-                $this->load->model('flexformblockanswer_model');
                 $session_id = $this->input->post('ssid');
                 $form_id = $this->input->post('fid');
                 $active_tab = $this->input->post('active');
@@ -372,6 +372,8 @@ class Flexform extends AdminController
             'rating' => $this->input->post('rating'),
             'default_value' => $this->input->post('default_value'),
             'allow_multiple' => $this->input->post('allow_multiple'),
+            'file_types' => $this->input->post('file_types'),
+            'simple_uploader' => $this->input->post('simple_uploader'),
             'horizontal' => $this->input->post('horizontal'),
             'text_align' => $this->input->post('text_align'),
             'redirect_url' => $this->input->post('redirect_url'),
@@ -379,6 +381,8 @@ class Flexform extends AdminController
             'redirect_delay' => $this->input->post('redirect_delay'),
             'is_country' => $this->input->post('is_country'),
             'ticket_list_type' => $this->input->post('ticket_list_type'),
+            'right_label' => $this->input->post('right_label'),
+            'left_label' => $this->input->post('left_label'),
             'date_updated' => date('Y-m-d H:i:s'),
         ];
         //options is an array, check if it is set
@@ -534,28 +538,7 @@ class Flexform extends AdminController
     }
 
     private function flexform_get_response($form_id, $session_id,$active_tab = 'complete'){
-        $all_form_blocks = flexform_get_all_blocks($form_id);
-        $responses = [];
-        //loop through all the blocks
-        foreach ($all_form_blocks as $block){
-            //skip thank you and statement
-            if($block['block_type'] == 'thank-you' || $block['block_type'] == 'statement') {
-                continue;
-            }
-            $answer =  $this->flexformblockanswer_model->get(['session_id' => $session_id, 'block_id' => $block['id']]);
-            $date_added = $answer ? $answer['date_added'] : '';
-            //if we are getting completed responses, the time will be on the form completed table
-            if($active_tab == 'complete'){
-                $completed = $this->flexformcompleted_model->get(['session_id' => $session_id]);
-                $date_added = $completed ? $completed['date_added'] : '';
-            }
-            $responses[$session_id][] = array(
-                'answer' => $answer ? flexformPerfectUnserialize($answer['answers']) : '',
-                'block' => $block,
-                'date_added' => $date_added,
-            );
-        }
-        return $responses;
+        return flexform_get_response($form_id, $session_id,$active_tab);
     }
 
     private function cleanup_files($form_id, $session_id = null){
@@ -575,6 +558,69 @@ class Flexform extends AdminController
                 }
             }
         }
+    }
+
+    public function duplicate($slug){
+        $this->load->model('flexformblocks_model');
+        if(!has_permission(FLEXFORM_MODULE_NAME, '', 'create')){
+            set_alert('warning', _flexform_lang('permission_denied'));
+            redirect(admin_url(''));
+            return;
+        }
+        $form = $this->flexform_model->get_by_slug_or_id($slug);
+        if(!$form){
+            set_alert('warning', _flexform_lang('form_not_found'));
+            redirect(admin_url('flexform'));
+        }
+        $new_form = $form;
+        unset($new_form['id']);
+        $new_form['slug'] = md5($form['name'].'-'.'-'.uniqid());
+        $new_form['name'] = $form['name'].' - '._flexform_lang('copy');
+        $new_form['published'] = '0';
+        $new_form['staffid'] = get_staff_user_id();
+        $new_form['date_added'] = date('Y-m-d H:i:s');
+        $new_form['date_updated'] = date('Y-m-d H:i:s');
+        $new_form_id = $this->flexform_model->add($new_form);
+        $blocks_comparison = [];
+        if($new_form_id){
+            //get all blocks
+            $blocks = $this->flexformblocks_model->all(['form_id' => $form['id']]);
+            foreach ($blocks as $block){
+                $new_block = $block;
+                unset($new_block['id']);
+                $new_block['form_id'] = $new_form_id;
+                $new_block['date_added'] = date('Y-m-d H:i:s');
+                $new_block['date_updated'] = date('Y-m-d H:i:s');
+                //echo '<pre>',print_r($new_block),'</pre>';die();
+                $new_block_id = $this->flexformblocks_model->add($new_block);
+                if($new_block_id){
+                    $blocks_comparison[$block['id']] = $new_block_id;
+                    //check if the block have logic, if yes, duplicate it
+                }
+            }
+            //duplicate logic
+            //loop through the comparision array and duplicate the logic
+            $this->load->model('flexformblockslogic_model');
+            foreach ($blocks_comparison as $old_block_id => $new_block_id){
+                $logic = $this->flexformblockslogic_model->all(['block_id' => $old_block_id]);
+                //check if the block have logic
+                foreach ($logic as $logic_item){
+                    $new_logic = $logic_item;
+                    unset($new_logic['id']);
+                    $new_logic['block_id'] = $new_block_id;
+                    //get the goto field
+                    $new_logic['goto'] = $blocks_comparison[$logic_item['goto']];
+                    $new_logic['other_cases_goto'] = $blocks_comparison[$logic_item['other_cases_goto']];
+                    $new_logic['date_added'] = date('Y-m-d H:i:s');
+                    $new_logic['date_updated'] = date('Y-m-d H:i:s');
+                    $this->flexformblockslogic_model->add($new_logic);
+                }
+            }
+            set_alert('success', _flexform_lang('form_duplicated_successfully'));
+            redirect(admin_url('flexform/setup/'.$new_form['slug']));
+        }
+        set_alert('warning', _flexform_lang('error_occurred'));
+        redirect(admin_url('flexform'));
     }
 
     public function delete($id){

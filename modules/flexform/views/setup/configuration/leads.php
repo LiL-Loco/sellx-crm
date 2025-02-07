@@ -4,7 +4,7 @@ $members = $props['members'];
 $sources = $props['sources'];
 $statuses = $props['statuses'];
 ?>
-<div class="tw-mb-2">
+<div class="tw-mb-4">
     <div class="ff-section">
         <h5 class="ff-section_title"><?php echo _flexform_lang('leads-configuration'); ?></h5>
     </div>

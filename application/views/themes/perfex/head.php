@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed'); ?>
 <!DOCTYPE html>
-<html lang="<?= e($locale); ?>">
+<html lang="<?= e($locale); ?>"
 
 <head>
 	<meta charset="utf-8">
@@ -15,7 +15,9 @@
 </head>
 
 <body
-	class="customers <?= strtolower($this->agent->browser()); ?><?= is_mobile() ? ' mobile' : ''; ?><?= isset($bodyclass) ? ' ' . $bodyclass : ''; ?>"
-	<?= $isRTL == 'true' ? 'dir="rtl"' : ''; ?>>
+	class="customers <?= strtolower($this->agent->browser()); ?>
+	<?= is_mobile() ? ' mobile' : ''; ?>
+	<?= isset($bodyclass) ? ' ' . $bodyclass : ''; ?>
+	<?= $isRTL == 'true' ? 'dir="rtl"' : ''; ?>">
 
 	<?php hooks()->do_action('customers_after_body_start'); ?>

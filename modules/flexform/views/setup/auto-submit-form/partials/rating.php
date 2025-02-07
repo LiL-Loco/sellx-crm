@@ -1,4 +1,4 @@
-<div class="form-group tw-mb-2">
+<div class="form-group tw-mb-4">
     <div class="form-group">
         <label for="ff-rating" class="control-label"><?php echo _flexform_lang('max-rating') ?></label><br/>
         <select name="rating" id="ff-rating" class="form-control ff-rating">

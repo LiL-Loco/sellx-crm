@@ -11,7 +11,7 @@ $commands = ($if_block_id) ?  flexform_logic_commands($if_block_arr) : flexform_
 $value_field_block = ($if_block_id) ? $if_block_arr : $block;
 ?>
 <div class="flexform-condition-wrapper_each">
-    <div class="row tw-mb-2 flexform-next-condition-wrapper">
+    <div class="row tw-mb-4 flexform-next-condition-wrapper">
         <div class="col-sm-4">
             <select name="logic_<?php echo $index ?>_next_condition[]" class="form-control">
                 <option value="and" <?php echo $if_next_condition == 'and' ? 'selected' : '' ?>><?php echo _flexform_lang('and') ?></option>
@@ -22,7 +22,7 @@ $value_field_block = ($if_block_id) ? $if_block_arr : $block;
             <a href="" class="pull-right flexform-remove-next-logic-condition text-muted tw-underline"> <i class="fa fa-trash"></i> <?php echo _flexform_lang('remove')?></a>
         </div>
     </div>
-    <div class="row tw-mb-2">
+    <div class="row tw-mb-4">
         <div class="col-sm-1">
             <h5><?php echo _flexform_lang('if'); ?></h5>
         </div>
@@ -34,7 +34,7 @@ $value_field_block = ($if_block_id) ? $if_block_arr : $block;
             </select>
         </div>
     </div>
-    <div class="row tw-mb-2 flexform-command-and-form-wrapper">
+    <div class="row tw-mb-4 flexform-command-and-form-wrapper">
         <!-- The block here should be the if_block if it is available-->
         <?php echo $this->load->view('setup/logic/block-logic-operator-and-value-field', ['commands' => $commands, 'block' => $value_field_block,'if_value'=>$if_value,'if_operator'=>$if_operator], true); ?>
     </div>

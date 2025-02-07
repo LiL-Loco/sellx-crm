@@ -245,6 +245,28 @@ $lang[$fa_prefix.'your-name'] = 'Your Name';
 $lang[$fa_prefix.'attachments'] = 'Attachments';
 $lang[$fa_prefix.'optional-logo-flag'] = 'Optional logo flag';
 $lang[$fa_prefix.'download-as-pdf'] = 'Download as PDF';
+//version 1.0.4
+$lang[$fa_prefix.'enable_single_page'] = 'Enable Single Page (All questions in one page)';
+$lang[$fa_prefix.'spa-value-required'] = 'Please fill out all required fields before submitting the form';
+$lang[$fa_prefix.'simple_uploader'] = 'Simple HTML5 File Picker (Recommended where drag and drop is not Fully supported). <br/> Default in Single Page Form';
+$lang[$fa_prefix.'file_types'] = 'File Types (Comma separated)';
+$lang[$fa_prefix.'form-data-submission-email-notification'] = 'Form Data Submission Notification Emails (Comma separated)';
+$lang[$fa_prefix.'form-submission-data'] = 'Form Submission Data';
+$lang[$fa_prefix.'duplicate'] = 'Duplicate';
+$lang[$fa_prefix.'copy'] = 'Copy';
+$lang[$fa_prefix.'form_duplicated_successfully'] = 'Form Duplicated Successfully';
+$lang[$fa_prefix.'opinion-scale'] = 'Opinion Scale';
+$lang[$fa_prefix.'opinion-scale-block'] = 'Opinion Scale Block';
+$lang[$fa_prefix.'opinion-scale-block-description'] = 'Opinion scale block is used to collect opinion from users. For example, rating a product, rating a service etc.';
+$lang[$fa_prefix.'please_provide_opinion_scale'] = 'How would you rate our service?';
+$lang[$fa_prefix.'left_label'] = 'Left Label';
+$lang[$fa_prefix.'right_label'] = 'Right Label';
+$lang[$fa_prefix.'time-block'] = 'Time Block';
+$lang[$fa_prefix.'time-block-description'] = 'Time block is used to collect time from users e.g appointment time, event time etc.';
+$lang[$fa_prefix.'please_provide_time'] = 'What time is your appointment?';
+
+
+
 
 
 

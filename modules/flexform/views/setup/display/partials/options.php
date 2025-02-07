@@ -19,7 +19,7 @@ if($default_value && !is_array($default_value)) {
 }
 
 ?>
-<?php if(isset($dropdown)): ?>
+<?php if(isset($dropdown) && $dropdown == true): ?>
     <div class="select-placeholder form-group ff-options-boxes">
         <?php if($block['is_country'] == 1) :?>
             <select data-live-search="true" name="<?php echo $name; ?>" id="bid<?php echo $block['id']; ?>" class="selectpicker form-control">

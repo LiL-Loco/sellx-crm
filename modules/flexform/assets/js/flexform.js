@@ -83,6 +83,8 @@ $(document).on('keyup',
     '.flexform-question-button-text,' +
     '.flexform-thankyou-redirect-url,' +
     '.flexform-thankyou-redirect-message,' +
+    '.flexform-file-types,' +
+    '.flexform-question-left-right-label-text,' +
     '.flexform-question-placeholder', function() {
     const obj = $(this);
     let type = '';

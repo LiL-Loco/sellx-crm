@@ -1,4 +1,4 @@
-<div data-id="<?php echo $block['id'] ?>" class="tw-flex tw-items-center tw-mb-2 tw-px-3 tw-py-3  tw-rounded tw-shadow ff-each-block <?php echo (isset($is_active) && $is_active) ? 'active' : '' ?>">
+<div data-id="<?php echo $block['id'] ?>" class="tw-flex tw-items-center tw-mb-4 tw-px-3 tw-py-3  tw-rounded tw-shadow ff-each-block <?php echo (isset($is_active) && $is_active) ? 'active' : '' ?>">
     <a href="#" class="tw-text-primary tw-mr-2 flexform-block__cta" data-id="<?php echo $block['id'] ?>">
         <i class="fa <?php echo $block['static']['icon'] ?> tw-text-primary tw-mr-2"></i>
         <span class="ff-block-index-text"> <?php echo $index.'.'; ?> </span>

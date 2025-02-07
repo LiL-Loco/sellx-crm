@@ -1,4 +1,4 @@
-<div class="form-group tw-mb-2 mt-4 flexform-new-options-wrapper-fields <?php echo ($block['is_country'] ==1) ? 'hidden' : '' ?>">
+<div class="form-group tw-mb-4 mt-4 flexform-new-options-wrapper-fields <?php echo ($block['is_country'] ==1) ? 'hidden' : '' ?>">
     <div class="form-group">
         <label for="options" class="control-label">
             <?php echo _flexform_lang('options') ?>

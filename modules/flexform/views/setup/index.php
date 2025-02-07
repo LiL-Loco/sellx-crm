@@ -9,7 +9,7 @@ $form = $props['form'];
     <div class="content">
         <div class="row">
             <div class="col-md-12">
-                <div class="tw-flex tw-justify-between tw-items-center tw-mb-2 sm:tw-mb-2">
+                <div class="tw-flex tw-justify-between tw-items-center tw-mb-2 sm:tw-mb-4">
                     <h4 class="tw-my-0  tw-self-end">
                         <a href="<?php echo admin_url('flexform'); ?>" class="">
                             <i class="fa fa-arrow-left"></i>
@@ -24,6 +24,11 @@ $form = $props['form'];
                             <?php echo flexform_html_status('1'); ?>
                         <?php endif; ?>
                         </span>
+                        <a href="<?php echo admin_url('flexform/responses/' . $form['slug']); ?>"
+                           class="btn btn-secondary mright5">
+                            <i class="fa-solid fa-layer-group"></i>
+                            <?php echo _flexform_lang('responses'); ?>
+                        </a>
                         <a href="#"
                            data-toggle="modal"
                            data-target="#flexform_share_modal"
@@ -57,7 +62,7 @@ $form = $props['form'];
                                             <?php echo _flexform_lang('add_new'); ?>
                                         </a>
                                     </h5><br/>
-                                    <div class="tw-mb-2 flexform_blocks_list" id="flexform_blocks_list_container">
+                                    <div class="tw-mb-4 flexform_blocks_list" id="flexform_blocks_list_container">
                                         <?php foreach($blocks as $block):
                                             if($i == 0){ $first_block = $block;}
                                             ?>

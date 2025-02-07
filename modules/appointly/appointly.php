@@ -487,7 +487,7 @@ if (staff_can('view', 'settings')) {
 function appointly_add_settings_tab()
 {
     $CI = &get_instance();
-    $CI->app_tabs->add_settings_tab('appointly-settings', [
+    $CI->app->add_settings_section('appointly-settings', [
         'name'     => _l('appointment_appointments'),
         'view'     => 'appointly/settings',
         'position' => 36,

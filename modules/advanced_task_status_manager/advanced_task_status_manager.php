@@ -113,21 +113,36 @@ register_language_files(ADVANCED_TASK_STATUS_MANAGER_MODULE_NAME, [ADVANCED_TASK
 function load_statuses_from_db($statuses)
 {
     $CI = &get_instance();
+    
     if ($CI->is_task_status_manager_loading ?? false) {
         return $statuses;
     }
 
-    if ($CI->uri->uri_string == 'admin/tasks' || ($CI->uri->segments[2] == 'projects' && $CI->uri->segments[3] == 'view' && $CI->input->get('group') == 'project_tasks')) {
-        $statusesUserCantSee = $CI->db->where('staff_id', get_staff_user_id())->get(db_prefix() . 'task_status_dont_have_staff')->result_array();
-        $statusesIdsUserCantSee = array_map(fn ($x) => $x['task_status_id'], $statusesUserCantSee);
+    // Sicherstellen, dass die Segmente existieren, bevor darauf zugegriffen wird
+    if (
+        $CI->uri->uri_string == 'admin/tasks' || 
+        (isset($CI->uri->segments[2], $CI->uri->segments[3]) &&
+        $CI->uri->segments[2] == 'projects' && 
+        $CI->uri->segments[3] == 'view' && 
+        $CI->input->get('group') == 'project_tasks')
+    ) {
+        $statusesUserCantSee = $CI->db->where('staff_id', get_staff_user_id())
+                                      ->get(db_prefix() . 'task_status_dont_have_staff')
+                                      ->result_array();
+        
+        $statusesIdsUserCantSee = array_map(fn($x) => $x['task_status_id'], $statusesUserCantSee);
 
         if (!empty($statusesIdsUserCantSee)) {
-            return $CI->db->where_not_in('id', $statusesIdsUserCantSee)->get(db_prefix() . 'task_statuses')->result_array();
+            return $CI->db->where_not_in('id', $statusesIdsUserCantSee)
+                          ->get(db_prefix() . 'task_statuses')
+                          ->result_array();
         }
     }
 
-    return  $CI->db->get(db_prefix() . 'task_statuses')->result_array();
+    // Alle Status zurückgeben, wenn keine Bedingungen erfüllt sind
+    return $CI->db->get(db_prefix() . 'task_statuses')->result_array();
 }
+
 
 /**
  * Using before_get_project_statuses hook override default statuses 
@@ -137,15 +152,25 @@ function load_statuses_from_db($statuses)
 function load_project_statuses_from_db($statuses)
 {
     $CI = &get_instance();
+    
     if ($CI->is_task_status_manager_loading ?? false) {
         return $statuses;
     }
 
+    // Initialisiere die Eigenschaft, wenn sie nicht existiert
+    if (!isset($CI->project_status_once)) {
+        $CI->project_status_once = false;
+    }
+
     if (!$CI->project_status_once && isset($CI->uri->segments[3], $CI->uri->segments[4]) && ($CI->uri->segments[3] == 'project' || $CI->uri->segments[3] == 'view') && is_numeric($CI->uri->segments[4])) {
         $CI->project_status_once = true;
-        $statusesAvalibleToChange = $CI->db->where('project_status_id', $CI->current_project_status)->get(db_prefix() . 'project_status_can_change')->result_array();
-        $statusesIdsAvalibleToChange = array_map(fn ($x) => $x['project_status_id_can_change_to'], $statusesAvalibleToChange);
-        if (!empty($statusesIdsAvalibleToChange)) { // && !is_admin()
+
+        $statusesAvalibleToChange = $CI->db->where('project_status_id', $CI->current_project_status)
+                                           ->get(db_prefix() . 'project_status_can_change')
+                                           ->result_array();
+        $statusesIdsAvalibleToChange = array_map(fn($x) => $x['project_status_id_can_change_to'], $statusesAvalibleToChange);
+
+        if (!empty($statusesIdsAvalibleToChange)) {
             $CI->db->where_in('id', $statusesIdsAvalibleToChange);
         }
     }
@@ -155,6 +180,7 @@ function load_project_statuses_from_db($statuses)
         return $x;
     }, $CI->db->get(db_prefix() . 'project_statuses')->result_array());
 }
+
 
 
 /**

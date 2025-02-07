@@ -9,7 +9,7 @@
                 <div class="row">
                     <div class="col-sm-4 flexform-setup-block-list scroller tw-px-1">
                         <?php foreach(flexform_blocks() as $type=>$block): ?>
-                            <div class="tw-flex tw-items-center tw-mb-2 tw-px-3 tw-py-3  tw-rounded tw-shadow flexform-setup-block-list__item">
+                            <div class="tw-flex tw-items-center tw-mb-4 tw-px-3 tw-py-3  tw-rounded tw-shadow flexform-setup-block-list__item">
                                 <a href="#" class="tw-text-primary tw-mr-2 flexform-setup-block-list__cta"
                                    data-key="<?php echo $type ?>"
                                    data-img="<?php echo $block['img'] ?>"
@@ -23,7 +23,7 @@
                     </div>
                     <div class="col-sm-8 text-center">
                         <div class="tw-bg-white tw-rounded tw-shadow p-4 flexform-setup-block-preview hidden">
-                            <h4 class="tw-font-semibold tw-mb-2"></h4>
+                            <h4 class="tw-font-semibold tw-mb-4"></h4>
                             <p class="text-muted tw-p-2"></p>
                             <img src="" alt="" class="img-responsive tw-mt-4" />
                         </div>

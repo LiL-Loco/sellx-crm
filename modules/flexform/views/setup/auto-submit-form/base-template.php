@@ -7,20 +7,20 @@
     <?php endif; ?>
 </h5>
 <br/>
-<div class="tw-mb-2 flexform-setup-panel-body_rhs_form_wrapper">
+<div class="tw-mb-4 flexform-setup-panel-body_rhs_form_wrapper">
     <?php echo form_open(admin_url('flexform/update_block'),array('id'=>'flexform-block-form','enctype'=>'multipart/form-data')); ?>
     <input type="hidden" id="flexform-block-id" name="id" value="<?php echo isset($block['id']) ? $block['id'] : 0  ?>" />
     <div class="flexform-setup-panel-body_rhs_form_wrapper_inner">
 
-        <div class="form-group tw-mb-2">
+        <div class="form-group tw-mb-4">
             <?php $label = (isset($statement) || isset($thankyou)) ? _flexform_lang('title') : _flexform_lang('question'); ?>
             <?php echo render_input('question', $label, $block['title'], 'text', ['autocomplete' => 'off', 'maxlength' => '250'], [], '', 'flexform-question-title'); ?>
         </div>
-        <div class="form-group tw-mb-2">
+        <div class="form-group tw-mb-4">
             <?php echo render_textarea('description', _flexform_lang('description'), $block['description'], [], [], '', 'flexform-question-desc'); ?>
         </div>
         <?php if(!isset($thankyou)): ?>
-        <div class="form-group tw-mb-2">
+        <div class="form-group tw-mb-4">
             <?php echo render_input('button_text', _flexform_lang('button_text'), $block['button_text'], 'text', ['autocomplete' => 'off', 'maxlength' => '100'], [], '', 'flexform-question-button-text'); ?>
         </div>
         <?php endif; ?>
@@ -46,10 +46,17 @@
 
         <?php if(isset($file)): ?>
             <?php echo $this->load->view('partials/yes-no', ['block' => $block,'label'=>'allow-multiple','column'=>'allow_multiple','name'=>'allow_multiple'], true); ?>
+            <?php echo $this->load->view('partials/yes-no', ['block' => $block,'label'=>'simple_uploader','column'=>'simple_uploader','name'=>'simple_uploader'], true); ?>
+            <!-- file types -->
+            <?php echo render_input('file_types', _flexform_lang('file_types'), $block['file_types'], 'text', ['autocomplete' => 'off', 'maxlength' => '250'], [], '', 'flexform-file-types'); ?>
         <?php endif;?>
 
         <?php if (isset($star_rating)): ?>
             <?php echo $this->load->view('partials/rating', ['block' => $block], true); ?>
+        <?php endif; ?>
+
+        <?php if (isset($opinion_scale)): ?>
+            <?php echo $this->load->view('partials/scale', ['block' => $block], true); ?>
         <?php endif; ?>
 
         <?php if (isset($statement) || isset($thankyou)): ?>

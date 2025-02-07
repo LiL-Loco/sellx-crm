@@ -4,7 +4,7 @@
     <div class="content">
         <div class="row">
             <div class="col-md-12">
-                <div class="tw-flex tw-justify-between tw-items-center tw-mb-2 sm:tw-mb-2">
+                <div class="tw-flex tw-justify-between tw-items-center tw-mb-2 sm:tw-mb-4">
                     <h4 class="tw-my-0 tw-font-semibold tw-text-lg tw-self-end">
                         <?php echo $title; ?>
                     </h4>
@@ -39,6 +39,7 @@
                                         <div class="row-options">
                                             <a href="<?php echo admin_url('flexform/setup/' . $form['slug']); ?>"> <?php echo _flexform_lang('form-builder') ?></a> |
                                             <a href="<?php echo admin_url('flexform/responses/' . $form['slug']); ?>" class="text-success"> <?php echo _flexform_lang('responses') ?></a> |
+                                            <a href="<?php echo admin_url('flexform/duplicate/' . $form['slug']); ?>" class="text-info"> <?php echo _flexform_lang('duplicate') ?></a> |
                                             <a href="<?php echo admin_url('flexform/delete/' . $form['slug']); ?>" class="_delete text-danger"><?php echo _l('delete')?> </a>
                                         </div>
                                     </td>

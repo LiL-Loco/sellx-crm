@@ -79,7 +79,7 @@ class Flexform_model extends App_Model
         $this->db->insert(db_prefix() . $this->table, $data);
         $insert_id = $this->db->insert_id();
         if ($insert_id) {
-            log_activity('New Form Added [ID:' . $insert_id . ', ' . $data['title'] . ']');
+            log_activity('New Form Added [ID:' . $insert_id  . ']');
             return $insert_id;
         }
         return false;

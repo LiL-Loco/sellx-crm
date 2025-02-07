@@ -9,14 +9,16 @@ if($is_submit){
     $icon =  '<i class="fa-regular fa-circle-check"></i>';
 }
 ?>
-<?php if(isset($is_first_block) && $is_first_block): ?>
-    <?php if($form['require_terms_and_conditions'] == 1): ?>
-        <?php echo $this->load->view('partials/terms-and-condition', ['block' => $block], true); ?>
+
+<?php if(!flexform_is_form_single_page($form)): ?>
+    <?php if(isset($is_first_block) && $is_first_block): ?>
+        <?php if($form['require_terms_and_conditions'] == 1): ?>
+            <?php echo $this->load->view('partials/terms-and-condition', ['block' => $block], true); ?>
+        <?php endif; ?>
+        <?php if(show_recaptcha() && $form['enable_captcha'] == 1): ?>
+            <?php echo $this->load->view('partials/recaptcha', ['block' => $block], true); ?>
+        <?php endif; ?>
     <?php endif; ?>
-    <?php if(show_recaptcha() && $form['enable_captcha'] == 1): ?>
-        <?php echo $this->load->view('partials/recaptcha', ['block' => $block], true); ?>
-    <?php endif; ?>
-<?php endif; ?>
 <div class="flexform-sumbit-button-wrapper">
     <input type="hidden" name="current" value="<?php echo flexformPerfectSerialize($block['id']) ?>">
     <?php if ($is_submit) : ?>
@@ -28,3 +30,4 @@ if($is_submit){
     <?php echo $icon; ?>
     </button>
 </div>
+<?php endif; ?>
