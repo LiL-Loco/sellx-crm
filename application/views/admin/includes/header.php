@@ -60,7 +60,7 @@
                         <a href="#" class="!tw-px-0 tw-group !tw-text-white" data-toggle="dropdown">
                             <span
                                 class="tw-rounded-full tw-bg-primary-600 tw-text-white tw-inline-flex tw-items-center tw-justify-center tw-h-7 tw-w-7 -tw-mt-1 group-hover:!tw-bg-primary-700">
-                                <i class="fa-regular fa-plus fa-lg"></i>
+                                <i class="fa fa-plus"></i>
                             </span>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-right animated fadeIn tw-text-base">

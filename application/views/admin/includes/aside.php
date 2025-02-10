@@ -5,7 +5,7 @@
             false; ?>
     <div class="dropdown sidebar-user-profile tw-mt-[80px] tw-mx-1.5 ">
         <a href="#"
-            class="dropdown-toggle profile -tw-mt-1 tw-font-medium tw-border tw-border-solid tw-rounded-lg tw-bg-white/20 tw-py-2 tw-px-2.5 tw-block tw-shadow-sm <?= $isSidebarDark ? 'tw-text-white tw-border-white/10 hover:tw-border-white/30 focus:tw-border-white/30 hover:tw-bg-neutral-900/10 focus:tw-bg-neutral-900/10' : 'tw-border-neutral-900/20 tw-text-neutral-700 hover:tw-text-neutral-800 focus:tw-text-neutral-800 focus:tw-bg-neutral-900/5'; ?>"
+            class="dropdown-toggle profile -tw-mt-1 tw-font-medium tw-rounded-lg tw-bg-white/20 tw-py-2 tw-px-2.5 tw-block <?= $isSidebarDark ? 'tw-text-white tw-border-white/10 hover:tw-border-white/30 focus:tw-border-white/30 hover:tw-bg-neutral-900/10 focus:tw-bg-neutral-900/10' : 'tw-border-neutral-900/20 tw-text-neutral-700 hover:tw-text-neutral-800 focus:tw-text-neutral-800 focus:tw-bg-neutral-900/5'; ?>"
             data-toggle="dropdown" aria-expanded="false">
             <span class="tw-inline-flex tw-items-center tw-gap-x-3 tw-pt-0.5">
                 <?= staff_profile_image($current_user->staffid, ['img', 'img-responsive', 'staff-profile-image-small']); ?>
@@ -58,7 +58,6 @@
                     onclick="logout(); return false;"><?= _l('nav_logout'); ?></a>
             </li>
         </ul>
-    </div>    </div>
     <ul class="nav metis-menu tw-mt-[15px]" id="side-menu">
 
         <?php

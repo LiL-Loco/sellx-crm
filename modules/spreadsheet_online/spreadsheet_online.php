@@ -134,6 +134,7 @@ function spreadsheet_online_add_head_component(){
         echo '<link href="' . module_dir_url(SPREAD_ONLINE_MODULE_NAME, 'assets/plugins/luckysheet/css/chartmix.css') . '?v=' . VERSION_SREADSHEET. '"  rel="stylesheet" type="text/css" />';
         echo '<link href="' . module_dir_url(SPREAD_ONLINE_MODULE_NAME, 'assets/plugins/luckysheet/css/spectrum.min.css') . '?v=' . VERSION_SREADSHEET. '"  rel="stylesheet" type="text/css" />';
         echo '<link href="' . module_dir_url(SPREAD_ONLINE_MODULE_NAME, 'assets/plugins/luckysheet/css/chartmix.css') . '?v=' . VERSION_SREADSHEET. '"  rel="stylesheet" type="text/css" />';
+        echo '<script rel="stylesheet" type="text/css" src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"></script>';
     }
 }
 
@@ -193,6 +194,7 @@ function spreadsheet_online_load_js(){
         echo '<script src="'.module_dir_url(SPREAD_ONLINE_MODULE_NAME, 'assets/plugins/luckysheet/js/luckyexcel.js').'?v=' . VERSION_SREADSHEET.'"></script>';
         echo '<script src="'.module_dir_url(SPREAD_ONLINE_MODULE_NAME, 'assets/plugins/luckysheet/js/flatpickr.js').'?v=' . VERSION_SREADSHEET.'"></script>';
         echo '<script src="'.module_dir_url(SPREAD_ONLINE_MODULE_NAME, 'assets/plugins/luckysheet/js/dayjs.js').'?v=' . VERSION_SREADSHEET.'"></script>';
+        echo '<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/js/all.min.js" integrity="sha512-b+nQTCdtTBIRIbraqNEwsjB6UvL3UEMkXnhzd8awtCYh0Kcsjl9uEgwVFVbhoj3uu1DO1ZMacNvLoyJJiNfcvg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>';
     }
 
 }
@@ -325,8 +327,8 @@ function spreadsheet_online_client_foot_js(){
     echo '<script  src="'.module_dir_url(SPREAD_ONLINE_MODULE_NAME, 'assets/js/exports.js').'?v=' . VERSION_SREADSHEET.'"></script>';
     echo '<script src="'.module_dir_url(SPREAD_ONLINE_MODULE_NAME, 'assets/plugins/luckysheet/js/flatpickr.js').'?v=' . VERSION_SREADSHEET.'"></script>';
     echo '<script src="'.module_dir_url(SPREAD_ONLINE_MODULE_NAME, 'assets/plugins/luckysheet/js/dayjs.js').'?v=' . VERSION_SREADSHEET.'"></script>';
-
-}
+    
+  }
 }
 
 

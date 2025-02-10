@@ -6,7 +6,7 @@
 		<?php echo form_hidden('role', $role);  ?>
 		<?php echo form_hidden('token', $this->security->get_csrf_hash());  ?>
 		<div class="upload_file_class">
-				<a href="#" id="file-link" class="btn btn-info"><i class="fa fa-upload" aria-hidden="true"></i> Upload</a>
+				<a href="#" id="file-link" class="btn btn-info"><i class="fa fa-upload" aria-hidden="true"></i> Xlsx Import</a>
 				<input type="file" id="Luckyexcel-demo-file" name="Luckyexcel-demo-file" change="demoHandler"> 
 
 				<?php if(isset($id)){ ?>
@@ -19,14 +19,12 @@
 					</a>
 				<?php } ?>
 		</div>
-		<div class="panel_s">
 				<?php echo form_open_multipart(admin_url('spreadsheet_online/new_file_view/'.$parent_id),array('id'=>'spreadsheet-test-form'));?>
 				<div id="luckysheet"></div>
 				<?php echo form_hidden('name');  ?>
 				<?php echo form_hidden('parent_id', $parent_id);  ?>
 				<?php echo form_hidden('id', isset($id) ? $id : "");  ?>
 				<?php echo form_close(); ?>  
-		</div>
 	</div>
 </div>
 
@@ -282,6 +280,9 @@
 				</div>
 				<?php echo form_close(); ?>   
 			</div>
+		</div>
+	</div>
+</div>	
 
 
 <?php init_tail(); ?>

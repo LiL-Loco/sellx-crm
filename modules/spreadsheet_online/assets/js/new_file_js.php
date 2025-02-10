@@ -19,21 +19,21 @@
       var title = "<?php echo isset($name) ? $name : "" ?>";
     }else{
       var dataSheet = [{
-        name: "Sheet1",
+        name: "Tabellenblatt1",
         status: "1",
         order: "0",
         data: [],
         config: {},
         index: 0
       }, {
-        name: "Sheet2",
+        name: "Tabellenblatt2",
         status: "0",
         order: "1",
         data: [],
         config: {},
         index: 1
       }, {
-        name: "Sheet3",
+        name: "Tabellenblatt3",
         status: "0",
         order: "2",
         data: [],
@@ -41,7 +41,7 @@
         index: 2
       }];
 
-      var title = "Spreadsheet Online New";
+      var title = "Neue Tabelle";
     }
     var options = {
       container: 'luckysheet',

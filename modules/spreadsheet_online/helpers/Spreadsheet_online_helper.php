@@ -46,7 +46,7 @@ if (!function_exists('add_spreadsheet_share_email_templates')) {
     function add_spreadsheet_share_email_templates() {
         $CI = &get_instance();
 
-        $data['spreadsheet_share'] = $CI->emails_model->get(['type' => 'spreadsheet_online', 'language' => 'english']);
+        $data['spreadsheet_share'] = $CI->emails_model->get(['type' => 'spreadsheet_online', 'language' => 'german']);
 
         $CI->load->view('spreadsheet_online/email_templates', $data);
     }
@@ -136,7 +136,5 @@ function process_file($id){
     }else{
         echo json_encode(['message' => _l('physical_file_have_been_deleted')]);
         exit;
-    }
-
-    return [];
+    }    
 }
