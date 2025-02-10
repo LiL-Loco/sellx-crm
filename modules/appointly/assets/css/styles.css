@@ -26,23 +26,6 @@ body .appointment_recurring_back {
   justify-content: space-between;
 }
 
-body li[class^="sub-menu-item-appointly-"].active a {
-  margin-left: 15px !important;
-  padding-left: 30px !important;
-}
-
-body li[class^="sub-menu-item-appointly-"].active a i.menu-icon {
-  margin-left: -15px !important;
-}
-
-body li[class^="sub-menu-item-appointly-"] a {
-  padding-left: 30px !important;
-}
-
-body li[class^="menu-item-appointly-"] a {
-  padding-left: 5px !important;
-}
-
 body #addedToOutlook {
   margin-top: 1px !important;
 }

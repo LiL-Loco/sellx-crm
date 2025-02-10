@@ -5,6 +5,14 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="tw-mb-2">
+                    <div class="tw-mb-3">
+                        <h4 class="tw-my-0 tw-font-bold tw-text-xl">
+                            Gutschriften
+                        </h4>
+                        <p>
+                            Hier kannst du Gutschriften anlegen
+                        </p>
+                    </div>
                     <div class="_buttons sm:tw-space-x-1 rtl:sm:tw-space-x-reverse">
                         <?php if (staff_can('create', 'credit_notes')) { ?>
                         <a href="<?= admin_url('credit_notes/credit_note'); ?>"

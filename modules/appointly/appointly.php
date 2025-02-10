@@ -155,7 +155,6 @@ function appointly_register_menu_items()
             'name'     => 'appointment_appointments',
             'href'     => admin_url('appointly/appointments'),
             'position' => 5,
-            'icon'     => 'fa fa-th-list',
         ]);
 
         $CI->app_menu->add_sidebar_children_item(APPOINTLY_MODULE_NAME, [
@@ -163,7 +162,6 @@ function appointly_register_menu_items()
             'name'     => 'appointment_history_label',
             'href'     => admin_url('appointly/appointments_history'),
             'position' => 10,
-            'icon'     => 'fa fa-history',
         ]);
 
         $CI->app_menu->add_sidebar_children_item(APPOINTLY_MODULE_NAME, [
@@ -171,7 +169,6 @@ function appointly_register_menu_items()
             'name'     => 'appointly_callbacks',
             'href'     => admin_url('appointly/callbacks'),
             'position' => 15,
-            'icon'     => 'fa fa-phone',
         ]);
 
         $CI->app_menu->add_sidebar_children_item(APPOINTLY_MODULE_NAME, [
@@ -179,7 +176,6 @@ function appointly_register_menu_items()
             'name'     => 'appointments_your_settings',
             'href'     => admin_url('appointly/appointments/user_settings_view/settings'),
             'position' => 20,
-            'icon'     => 'fa fa-cog',
         ]);
 
         $CI->app_menu->add_sidebar_children_item(APPOINTLY_MODULE_NAME, [
@@ -188,7 +184,6 @@ function appointly_register_menu_items()
             'href'            => site_url('appointly/appointments_public/form?col=col-md-8+col-md-offset-2'),
             'href_attributes' => 'target="_blank" rel="noopener noreferrer"',
             'position'        => 25,
-            'icon'            => 'fa-brands fa-wpforms',
         ]);
     }
 }

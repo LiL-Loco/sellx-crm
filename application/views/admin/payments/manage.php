@@ -2,6 +2,14 @@
 <?php init_head(); ?>
 <div id="wrapper">
     <div class="content">
+    <div class="tw-mb-3">
+                    <h4 class="tw-my-0 tw-font-bold tw-text-xl">
+                        Zahlungen
+                    </h4>
+                    <p>
+                        Hier findest Du eine Übersicht aller Zahlungen
+                    </p>
+                </div>
         <div class="panel_s">
             <div class="panel-body">
                 <div class="panel-table-full">
