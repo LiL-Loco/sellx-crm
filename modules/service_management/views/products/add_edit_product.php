@@ -184,7 +184,7 @@
 										</div>
 										<div class="row">
 											<div class="col-md-12">
-												<?php echo render_textarea('long_description', 'description', $long_description, array(), array(), '', 'tinymce'); ?>
+												<?php echo render_textarea('long_description', 'description', $long_description); ?>
 											</div>
 										</div>
 										<div class="row">
