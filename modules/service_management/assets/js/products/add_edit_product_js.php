@@ -159,14 +159,7 @@
 		var sku_data ={};
 		sku_data.sku_code =  $('input[name="sku_code"]').val();
 
-		$.post(admin_url + 'service_management/check_sku_duplicate', sku_data).done(function(response) {
-			response = JSON.parse(response);
-
-			if(response.message == 'false' || response.message ==  false){
-
-				alert_float('warning', "<?php echo _l('sku_code_already_exists') ?>");
-
-			}else{
+		
 
 				//show box loading
 				var html = '';
@@ -198,9 +191,6 @@
 						window.location.assign(response.url);
 					}
 				});
-			}
-
-		});
 
 		return false;
 

@@ -10,15 +10,7 @@ $(function() {
     $('body').on('hidden.bs.dropdown', '.btn-group', function() {
         $(this).closest('.table-responsive').css("overflow", "auto");
     });
-
-    $("body").on("rendered.bs.select", "select", function () {
-        $(this).parents().removeClass("select-placeholder");
-        $(this)
-          .parents(".form-group")
-          .find(".select-placeholder")
-          .removeClass("select-placeholder");
-      });
-
+ 
     appSelectPicker($('body').find('select'));
     appProgressBar();
     appLightbox();
@@ -27,9 +19,7 @@ $(function() {
 
     // Lightbox for knowledge base images
     $.each($('.kb-article').find('img'), function() {
-        if(!$(this).parent().is('a')){
-            $(this).wrap('<a href="' + $(this).attr('src') + '" data-lightbox="kb-attachment"></a>');
-        }
+        $(this).wrap('<a href="' + $(this).attr('src') + '" data-lightbox="kb-attachment"></a>');
     });
 
     $('body').tooltip({
@@ -53,6 +43,21 @@ $(function() {
             }
             $('.answer_response').html(response.message);
         });
+    });
+
+    $("body").on("rendered.bs.select", "select", function () {
+        $(this).parents().removeClass("select-placeholder");
+        $(this)
+          .parents(".form-group")
+          .find(".select-placeholder")
+          .removeClass("select-placeholder");
+      });
+
+    // Lightbox for knowledge base images
+    $.each($('.kb-article').find('img'), function() {
+        if(!$(this).parent().is('a')){
+            $(this).wrap('<a href="' + $(this).attr('src') + '" data-lightbox="kb-attachment"></a>');
+        }
     });
 
     $('#identityConfirmationForm').appFormValidator({

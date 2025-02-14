@@ -10,8 +10,6 @@ add_option('staff_members_create_inline_cl_types', 1);
 add_option('staff_members_daily_calls_target', 0);
 add_option('staff_members_monthly_calls_target', 0);
 add_option('staff_members_twilio_account_share_staff', 0);
-
-
 add_option('twiml_app_friendly_name', 0);
 add_option('twiml_app_sid', 0);
 add_option('twiml_app_voice_request_url', 0);
@@ -34,10 +32,8 @@ if (!$CI->db->table_exists(db_prefix() . 'call_logs')) {
     `call_with_staffid` int(11) DEFAULT '0',
     `call_direction` int(11) DEFAULT '0',
     `notified` tinyint(4) DEFAULT '0',
-    
     `customer_type` varchar(255) DEFAULT NULL,
     `clientid` int(11) DEFAULT '0',
-    
     `rel_type` INT(11) DEFAULT '0',
     `rel_id` int(11) DEFAULT '0',
     `dateadded` datetime DEFAULT NULL,
@@ -46,7 +42,6 @@ if (!$CI->db->table_exists(db_prefix() . 'call_logs')) {
     `opt_event_type` enum('call', 'sms', 'bulk sms') DEFAULT 'call',
     `sms_content` text DEFAULT NULL,
     `twilio_sms_response` text DEFAULT NULL
-    
   ) ENGINE=InnoDB DEFAULT CHARSET=" . $CI->db->char_set . ';');
 
   $CI->db->query('ALTER TABLE `' . db_prefix() . 'call_logs`
@@ -123,7 +118,6 @@ if (!$CI->db->table_exists($cl_staffTwilioTable)) {
   ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;');
 }
 
-
 $cl_voiceRecordTable = db_prefix() . 'call_logs_voice_records';
 if (!$CI->db->table_exists($cl_voiceRecordTable)) {
   $CI->db->query('CREATE TABLE `'. $cl_voiceRecordTable .'` (
@@ -135,60 +129,25 @@ if (!$CI->db->table_exists($cl_voiceRecordTable)) {
   ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;');
 }
 
-
-
 $call_logsTable = db_prefix() . 'call_logs';
 
-
-
 //v1
-
 if (!$CI->db->field_exists('dateadded', $call_logsTable)) {
-
 	$CI->db->query("ALTER TABLE `" . $call_logsTable . "` ADD `dateadded` datetime DEFAULT NULL AFTER `rel_id`;");
-
 }
-
-
 
 if (!$CI->db->field_exists('dateaupdated', $call_logsTable)) {
-
 	$CI->db->query("ALTER TABLE `" . $call_logsTable . "` ADD `dateaupdated` datetime DEFAULT NULL AFTER `dateadded`;");
-
 }
-
-
 
 if (!$CI->db->field_exists('userphone', db_prefix().'call_logs')) {
-
-
-
 	$CI->db->query("ALTER TABLE `".db_prefix()."call_logs` ADD COLUMN userphone VARCHAR(255) AFTER call_purpose");
-
-
-
 }
-
-
 
 if (!$CI->db->field_exists('datestart', db_prefix().'call_logs')) {
-
-
-
 	$CI->db->query("ALTER TABLE `".db_prefix()."call_logs` ADD COLUMN datestart datetime AFTER dateaupdated");
-
-
-
 }
 
-
-
 if (!$CI->db->field_exists('contactid', db_prefix().'call_logs')) {
-
-
-
 	$CI->db->query("ALTER TABLE `".db_prefix()."call_logs` ADD COLUMN contactid INT(11) AFTER clientid");
-
-
-
 }

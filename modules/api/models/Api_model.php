@@ -77,36 +77,86 @@ class Api_model extends App_Model
 
     // Create a new call log
     public function create_call_log($data)
-    {
-        if (!$this->validate_input($data)) {
-            return ['error' => 'Invalid input data'];
-        }
+{
+    if (!$this->validate_input($data)) {
+        return ['error' => 'Invalid input data'];
+    }
 
-        // Validierung für call_direction = 1 (ausgehend)
-        if (isset($data['call_direction']) && $data['call_direction'] == 1) {
-            $this->db->where('phonenumber', $data['userphone']);
-            $query = $this->db->get('tblcontacts');
+    // Convert timestamps to datetime
+    if (isset($data['data']['start'])) {
+        $data['call_start_time'] = date('Y-m-d H:i:s', strtotime($data['data']['start']));
+    }
+    if (isset($data['time'])) {
+        $data['call_end_time'] = date('Y-m-d H:i:s', $data['time'] / 1000);
+    }
 
-            if ($query->num_rows() === 0) {
-                log_message('error', 'Outgoing call failed. Phone number not found in tblcontacts: ' . $data['userphone']);
-                return ['error' => 'Phone number not found in contacts for outgoing calls.'];
-            }
-        }
+    // Extract phone number from correct location
+    $phone = $data['data']['flows'][0]['caller']['phone'] ?? null;
 
-        if (!$this->table_exists('tblcall_logs')) {
-            return ['error' => 'Table does not exist'];
-        }
+    // Debugging log
+    log_message('debug', 'Extracted phone number: ' . ($phone ?? 'NULL'));
 
-        $this->db->insert('tblcall_logs', $data);
+    if (!$phone) {
+        return ['error' => 'Phone number missing in payload'];
+    }
 
-        if ($this->db->affected_rows() > 0) {
-            log_message('info', 'New call log created with ID: ' . $this->db->insert_id());
-            return $this->db->insert_id();
-        }
+    // Get client ID from tblclients
+    $this->db->where('phonenumber', $phone);
+    $clientQuery = $this->db->get('tblclients');
+    $clientId = $clientQuery->num_rows() > 0 ? $clientQuery->row()->userid : null;
 
-        log_message('error', 'Failed to create call log. Data: ' . json_encode($data));
-        return ['error' => 'Failed to create call log'];
-    }   
+    // Get contact ID from tblcontacts
+    $this->db->where('phonenumber', $phone);
+    $contactQuery = $this->db->get('tblcontacts');
+    $contactId = $contactQuery->num_rows() > 0 ? $contactQuery->row()->id : null;
+
+    if ($data['direction'] == 'INTERNAL' && !$contactId) {
+        log_message('error', 'Outgoing call failed. Phone number not found in tblcontacts: ' . $phone);
+        return ['error' => 'Phone number not found in contacts for outgoing calls.'];
+    }
+
+    if (!$this->table_exists('tblcall_logs')) {
+        return ['error' => 'Table does not exist'];
+    }
+
+    // Map data to database fields
+    $callData = [
+        'call_purpose' => $data['call_purpose'] ?? null,
+        'userphone' => $phone,
+        'call_summary' => $data['call_summary'] ?? null,
+        'call_start_time' => $data['call_start_time'],
+        'call_end_time' => $data['call_end_time'] ?? null,
+        'call_duration' => $data['call_duration'] ?? null,
+        'has_follow_up' => $data['has_follow_up'] ?? 0,
+        'follow_up_schedule' => $data['follow_up_schedule'] ?? null,
+        'is_important' => $data['is_important'] ?? 0,
+        'is_completed' => $data['is_completed'] ?? 0,
+        'staffid' => $data['staffid'] ?? null,
+        'call_with_staffid' => $data['call_with_staffid'] ?? null,
+        'call_direction' => $data['direction'],
+        'notified' => $data['notified'] ?? 0,
+        'customer_type' => $data['customer_type'] ?? null,
+        'clientid' => $clientId,
+        'contactid' => $contactId,
+        'rel_type' => $data['rel_type'] ?? null,
+        'rel_id' => $data['rel_id'] ?? null,
+        'dateadded' => date('Y-m-d H:i:s'),
+        'dateaupdated' => date('Y-m-d H:i:s'),
+        'datestart' => $data['datestart'] ?? null,
+        'opt_event_type' => 'call'
+    ];
+
+    $this->db->insert('tblcall_logs', $callData);
+
+    if ($this->db->affected_rows() > 0) {
+        log_message('info', 'New call log created with ID: ' . $this->db->insert_id());
+        return $this->db->insert_id();
+    }
+
+    log_message('error', 'Failed to create call log. Data: ' . json_encode($callData));
+    return ['error' => 'Failed to create call log'];
+}
+
 
     // Update an existing call log by ID
     public function update_call_log($id, $data)

@@ -1,95 +1,96 @@
 <?php
 
-// Verbindung zur Datenbank herstellen
-function get_db_connection() {
-    $host = "localhost";
-    $user = "your_db_user";
-    $password = "your_db_password";
-    $database = "your_perfex_db";
+// Webhook handler on the Webhook Server
 
-    $connection = new mysqli($host, $user, $password, $database);
+// Get the raw POST data
+$input = file_get_contents('php://input');
+$payload = json_decode($input, true);
 
-    if ($connection->connect_error) {
-        die("Verbindung zur Datenbank fehlgeschlagen: " . $connection->connect_error);
-    }
-
-    return $connection;
-}
-
-// Verifizieren der Anfrage mit dem Secret
-function verify_secret($received_signature, $payload, $secret) {
-    $calculated_signature = hash_hmac('sha256', $payload, $secret);
-    return hash_equals($calculated_signature, $received_signature);
-}
-
-// JSON-Daten empfangen
-$payload = file_get_contents('php://input');
-$data = json_decode($payload, true);
-
-// Secret aus der Wildix-Konfiguration
-$secret = "Ll7I428VJiLQ2CRj9xooOZ0Hl1deyK"; // Secret-Key von Wildix
-$received_signature = $_SERVER['HTTP_X_WILDIX_SIGNATURE'] ?? '';
-
-// Anfrage verifizieren
-if (!verify_secret($received_signature, $payload, $secret)) {
-    http_response_code(401);
-    echo json_encode(["status" => "error", "message" => "Ungültige Signatur."]);
+if (!$payload) {
+    http_response_code(400);
+    echo json_encode(['status' => 'error', 'message' => 'Invalid JSON payload']);
     exit;
 }
 
-// Verarbeiten der Webhook-Daten
-if ($data) {
-    $connection = get_db_connection();
+// Extract and map payload data
+$mappedData = [
+    'id' => $payload['id'] ?? null,
+    'pbx' => $payload['pbx'] ?? null,
+    'company' => $payload['company'] ?? null,
+    'time' => $payload['time'] ?? null,
+    'type' => $payload['type'] ?? null,
+    'integrationId' => $payload['integrationId'] ?? null,
+    'data' => [
+        'id' => $payload['data']['id'] ?? null,
+        'pbx' => $payload['data']['pbx'] ?? null,
+        'time' => $payload['data']['time'] ?? null,
+        'company' => $payload['data']['company'] ?? null,
+        'licenses' => $payload['data']['licenses'] ?? [],
+        'event' => $payload['data']['event'] ?? null,
+        'eventTrigger' => $payload['data']['eventTrigger'] ?? null,
+        'start' => $payload['data']['start'] ?? null,
+        'flows' => array_map(function ($flow) {
+            $caller = $flow['caller'] ?? [];
+            return array_merge([
+                'caller_phone' => $caller['phone'] ?? null,
+                'caller_email' => $caller['email'] ?? null,
+                'caller_userId' => $caller['userId'] ?? null,
+                'caller_extension' => $caller['userExtension'] ?? null,
+                'caller_department' => $caller['userDepartment'] ?? null,
+                'caller_groupId' => $caller['groupId'] ?? null,
+                'caller_groupName' => $caller['groupName'] ?? null,
+                'caller_userAgent' => $caller['userAgent'] ?? null,
+                'caller_device' => $caller['userDevice'] ?? null,
+                'caller_role' => $caller['role'] ?? null,
+                'caller_license' => $caller['license'] ?? null
+            ], [
+                'flowIndex' => $flow['flowIndex'] ?? null,
+                'duration' => $flow['duration'] ?? 0,
+                'connectTime' => $flow['connectTime'] ?? 0,
+                'talkTime' => $flow['talkTime'] ?? 0,
+                'waitTime' => $flow['waitTime'] ?? 0,
+                'holdTime' => $flow['holdTime'] ?? 0,
+                'queueTime' => $flow['queueTime'] ?? 0,
+                'destination' => $flow['destination'] ?? null,
+                'direction' => $flow['direction'] ?? null,
+                'remotePhone' => $flow['remotePhone'] ?? null,
+                'status' => $flow['status'] ?? null,
+            ]);
+        }, $payload['data']['flows'] ?? [])
+    ]
+];
 
-    // Relevante Felder extrahieren
-    $caller_name = $data['data']['flows'][0]['caller']['name'] ?? 'Unbekannt';
-    $caller_phone = $data['data']['flows'][0]['caller']['phone'] ?? '';
-    $start_time = date('Y-m-d H:i:s', strtotime($data['data']['start'] ?? 'now'));
-    $stop_time = date('Y-m-d H:i:s'); // Ende des Anrufs (kann angepasst werden)
-    $direction = $data['data']['flows'][0]['direction'] ?? 'unknown';
-    $duration = 0; // Berechnung der Dauer optional (falls `stop_time` vorhanden ist)
+// Log extracted and mapped data for debugging
+file_put_contents('mapped_data.json', date("Y-m-d H:i:s") . " - Received Data: " . json_encode($mappedData, JSON_PRETTY_PRINT));
 
-    $staffid = $data['data']['flows'][0]['destination'] ?? null;
-    $clientid = $data['data']['company'] ?? null;
-    $contactid = $data['data']['id'] ?? null;
+// Add API token
+$apiToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoiIiwibmFtZSI6IiIsIkFQSV9USU1FIjoxNzM0MDYzNjgxfQ.48Z1SGBQVYzYTmozakSv8lpW6mdpNs8b-tyX10Qkak0'; // Replace with your actual API token
 
-    // Berechnung der Dauer
-    if (!empty($start_time) && !empty($stop_time)) {
-        $duration = strtotime($stop_time) - strtotime($start_time);
-    }
+// API URL
+$apiUrl = 'https://kundenportal.sellx.studio/api/calls';
 
-    // Anruf in die Datenbank einfügen
-    $query = "INSERT INTO tblcall_logs (
-        userphone, call_summary, call_start_time, call_end_time, call_duration, call_direction, staffid, clientid, contactid, customer_type, dateadded, dateaupdated
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'customer', NOW(), NOW())";
+// Send the mapped JSON data to the API
+$ch = curl_init($apiUrl);
+curl_setopt($ch, CURLOPT_POST, true);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_HTTPHEADER, [
+    'Content-Type: application/json',
+    'authtoken: ' . $apiToken
+]);
+curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($mappedData));
 
-    $stmt = $connection->prepare($query);
-    $stmt->bind_param(
-        'ssssiiiii',
-        $caller_phone,
-        $caller_name,
-        $start_time,
-        $stop_time,
-        $duration,
-        $direction,
-        $staffid,
-        $clientid,
-        $contactid
-    );
+$response = curl_exec($ch);
+$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+$error = curl_error($ch);
+curl_close($ch);
 
-    if ($stmt->execute()) {
-        http_response_code(200);
-        echo json_encode(["status" => "success", "message" => "Anrufdaten erfolgreich gespeichert."]);
-    } else {
-        http_response_code(500);
-        echo json_encode(["status" => "error", "message" => "Datenbankfehler: " . $stmt->error]);
-    }
+// Log API response for debugging
+file_put_contents('api_response.log', "HTTP Code: $httpCode\nResponse: $response\nError: $error\n", FILE_APPEND);
 
-    $stmt->close();
-    $connection->close();
+if ($httpCode >= 200 && $httpCode < 300) {
+    http_response_code(200);
+    echo json_encode(['status' => 'success', 'message' => 'Data forwarded successfully']);
 } else {
-    http_response_code(400);
-    echo json_encode(["status" => "error", "message" => "Ungültige Anfragedaten."]);
+    http_response_code(500);
+    echo json_encode(['status' => 'error', 'message' => 'Failed to forward data']);
 }
-
-?>

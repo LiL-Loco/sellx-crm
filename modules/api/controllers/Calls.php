@@ -75,7 +75,19 @@ class Calls extends REST_Controller
         } else {
             $this->response(['id' => $result], REST_Controller::HTTP_CREATED);
         }
-    }   
+    }
+    // PUT: Update an existing call log by ID
+    public function data_post()
+    {
+        $data = json_decode($this->input->raw_input_stream, true);
+        $result = $this->Api_model->create_call_log($data);
+
+        if (isset($result['error'])) {
+            $this->response($result, REST_Controller::HTTP_BAD_REQUEST);
+        } else {
+            $this->response($result, REST_Controller::HTTP_OK);
+        }
+    }
     // PUT: Update an existing call log by ID
     public function data_put($id = '')
     {

@@ -190,7 +190,7 @@
 										<div class="row">
 											<div class="col-md-12">
 												<?php echo render_textarea('service_policy', 'sm_service_policy', $service_policy, array(), array(), '', 'tinymce'); ?>
-											</div>
+											</div> 
 										</div>
 
 

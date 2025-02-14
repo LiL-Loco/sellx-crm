@@ -149,7 +149,7 @@
                     </div>
                 </div>
                 <?php } ?>
-                <div class="project-overview-expenses-finance">
+                <div class="hide project-overview-expenses-finance">
                     <h4 class="tw-text-sm tw-text-neutral-600 tw-mb-3">
                         <i class="fa-regular fa-file tw-mr-1.5"></i>
                         <?= _l('project_expenses'); ?>
